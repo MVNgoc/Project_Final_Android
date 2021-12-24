@@ -1,3 +1,164 @@
-body {
-	background-color: lightblue;
+/* Login From */
+html,body{
+    background-image: linear-gradient(90deg, #00DBDE 0%, #FC00FF 100%);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    font-family:sans-serif;
 }
+
+.text-white {
+    color: #fff;
+}
+
+.container{
+    height: 100%;
+    align-content: center;
+}
+
+.card{
+    height: 310px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 400px;
+    background-color: rgba(0,0,0,0.5) !important;
+}
+
+.social_icon span{
+    font-size: 60px;
+    margin-left: 10px;
+    color: #FFC312;
+}
+
+.social_icon span:hover{
+    color: white;
+    cursor: pointer;
+}
+
+.card-header h3{
+    color: white;
+    text-align: center;
+}
+
+.social_icon{
+    position: absolute;
+    right: 20px;
+    top: -45px;
+    }
+
+.input-group-prepend span{
+    width: 50px;
+    background-color: #00DBDE;
+    color: black;
+    border:0 !important;
+}
+
+input:focus{
+    outline: 0 0 0 0  !important; 
+    box-shadow: 0 0 0 0 !important;
+}
+
+.remember{
+    color: white;
+}
+
+.remember input
+{
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+    margin-right: 5px;
+}
+
+.login_btn{
+    color: black;
+    background-color: #00DBDE;
+    width: 100px;
+}
+
+.login_btn:hover{
+    color: black;
+    background-color: #04fbff;
+}
+
+.links a{
+    margin-left: 4px;
+}
+
+.card-body #errorMessage {
+    color: white;
+}
+
+/* End Login From */
+
+/* Index */
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #000 !important;
+}
+
+.navbar-nav:last-child {
+    padding-right: 12px;
+}
+
+.tdtu-img {
+    flex: 1;
+    max-width: 100%;
+}
+
+.tdtu-picture {
+    height: 50px;
+}
+
+.btn-list-item {
+    display: none;
+}
+
+
+@media (max-width: 46.1875em) {
+    .header {
+        position: relative
+    }
+
+    .navbar-nav {
+        display: block;
+        background-color: #fff;
+        position: absolute;
+        top: 66px;
+        right: 0;
+        background-color: #000;
+        padding-right: 0 !important;
+        width: 200px;
+        display: none;
+    }
+
+    .navbar-nav .nav-item:hover .nav-link {
+        background-color: #fff;
+        color: #000;
+    }
+
+    .navbar-nav .nav-link {
+        color: #fff;
+        width: 100% !important;  
+        padding-left: 16px !important;
+    } 
+
+    .btn-list-item {
+        display: block;
+        border: none;
+        border-radius: 5px;
+        width: 60px;
+        height: 50px;
+        background: linear-gradient(90deg, #00DBDE 0%, #fb00ffd2 100%);
+        position: absolute;
+        top: 8px;
+        right: 28px
+    }
+
+    .open {
+        display: block;
+    }
+}
+
+/* End Index */

@@ -1,19 +1,38 @@
-// ví dụ sử dụng javascript thuần
-window.addEventListener("load", () => {
-	let title = document.querySelector("h3");
-
-	title.onmouseover = () => {
-		title.style.color = "deeppink";
-	};
-
-	title.addEventListener("mouseleave", () => {
-		title.style.color = "black";
-	});
-});
-
-// ví dụ sử dụng jquery
 $(document).ready(() => {
-	$("#test").on("click", () => {
-		$("h3").html("jQuery đã hoạt động");
-	});
-});
+    $("#loginForm").submit(e => {
+        const username = $("#username").val();
+        const pwd = $("#pwd").val();
+
+        if(pwd.length === 0) {
+            errorMessage("Please enter your password")
+            $("#pwd").focus();
+            e.preventDefault();
+        }
+
+        if(username.length === 0) {
+            errorMessage("Please enter your username")
+            $("#username").focus();
+            e.preventDefault();
+        }   
+    })
+
+    $("#username").click(function() {
+        errorMessage("")
+    })
+
+    $("#pwd").click(function() {
+        errorMessage("")
+    })
+
+    function errorMessage(err) {
+        $("#errorMessage").html(err)
+        $("#errorMessage").show()
+    }
+
+	const btn_showlist = $(".btn-showlist")
+	const navbar_nav = $(".navbar-nav")
+
+	btn_showlist.on("click", function() {
+		navbar_nav.toggleClass("open");
+	})
+})

@@ -11,31 +11,44 @@
 </head>
 
 <body>
+	<div class="main">
+		<header class="header">
+			<nav class="navbar navbar-expand-sm bg-light">
+				<div class="tdtu-img">
+					<img src="/images/tdt-logo.png" alt="TDTU Image" class="tdtu-picture">
+				</div>
+				<!-- Links -->
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" href="#">Trang chủ</a>
+					</li>
 
-	<div class="container">
-		<h3 class="mt-3 mb-3">Welcome! Hãy rê chuột lên chữ này</h3>
-		<button id="test" class="btn btn-primary">Hãy click vào đây</button>
-		<div class="my-3">
-			<a href="/admin/db.php">Xem database</a>
-		</div>
-		<div>
-			<!-- Sử dụng link tuyệt đối tính từ root, vì vậy có dấu / đầu tiên -->
-			<img src="/images/tdt-logo.png" />
-			<p>Đây là ảnh mẫu, lấy từ thư mục images tại web root.</p>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Profile</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Quản lý phòng ban</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Logout</a>
+					</li>		
+				</ul>
+			</nav>
+
+			<div class="btn-showlist">
+				<button class="btn-list-item">
+					- - -
+				</button>
+			</div>
+		</header>
+
+		<div class="body">
+
 		</div>
 
-		<p class="mt-3">Nội dung bên dưới được in bằng PHP</p>
-		<ul class="list-group">
-			<?php
-				for ($i = 0; $i < 20; $i++)
-				{
-					$number = $i + 1;
-					?>
-						<li class="list-group-item">Phần tử thứ <?= $i ?></li>
-					<?php
-				}
-			?>
-		</ul>
+		<footer class="footer">
+
+		</footer>
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
