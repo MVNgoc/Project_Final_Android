@@ -91,20 +91,38 @@ input:focus{
 
 /* End Login From */
 
-/* Index */
+/* index.php */
+/* Header */
 .navbar {
     display: flex;
     justify-content: flex-end;
     background-color: #000 !important;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 0;
+    min-height: 82px;
 }
 
-.navbar-nav:last-child {
-    padding-right: 12px;
+.navbar-nav .nav-item{
+    line-height: 3;
+    min-width: 100px;
+    text-align: center;
+}
+
+.navbar-nav .nav-item .nav-link {
+    padding: 16px 10px;
+}
+
+.navbar-nav .nav-item:hover .nav-link {
+    background-color: rgb(194, 194, 194);
+    color: #000;
 }
 
 .tdtu-img {
     flex: 1;
     max-width: 100%;
+    padding-top: 16px;
+    padding-bottom: 16px;
 }
 
 .tdtu-picture {
@@ -115,6 +133,7 @@ input:focus{
     display: none;
 }
 
+/* End Header */
 
 @media (max-width: 46.1875em) {
     .header {
@@ -152,7 +171,7 @@ input:focus{
         height: 50px;
         background: linear-gradient(90deg, #00DBDE 0%, #fb00ffd2 100%);
         position: absolute;
-        top: 8px;
+        top: 14px;
         right: 28px
     }
 
@@ -161,4 +180,86 @@ input:focus{
     }
 }
 
-/* End Index */
+/* Body */
+.header-body {
+    padding: 20px 30px;
+    display: flex;
+}
+ 
+.header-body .add-staff {
+    margin-left: 30px;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    background-color: #1804ec;
+}
+
+.header-body .add-staff:hover {
+    background-color: #3c2aff;
+    cursor: pointer;
+}
+
+.header-body .search #search-staff {
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    width: 250px;
+    padding: 0 8px;
+}
+
+.header-body .search-lable {
+    margin: 0;
+}
+
+.header-body .search {
+    margin-left: auto;
+}
+
+#staff-table {
+    text-align: center;
+}
+
+#staff-table .list-btn {
+    display: flex;
+    justify-content: center;
+}
+
+#staff-table .btn-view {
+    background-color: #009c03;
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+#staff-table .btn-edit {
+    background-color: rgb(228, 194, 0);
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+#staff-table .btn-delete {
+    background-color: rgb(221, 0, 0);
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+#staff-table .btn-view:hover {
+    background-color: #00c403;
+    cursor: pointer;
+}
+
+#staff-table .btn-edit:hover {
+    background-color: rgb(255, 217, 2);
+    cursor: pointer;
+}
+
+#staff-table .btn-delete:hover {
+    background-color: rgb(255, 4, 4);
+    cursor: pointer;
+}
+
+/* End Body */
+
+/* End index.php */
