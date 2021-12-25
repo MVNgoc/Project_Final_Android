@@ -26,7 +26,7 @@ CREATE TABLE `account` (
 
 
 INSERT INTO `account` (`id`, `username`, `password`, `firstname`, `lastname`, `position`, `department_name`, `email`,`phone_number`, `day_off`) VALUES
-('51900147', 'mvngoc288', '123456', 'Mai', 'Văn Ngọc', 'Admin', 'Kế toán', 'mvngoc@gmail.com', '0337375401', 15);
+('51900147', 'mvngoc288', '$2a$12$1WrrCnXcKA.XcP2iKp9PIuX748AAKID3m3HGT8QykuDJvP7HRExcW', 'Mai', 'Văn Ngọc', 'Admin', 'Kế toán', 'mvngoc@gmail.com', '0337375401', 15);
 
 ALTER TABLE `tbl_roles`
   ADD PRIMARY KEY (`id`);
