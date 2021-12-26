@@ -33,14 +33,19 @@
         }
 
         $result = $stm->get_result();
+
+        if($result->num_rows == 0) {
+            return array('code' => 1, 'error' => 'User does not exist'); // khong co user ton tai
+        }
+
         $data = $result->fetch_assoc();
 
         $hashed_password = $data['password'];   
         if(!password_verify($pass, $hashed_password)) {
-            return null; 
+            return array('code' => 2, 'error' => 'Invalid password'); 
         }
         else {
-            return $data;
+            return array('code' => 0, 'error' => '', 'data' => $data);
         }
 	}
 ?>

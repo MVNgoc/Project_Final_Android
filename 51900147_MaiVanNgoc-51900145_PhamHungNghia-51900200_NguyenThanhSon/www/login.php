@@ -7,9 +7,16 @@
 
 	require_once('./admin/db.php');
 
+	if(isset($_COOKIE['username']) && isset($_COOKIE['pwd'])) {
+		$user = $_COOKIE['username'];
+    	$pass = $_COOKIE['pwd'];
+	}
+	else {
+		$user = '';
+		$pass = '';
+	}
+
 	$error = '';
-	$user = '';
-    $pass = '';
 
 	if (isset($_POST['username']) && isset($_POST['pwd'])) {
         $user = $_POST['username'];
@@ -23,15 +30,22 @@
         }
         else {
             $data = login($user, $pass);
-            if($data) {
+            if($data['code'] == 0) {
+
+				//chỉ lưu cookie khi user chọn rememberme
+				if(isset($_POST['remember'])) {
+					//set cookie for 1 day
+					setcookie('username', $user, time() + 3600 * 24);
+					setcookie('pwd', $pass, time() + 3600 * 24);
+				}
+
                 $_SESSION['username'] = $user;
-                $_SESSION['id'] = $data['id'];
     
                 header('Location: index.php');
                 exit();
             }
             else {
-                $error = 'Invalid username or password';
+                $error = $data['error'];
             }
         }
     }
@@ -73,7 +87,7 @@
 						<input id="pwd" name="pwd" value="<?= $pass ?>" type="password" class="form-control" placeholder="password">
 					</div>
 					<div class="row align-items-center remember">
-						<input type="checkbox">Remember Me
+						<input id="remember" name="remember" type="checkbox">Remember Me
 					</div>
 					<div class="form-group">
 						<button class="btn btn-success px-5 float-right">Login</button>
