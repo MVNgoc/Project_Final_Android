@@ -1,3 +1,18 @@
+<?php 
+	// kiểm tra nếu chưa đăng nhập thì sẽ không truy cập được vào trang index mà sẽ bị chuyển hướng vế trang login
+	session_start();
+    if (!isset($_SESSION['username'])) {
+        header('Location: login.php');
+        exit();
+    }
+
+	//nếu chưa thay đổi pass thì sẽ không truy cập được vào trang index mà sẽ bị chuyển hướng vế trang đổi mật khẩu
+	// if($_SESSION['pwd'] == $_SESSION['username']) {
+	// 	die('please change password'); // Chuyển đến trang thay đổi mật khẩu
+	// 	exit();
+	// }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +36,7 @@
 				<!-- Links -->
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link" href="#">Trang chủ</a>
+						<a class="nav-link" href="index.php">Trang chủ</a>
 					</li>
 
 					<li class="nav-item">
@@ -31,7 +46,7 @@
 						<a class="nav-link" href="#">Quản lý phòng ban</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="login.php">Đăng xuất</a>
+						<a class="nav-link" href="logout.php">Đăng xuất</a>
 					</li>		
 				</ul>
 			</nav>

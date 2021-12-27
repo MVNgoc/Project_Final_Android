@@ -1,6 +1,7 @@
 <?php 
+	// kiểm tra nếu đã đăng nhập thì không thể truy cập lại trang login
 	session_start();
-    if (isset($_SESSION['user'])) {
+    if (isset($_SESSION['username'])) {
         header('Location: index.php');
         exit();
     }
