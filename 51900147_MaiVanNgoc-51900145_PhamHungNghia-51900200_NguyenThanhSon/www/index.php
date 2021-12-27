@@ -7,6 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/style.css"> <!-- Sử dụng link tuyệt đối tính từ root, vì vậy có dấu / đầu tiên -->
+	<script src="main.js"></script>
 	<title>Home Page</title>
 </head>
 
@@ -30,7 +31,7 @@
 						<a class="nav-link" href="#">Quản lý phòng ban</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="LoginForm.php">Đăng xuất</a>
+						<a class="nav-link" href="login.php">Đăng xuất</a>
 					</li>		
 				</ul>
 			</nav>
@@ -43,7 +44,9 @@
 		<div class="body">
 			<div class="header-body">
 				<h3 style="margin-bottom:0">Danh sách nhân viên</h3>
-				<button class="add-staff text-white">+ Thêm nhân viên</button>
+				<form action="addstaff.php">
+					<button class="add-staff text-white" type="submit">+ Thêm nhân viên</button>
+				</form>
 				<div class="search">
 					<label for="search-staff" class="search-lable">Tìm kiếm:</label>
 					<input type="search" name="search-staff" id="search-staff" placeholder="Search...">

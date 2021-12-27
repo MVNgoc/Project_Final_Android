@@ -15,6 +15,7 @@ CREATE TABLE `account` (
   `id` varchar(15) NOT NULL,
   `username` varchar(64) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `sex` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
   `firstname` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `lastname` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `positionid` int(2) NOT NULL,
@@ -25,8 +26,8 @@ CREATE TABLE `account` (
 );
 
 
-INSERT INTO `account` (`id`, `username`, `password`, `firstname`, `lastname`, `positionid`, `department_name`, `email`,`phone_number`, `day_off`) VALUES
-('51900147', 'mvngoc288', '$2a$12$1WrrCnXcKA.XcP2iKp9PIuX748AAKID3m3HGT8QykuDJvP7HRExcW', 'Mai', 'Văn Ngọc', 1, 'Kế toán', 'mvngoc@gmail.com', '0337375401', 15);
+INSERT INTO `account` (`id`, `username`, `password`, `sex`, `firstname`, `lastname`, `positionid`, `department_name`, `email`,`phone_number`, `day_off`) VALUES
+('51900147', 'mvngoc288', '$2a$12$mmqKlIuYMv1CDbK8zBtaXO/4mzOYOupINHWcRZzzT/1K7oSEfitb6', 'Nam', 'Mai', 'Văn Ngọc', 1, 'Kế toán', 'mvngoc@gmail.com', '0337375401', 15);
 
 ALTER TABLE `tbl_position`
   ADD PRIMARY KEY (`id`);
