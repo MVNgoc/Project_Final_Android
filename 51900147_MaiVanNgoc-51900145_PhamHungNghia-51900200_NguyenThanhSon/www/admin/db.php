@@ -82,32 +82,47 @@
         }
     }
 
-    function register($id, $username, $password, $sex, $first, $last, $position, $department, $email, $phone, $day_off){
+    function is_email_exists($email){
+        $sql = "select email from account where email = ?";
+        $conn = open_database();
 
-        $hash = password_hash($password, PASSWORD_BCRYPT);
+        $stm = $conn->prepare($sql);
+        $stm->bind_param('s',$email);
+        if(!$stm->execute()){
+            die('Query error: ' . $stm->error);
+        }
+
+        $result = $stm->get_result();
+        if($result->num_rows > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function register($id,$username, $pass, $sex, $first, $last, $position, $department, $email, $phone, $day_off){
+
+        $hash = password_hash($pass, PASSWORD_BCRYPT);
+
+        if(is_email_exists($email)){
+            return array('code' => 3,  'error' => 'Email đã tồn tại');
+        }
 
         if(is_username_exists($username)){
             return array('code' => 1,  'error' => 'Tài khoản đã tồn tại');
         }
 
-        $sql = 'INSERT INTO account (id, username, password, sex, firstname, lastname, positionid, 
-        department_name, email, phone_number) VALUES(?,?,?,?,?,?,?,?,?,?)';
+        $sql = 'INSERT INTO account (id,username, pass, sex, firstname, lastname, positionid, 
+        department_name, email, phone_number, day_off) values(?,?,?,?,?,?,?,?,?,?,?)';
 
-        $sql = "INSERT INTO account VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $conn = open_database();
 
         $stm = $conn->prepare($sql);
-        $stm->bind_param('ssssssisssi', $id, $username, $hash, $sex, $first, $last, $position, $department, $email, $phone, $day_off);
+        $stm->bind_param('isssssisssi',$id ,$username, $hash, $sex, $first, $last, $position, $department, $email, $phone, $day_off);
 
-        //if(!$stm->execute()){
-        //    return array('code' => 2, 'error' => 'Can not excute command');
-        //}
-        //return array('code' => 0,'error' => 'Thêm nhân viên thành công');
-        if (mysqli_query($conn, $sql)) {
-            echo "Thêm thành công một nhân viên mới!";
-       }
-       else{
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-       }
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Thêm nhân viên thành công');
     }
 ?>

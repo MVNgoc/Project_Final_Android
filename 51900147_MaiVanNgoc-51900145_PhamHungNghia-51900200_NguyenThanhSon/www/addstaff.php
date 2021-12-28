@@ -75,7 +75,16 @@
 			$error = "Hãy nhập tên phòng ban";
 		}
 		else {
-			register($id, $user, $pass, $sex, $first, $last, $position, $department, $email, $phone, $day_off);
+			$result = register($id,$user, $pass, $sex, $first, $last, $position, $department, $email, $phone, $day_off);
+			if($result['code'] == 0){
+                die('Thêm nhân viên thành công');
+            }else if ($result['code'] == 1){
+                $error = 'This username is already exists';
+            }else if ($result['code'] == 3){
+                $error = 'This email is already exists';
+            }else {
+                $error = 'An error occure. Please try again later';
+            }
 		}
 	}
 ?>
