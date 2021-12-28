@@ -14,7 +14,7 @@ INSERT INTO `tbl_position` (`id`, `position`) VALUES
 CREATE TABLE `account` (
   `id` varchar(15) NOT NULL,
   `username` varchar(64) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `pass` varchar(255) NOT NULL,
   `sex` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
   `firstname` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `lastname` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE `account` (
 );
 
 
-INSERT INTO `account` (`id`, `username`, `password`, `sex`, `firstname`, `lastname`, `positionid`, `department_name`, `email`,`phone_number`, `day_off`) VALUES
+INSERT INTO `account` (`id`, `username`, `pass`, `sex`, `firstname`, `lastname`, `positionid`, `department_name`, `email`,`phone_number`, `day_off`) VALUES
 ('51900147', 'mvngoc288', '$2a$12$mmqKlIuYMv1CDbK8zBtaXO/4mzOYOupINHWcRZzzT/1K7oSEfitb6', 'Nam', 'Mai', 'Văn Ngọc', 1, 'Kế toán', 'mvngoc@gmail.com', '0337375401', 15);
 
 ALTER TABLE `tbl_position`

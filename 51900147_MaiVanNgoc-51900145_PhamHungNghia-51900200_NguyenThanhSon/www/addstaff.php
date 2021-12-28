@@ -6,6 +6,16 @@
         exit();
     }
 
+	//nếu chưa thay đổi pass thì sẽ không truy cập được vào trang addstaff mà sẽ bị chuyển hướng vế trang đổi mật khẩu
+	if($_SESSION['pwd'] == $_SESSION['username']) {
+		header('Location: changepassword.php');
+		exit();; // Chuyển đến trang thay đổi mật khẩu
+	}
+
+	if ($_SESSION['id'] != 1) {
+        header('Location: index.php');
+        exit();
+    }
 ?>
 
 <!DOCTYPE html>

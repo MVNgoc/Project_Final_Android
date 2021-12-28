@@ -40,7 +40,7 @@
 
         $data = $result->fetch_assoc();
 
-        $hashed_password = $data['password'];   
+        $hashed_password = $data['pass'];   
         if(!password_verify($pass, $hashed_password)) {
             return array('code' => 2, 'error' => 'Invalid password'); 
         }
@@ -48,4 +48,19 @@
             return array('code' => 0, 'error' => '', 'data' => $data);
         }
 	}
+
+    function changepass($cfpass, $user) {
+        $hash = password_hash($cfpass, PASSWORD_BCRYPT);
+        $sql = "UPDATE account SET pass = ? WHERE username = ?";
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+        $stm->bind_param('ss',$hash , $user);
+
+        if(!$stm->execute()) {
+            return array('code' => 2, 'error' => 'Can not execute command.');
+        }
+
+        return array('code' => 0, 'error' => 'Password change success.');
+    }
 ?>
