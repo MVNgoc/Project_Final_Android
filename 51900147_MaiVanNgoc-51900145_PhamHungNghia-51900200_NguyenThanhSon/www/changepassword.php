@@ -5,12 +5,6 @@
         header('Location: login.php');
         exit();
     }
-
-	//nếu chưa thay đổi pass thì sẽ không truy cập được vào trang index mà sẽ bị chuyển hướng vế trang đổi mật khẩu
-	if($_SESSION['pwd'] == $_SESSION['username']) {
-		header('Location: changepassword.php');
-		exit();; // Chuyển đến trang thay đổi mật khẩu
-	}
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +16,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/style.css"> <!-- Sử dụng link tuyệt đối tính từ root, vì vậy có dấu / đầu tiên -->
-	<title>Add Staff Page</title>
+	<title>Change Password Page</title>
 </head>
 
 <body>
@@ -34,16 +28,6 @@
 				</div>
 				<!-- Links -->
 				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a class="nav-link" href="index.php">Trang chủ</a>
-					</li>
-
-					<li class="nav-item">
-						<a class="nav-link" href="#">Hồ sơ</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Quản lý phòng ban</a>
-					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="logout.php">Đăng xuất</a>
 					</li>		

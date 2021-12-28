@@ -30,7 +30,7 @@
         <div class="col-md-6 mt-5 mx-auto p-3 border rounded text-black logout-form">
             <h4>Đăng xuất thành công</h4>
             <p>Tài khoản của bạn đã được đăng xuất khỏi hệ thống.</p>
-            <p>Nhấn <a href="login.php" class="">vào đây</a> để trở về trang đăng nhập, hoặc trang web sẽ tự động chuyển hướng sau <span id="counter" class="text-danger">10</span> giây nữa.</p>
+            <p>Nhấn <a href="login.php" class="">vào đây</a> để trở về trang đăng nhập.</p>
             <a class="btn btn-success px-5" href="login.php">Đăng nhập</a>
         </div>
       </div>
