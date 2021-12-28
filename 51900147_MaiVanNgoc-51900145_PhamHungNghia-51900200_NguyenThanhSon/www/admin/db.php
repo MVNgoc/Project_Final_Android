@@ -62,6 +62,8 @@
         }
 
         return array('code' => 0, 'error' => 'Password change success.');
+    }
+    
     function is_username_exists($username){
         $sql = 'select username from account where username=?';
         $conn = open_database();
@@ -82,7 +84,7 @@
 
     function register($id,$username,$password,$sex,$first,$last,$position,$department,$email,$phone){
 
-        $hash = password_hash($password,PASSWORD_DEFAULT);
+        $hash = password_hash($password,PASSWORD_BCRYPT);
 
         if(is_username_exists($username)){
             return array('code' => 1, 'error' => 'Username đã tồn tại');
@@ -101,7 +103,8 @@
         //return array('code' => 0,'error' => 'Thêm nhân viên thành công');
         if (mysqli_query($conn, $sql)) {
             echo "New record created successfully";
-       }else{
+       }
+       else{
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
        }
     }
