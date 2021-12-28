@@ -48,4 +48,22 @@
             return array('code' => 0, 'error' => '', 'data' => $data);
         }
 	}
+
+    function is_username_exists($username){
+        $sql = 'select username from account where username=?';
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+        $stm->bind_param('s',$username);
+        if(!$stm->execute()){
+            die('Query error: ' . $stm->error);
+        }
+
+        $result = $stm->get_result();
+        if($result->num_rows > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 ?>
