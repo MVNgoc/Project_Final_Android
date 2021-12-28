@@ -5,6 +5,8 @@
         header('Location: login.php');
         exit();
     }
+
+	echo 'bị cái gì v tar';
 ?>
 
 <!DOCTYPE html>
