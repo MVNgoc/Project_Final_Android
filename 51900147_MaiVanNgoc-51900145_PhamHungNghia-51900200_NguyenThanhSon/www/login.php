@@ -24,10 +24,10 @@
         $pass = $_POST['pwd'];
 
         if (empty($user)) {
-            $error = 'Please enter your username';
+            $error = 'Vui lòng nhập tài khoản';
         }
         else if (empty($pass)) {
-            $error = 'Please enter your password';
+            $error = 'Vui lòng nhập mật khẩu';
         }
         else {
             $data = login($user, $pass);
@@ -78,17 +78,17 @@
 			</div>
 			<div class="card-body">
 				<form id="loginForm" action="" method="post">
-					<label class="label-username text-white" for="username">User name:</label>
+					<label class="label-username text-white" for="username">Tài khoản:</label>
 					<div class="input-group form-group">
 						<input id="username" name="username" value="<?= $user ?>" type="text" class="form-control" placeholder="username">
 						
 					</div>
-					<label class="label-pwd text-white" for="pwd">Password:</label>
+					<label class="label-pwd text-white" for="pwd">Mật khẩu:</label>
 					<div class="input-group form-group">
 						<input id="pwd" name="pwd" value="<?= $pass ?>" type="password" class="form-control" placeholder="password">
 					</div>
 					<div class="row align-items-center remember">
-						<input id="remember" name="remember" type="checkbox">Remember Me
+						<input id="remember" name="remember" type="checkbox">Ghi nhớ đăng nhập
 					</div>
 
 					<div id="errorMessage" class="errorMessage my-3">
@@ -100,7 +100,7 @@
 					</div>
 
 					<div class="form-group">
-						<button class="btn btn-success px-5 float-right">Login</button>
+						<button class="btn btn-success px-5 float-right">Đăng nhập</button>
 					</div>
 					<br>
 							

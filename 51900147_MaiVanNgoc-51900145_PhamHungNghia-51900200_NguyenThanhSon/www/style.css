@@ -2,11 +2,8 @@
 html,body{
     font-family:sans-serif;
     background-image: linear-gradient(90deg, #00DBDE 0%, #FC00FF 100%);
-<<<<<<< HEAD
     height: 100%;
-=======
     font-family:sans-serif;
->>>>>>> 93dc943616d33487ba4d8713dae130cfa67f3360
 }
 
 .text-white {
@@ -269,7 +266,8 @@ input:focus{
 /* End index.php */
 
 /* Logout.php */
-.logout-form {
+.logout-form,
+.addstaffform {
     background-color: rgba(255, 255, 255, 0.8);
     animation: modalSlipDown ease 0.4s;
 }

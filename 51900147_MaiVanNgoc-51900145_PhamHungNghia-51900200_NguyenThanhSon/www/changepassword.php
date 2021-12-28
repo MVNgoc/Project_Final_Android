@@ -19,16 +19,16 @@
         $user = $_SESSION['username'];
 
         if (empty($npass)) {
-            $error = 'Please enter your new password';
+            $error = 'Vui lòng nhập mật khẩu mới';
         }
         else if (strlen($npass) < 6) {
-            $error = 'Password must have at least 6 characters';
+            $error = 'Mật khẩu phải có ít nhất 6 kí tự';
         }
         else if (empty($cfpass)) {
-            $error = 'Please enter your new password again to confirm';
+            $error = 'Vui lòng nhập lại mật khẩu để xác nhận';
         }
         else if ($npass != $cfpass) {
-            $error = 'Your confirm password is not same to your new password';
+            $error = 'Mật khẩu xác nhận không khớp với mật khẩu mới. Vui lòng nhập lại';
         }
         else {
             $data = changepass($cfpass, $user);
@@ -82,12 +82,12 @@
                 </div>
                 <div class="card-body">
                     <form id="loginForm" action="" method="post">
-                            <label class="label-username text-white" for="username">New password:</label>
+                            <label class="label-username text-white" for="username">Mật khẩu:</label>
                             <div class="input-group form-group">
                                 <input value="<?= $npass ?>" id="newpass" name="newpass" type="password" class="form-control" placeholder="password">
                                 
                             </div>
-                            <label class="label-pwd text-white" for="pwd">Comfirm new password:</label>
+                            <label class="label-pwd text-white" for="pwd">Xác nhận mật khẩu:</label>
                             <div class="input-group form-group">
                                 <input value="<?= $cfpass ?>" id="comfirmpass" name="comfirmpass" type="password" class="form-control" placeholder="comfirm password">
                             </div>
