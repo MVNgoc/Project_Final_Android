@@ -6,7 +6,6 @@
         exit();
     }
 
-	echo 'bị cái gì v tar';
 ?>
 
 <!DOCTYPE html>
