@@ -65,7 +65,7 @@
     }
 
     function is_username_exists($username){
-        $sql = 'select username from account where username = ?';
+        $sql = "select username from account where username = ?";
         $conn = open_database();
 
         $stm = $conn->prepare($sql);
@@ -90,11 +90,11 @@
             return array('code' => 1,  'error' => 'Tài khoản đã tồn tại');
         }
 
-        $sql = 'INSERT INTO account VALUES (id, username, pass, sex, firstname, lastname, positionid, department_name, email, phone_number, day_off)';
-
+        $sql = "INSERT INTO account VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $conn = open_database();
+
         $stm = $conn->prepare($sql);
-        $stm->bind_param($id, $username, $hash, $sex, $first, $last, $position, $department, $email, $phone, $day_off);
+        $stm->bind_param('ssssssisssi', $id, $username, $hash, $sex, $first, $last, $position, $department, $email, $phone, $day_off);
 
         //if(!$stm->execute()){
         //    return array('code' => 2, 'error' => 'Can not excute command');
