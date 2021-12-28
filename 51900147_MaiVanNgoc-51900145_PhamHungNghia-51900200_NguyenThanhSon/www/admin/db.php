@@ -75,8 +75,8 @@
             return array('code' => 1, 'error' => 'Username đã tồn tại');
         }
 
-        $sql = 'INSERT INTO account (id,username,password,sex,firstname,lastname,positionid,department_name,email,phone_number) 
-        VALUES (?,?,?,?,?,?,?,?,?,?)';
+        $sql = 'INSERT INTO account (id, username, password, sex, firstname, lastname, positionid, 
+        department_name, email, phone_number) VALUES(?,?,?,?,?,?,?,?,?,?)';
 
         $conn = open_database();
         $stm = $conn->prepare($sql);
