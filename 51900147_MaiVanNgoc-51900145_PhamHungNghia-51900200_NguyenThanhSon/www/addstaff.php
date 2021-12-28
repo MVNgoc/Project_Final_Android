@@ -58,17 +58,17 @@
 	</div>
 
 	<div class="container">
-        <div class="row justify-content-center">
-            <div class="col-xl-5 col-lg-6 col-md-8 border my-5 p-4 rounded mx-3">
-                <h3 class="text-center text-secondary mt-2 mb-3 mb-3">Create a new account</h3>
+        <div class="row justify-content-center ">
+            <div class="col-xl-5 col-lg-6 col-md-8 border my-5 p-4 rounded mx-3 logout-form">
+                <h3 class="text-center text-secondary mt-2 mb-3 mb-3">Thêm nhân viên</h3>
                 <form method="post" action="" novalidate>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="firstname">First name</label>
+                            <label for="firstname">Họ</label>
                             <input value="" name="first" required class="form-control" type="text" placeholder="First name" id="firstname">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="lastname">Last name</label>
+                            <label for="lastname">Tên</label>
                             <input value="" name="last" required class="form-control" type="text" placeholder="Last name" id="lastname">
                             <div class="invalid-tooltip">Last name is required</div>
                         </div>
@@ -83,11 +83,31 @@
                         <div class="invalid-feedback">Please enter your username</div>
                     </div>
 					<div class="form-group">
+                        <label for="id">Mã nhân viên</label>
+                        <input value="" name="id" required class="form-control" type="text" placeholder="Mã nhân viên" id="id">
+                        <div class="invalid-feedback">Please enter your username</div>
+                    </div>
+					<div class="form-group">
 						<label for="sex">Giới Tính</label>
-						<div class="form-check">
-							<input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked>Option 1
-  							<label class="form-check-label" for="radio1"></label>
+						<div class="form-row">
+							<div class="form-check">
+								<input type="radio" class="form-check-input" id="radio1" name="optradio" value="" checked>Nam
+								<label class="form-check-label" for="radio1"></label>
+							</div>	  
+							<div class="form-check">
+								<input type="radio" class="form-check-input" id="radio1" name="optradio" value="" checked>Nữ
+								<label class="form-check-label" for="radio1"></label>
+							</div>
 						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="position">Chọn chức vụ</label>
+						<select class="form-control" id="position">
+						<option>Giám đốc</option>
+						<option>Trưởng phòng</option>
+						<option>Nhân viên</option>
+						</select>
 					</div>
 
                     <div class="form-group">
