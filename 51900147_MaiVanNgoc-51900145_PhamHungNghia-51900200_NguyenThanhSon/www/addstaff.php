@@ -1,3 +1,12 @@
+<?php 
+	// kiểm tra nếu chưa đăng nhập thì sẽ không truy cập được vào trang addstaff mà sẽ bị chuyển hướng vế trang login
+	session_start();
+    if (!isset($_SESSION['username'])) {
+        header('Location: login.php');
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
