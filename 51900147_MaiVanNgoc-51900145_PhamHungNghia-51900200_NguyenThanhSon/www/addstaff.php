@@ -40,7 +40,7 @@
 						<a class="nav-link" href="#">Quản lý phòng ban</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="login.php">Đăng xuất</a>
+						<a class="nav-link" href="logout.php">Đăng xuất</a>
 					</li>		
 				</ul>
 			</nav>

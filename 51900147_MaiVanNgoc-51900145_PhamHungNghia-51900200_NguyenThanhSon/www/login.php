@@ -43,7 +43,8 @@
                 $_SESSION['username'] = $user;
 				$_SESSION['pwd'] = $pass;
 				if($_SESSION['pwd'] == $_SESSION['username']) {
-					die('please change password'); // Chuyển đến trang thay đổi mật khẩu
+					header('Location: changepassword.php');
+					exit();; // Chuyển đến trang thay đổi mật khẩu
 				}
 				else {
 					header('Location: index.php');
