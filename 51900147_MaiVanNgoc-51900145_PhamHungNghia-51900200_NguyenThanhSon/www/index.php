@@ -6,10 +6,12 @@
         exit();
     }
 
+	require_once('./admin/db.php');
+
 	//nếu chưa thay đổi pass thì sẽ không truy cập được vào trang index mà sẽ bị chuyển hướng vế trang đổi mật khẩu
 	if($_SESSION['pwd'] == $_SESSION['username']) {
 		header('Location: changepassword.php');
-		exit();; // Chuyển đến trang thay đổi mật khẩu
+		exit(); // Chuyển đến trang thay đổi mật khẩu
 	}
 ?>
 
