@@ -1,9 +1,6 @@
 /* Login From */
 html,body{
     background-image: linear-gradient(90deg, #00DBDE 0%, #FC00FF 100%);
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100%;
     font-family:sans-serif;
 }
 
