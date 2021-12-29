@@ -17,7 +17,7 @@
         $npass = $_POST['newpass'];
         $cfpass = $_POST['comfirmpass'];
         $user = $_SESSION['username'];
-
+ 
         if (empty($npass)) {
             $error = 'Vui lòng nhập mật khẩu mới';
         }
@@ -82,14 +82,16 @@
                 </div>
                 <div class="card-body">
                     <form id="loginForm" action="" method="post">
+                            
                             <label class="label-username text-white" for="username">Mật khẩu:</label>
                             <div class="input-group form-group">
                                 <input value="<?= $npass ?>" id="newpass" name="newpass" type="password" class="form-control" placeholder="password">
                                 
                             </div>
+
                             <label class="label-pwd text-white" for="pwd">Xác nhận mật khẩu:</label>
                             <div class="input-group form-group">
-                                <input value="<?= $cfpass ?>" id="comfirmpass" name="comfirmpass" type="password" class="form-control" placeholder="comfirm password">
+                                <input value="" id="comfirmpass" name="comfirmpass" type="password" class="form-control" placeholder="comfirm password">
                             </div>
     
                             <div id="errorMessage" class="errorMessage my-3">
