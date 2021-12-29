@@ -12,12 +12,19 @@
     $success = '';
     $npass = '';
     $cfpass = '';
+    $oldpass = '';
+    $pass = '';
 
     if (isset($_POST['newpass']) && isset($_POST['comfirmpass'])) {
         $npass = $_POST['newpass'];
         $cfpass = $_POST['comfirmpass'];
         $user = $_SESSION['username'];
-
+        $oldpass = $_POST['oldpass'];
+        $pass = $_SESSION['pwd'];
+        
+        if($oldpass != $pass){
+            $error = 'Mật khẩu hiện tại không đúng';
+        }
         if (empty($npass)) {
             $error = 'Vui lòng nhập mật khẩu mới';
         }
@@ -95,7 +102,7 @@
 
                             <label class="label-pwd text-white" for="pwd">Xác nhận mật khẩu:</label>
                             <div class="input-group form-group">
-                                <input value="<?= $cfpass ?>" id="comfirmpass" name="comfirmpass" type="password" class="form-control" placeholder="comfirm password">
+                                <input value="" id="comfirmpass" name="comfirmpass" type="password" class="form-control" placeholder="comfirm password">
                             </div>
     
                             <div id="errorMessage" class="errorMessage my-3">
