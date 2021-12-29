@@ -74,11 +74,14 @@
             
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Hồ sơ</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Quản lý phòng ban</a>
-                                </li>';
+                                </li>';                          
                         }
+
+						if($_SESSION['positionid'] == 3) {
+							echo '<li class="nav-item">
+									<a class="nav-link" href="#">Quản lý phòng ban</a>
+								</li>';
+						}
                     ?>
 					<li class="nav-item">
 						<a class="nav-link" href="logout.php">Đăng xuất</a>
