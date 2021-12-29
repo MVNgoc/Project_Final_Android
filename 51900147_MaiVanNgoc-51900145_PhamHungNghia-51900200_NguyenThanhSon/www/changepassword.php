@@ -91,7 +91,7 @@
 
                             <label class="label-pwd text-white" for="pwd">Xác nhận mật khẩu:</label>
                             <div class="input-group form-group">
-                                <input value="" id="comfirmpass" name="comfirmpass" type="password" class="form-control" placeholder="comfirm password">
+                                <input value="<?= $cfpass ?>" id="comfirmpass" name="comfirmpass" type="password" class="form-control" placeholder="comfirm password">
                             </div>
     
                             <div id="errorMessage" class="errorMessage my-3">

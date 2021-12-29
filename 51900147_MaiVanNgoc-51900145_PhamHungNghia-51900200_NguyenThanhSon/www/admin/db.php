@@ -141,7 +141,7 @@
                 }
                 echo "<tr>";
 					echo "<td>" . $stt . "</td>";
-					echo "<td>". $row["lastname"]." ".$row["firstname"] ."</td>";
+					echo "<td>". $row["firstname"]." ".$row["lastname"] ."</td>";
 					echo "<td>". $position ."</td>";
 					echo "<td>". $row["department_name"] ."</td>";
 					echo "<td>". $row["email"] ."</td>";
