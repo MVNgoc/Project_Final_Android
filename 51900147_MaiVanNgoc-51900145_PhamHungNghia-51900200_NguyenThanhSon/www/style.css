@@ -227,7 +227,8 @@ input:focus{
 
 /* Logout.php */
 .logout-form,
-.addstaffform {
+.addstaffform,
+.profileform {
     background-color: rgba(255, 255, 255, 0.8);
     animation: modalSlipDown ease 0.4s;
 }
@@ -282,6 +283,18 @@ input:focus{
 @media (max-width: 63.9375em) {
     .header {
         position: relative
+    }
+
+    #staff-table .btn-view,
+    #staff-table .btn-edit,
+    #staff-table .btn-delete {
+        display: flex;
+        align-items: center;
+    }
+
+    .table thead th,
+    .table td {
+        vertical-align: middle;
     }
 
     .navbar-nav {
@@ -358,3 +371,50 @@ input:focus{
         padding-left: 10px;
     }
 }
+
+/* profile.php */
+.profileform {
+    margin-top: 150px;
+    padding: 20px;
+}
+
+.account-settings .user-profile {
+    margin: 0 0 1rem 0;
+    padding-bottom: 1rem;
+    text-align: center;
+}
+.account-settings .user-profile .user-avatar {
+    margin: 0 0 1rem 0;
+}
+.account-settings .user-profile .user-avatar img {
+    width: 90px;
+    height: 90px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+}
+.account-settings .user-profile h5.user-name {
+    margin: 0 0 0.5rem 0;
+}
+
+.account-settings .position {
+    margin: 2rem 0 0 0;
+    text-align: center;
+}
+.account-settings .position h5 {
+    margin: 0 0 15px 0;
+    color: #007ae1;
+}
+.account-settings .position p {
+    font-size: 0.825rem;
+}
+
+.card-user {
+    background: #ffffff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 0;
+    margin-bottom: 1rem;
+}
+/* End profile.php */

@@ -34,6 +34,8 @@
             $data = changepass($cfpass, $user);
             if($data['code'] == 0) {
                 $success = $data['error'];
+                $npass = false;
+                $cfpass = false;
                 $_SESSION['pwd'] = $cfpass;
             }
             else {

@@ -45,7 +45,7 @@
             return array('code' => 2, 'error' => 'Sai mật khẩu'); 
         }
         else {
-            return array('code' => 0, 'error' => '', 'data' => $data);
+            return array('code' => 0, 'error' => '', 'data' => $data, 'id' => $data['positionid']);
         }
 	}
 
@@ -146,7 +146,7 @@
 					echo "<td>". $row["department_name"] ."</td>";
 					echo "<td>". $row["email"] ."</td>";
 					echo '<td class="list-btn">';
-					echo '<div class="btn-view text-white">Xem</div>';
+					echo '<div class="btn-view text-white" href="profile.php">Xem</div>';
 						echo '<div class="btn-edit text-white">Chỉnh sửa</div>';
 						echo '<div class="btn-delete text-white">Xóa</div>';
 					echo '</td>';

@@ -42,7 +42,7 @@
 					</li>
 
 					<li class="nav-item">
-						<a class="nav-link" href="#">Hồ sơ</a>
+						<a class="nav-link" href="profile.php">Hồ sơ</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Quản lý phòng ban</a>

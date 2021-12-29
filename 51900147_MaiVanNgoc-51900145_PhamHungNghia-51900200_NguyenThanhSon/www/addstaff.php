@@ -12,10 +12,10 @@
 		exit();; // Chuyển đến trang thay đổi mật khẩu
 	}
 
-	// if ($_SESSION['positionid'] != 1) {
-    //     header('Location: index.php');
-    //     exit();
-    // }
+	if ($_SESSION['id'] != 3) {
+        header('Location: index.php');
+        exit();
+    }
 
 	require_once('./admin/db.php');
 
