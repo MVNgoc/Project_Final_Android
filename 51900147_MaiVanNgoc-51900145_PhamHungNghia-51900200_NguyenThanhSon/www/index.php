@@ -81,43 +81,6 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>Mai Văn Ngọc</td>
-						<td>Trường phòng</td>
-						<td>Kế toán</td>
-						<td>user@gmail.com</td>
-						<td class="list-btn">
-							<div class="btn-view text-white">Xem</div>
-							<div class="btn-edit text-white">Chỉnh sửa</div>
-							<div class="btn-delete text-white">Xóa</div>
-						</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>Phạm Hùng Nghĩa</td>
-						<td>Trường phòng</td>
-						<td>Kế toán</td>
-						<td>user@gmail.com</td>
-						<td class="list-btn">
-						<div class="btn-view text-white">Xem</div>
-							<div class="btn-edit text-white">Chỉnh sửa</div>
-							<div class="btn-delete text-white">Xóa</div>
-						</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>Nguyễn Thanh Sơn</td>
-						<td>Trường phòng</td>
-						<td>Kế toán</td>
-						<td>user@gmail.com</td>
-						<td class="list-btn">
-						<div class="btn-view text-white">Xem</div>
-							<div class="btn-edit text-white">Chỉnh sửa</div>
-							<div class="btn-delete text-white">Xóa</div>
-						</td>
-					</tr>
-
 					<?php
 						selectAlluser();
 					?>

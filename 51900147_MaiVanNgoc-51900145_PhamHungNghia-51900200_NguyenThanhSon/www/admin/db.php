@@ -127,10 +127,11 @@
     }
 
     function selectAlluser(){
-        $sql = 'SELECT id,lastname,positionid,department_name,email FROM account ORDER BY department_name DESC';
+        $sql = 'SELECT id,firstname,lastname,positionid,department_name,email FROM account ORDER BY department_name DESC';
         $conn = open_database();
         $result = $conn-> query($sql);
         $position = '';
+        $stt = 1;
         if($result->num_rows >0){
             while($row = $result-> fetch_assoc()){
                 if($row["positionid"] == 1){
@@ -139,8 +140,8 @@
                     $position = 'Nhân viên';
                 }
                 echo "<tr>";
-					echo "<td>" . $row["id"] . "</td>";
-					echo "<td>". $row["lastname"] ."</td>";
+					echo "<td>" . $stt . "</td>";
+					echo "<td>". $row["lastname"]." ".$row["firstname"] ."</td>";
 					echo "<td>". $position ."</td>";
 					echo "<td>". $row["department_name"] ."</td>";
 					echo "<td>". $row["email"] ."</td>";
@@ -150,6 +151,7 @@
 						echo '<div class="btn-delete text-white">Xóa</div>';
 					echo '</td>';
 				echo '</tr>';
+                $stt++;
             }
         }
         $conn->close();
