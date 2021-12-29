@@ -117,6 +117,10 @@
 							<div class="btn-delete text-white">Xóa</div>
 						</td>
 					</tr>
+
+					<?php
+						selectAlluser();
+					?>
 				</tbody>
 			</table>
 		</div>

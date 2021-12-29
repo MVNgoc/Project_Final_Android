@@ -82,11 +82,17 @@
                 </div>
                 <div class="card-body">
                     <form id="loginForm" action="" method="post">
+                            <label class="label-pwd text-white" for="pwd">Nhập mật khẩu cũ:</label>
+                            <div class="input-group form-group">
+                                <input value="" id="oldpass" name="oldpass" type="password" class="form-control" placeholder="old password">
+                            </div>
+
                             <label class="label-username text-white" for="username">Mật khẩu:</label>
                             <div class="input-group form-group">
                                 <input value="<?= $npass ?>" id="newpass" name="newpass" type="password" class="form-control" placeholder="password">
                                 
                             </div>
+
                             <label class="label-pwd text-white" for="pwd">Xác nhận mật khẩu:</label>
                             <div class="input-group form-group">
                                 <input value="<?= $cfpass ?>" id="comfirmpass" name="comfirmpass" type="password" class="form-control" placeholder="comfirm password">
