@@ -127,7 +127,7 @@
     }
 
     function selectAlluser(){
-        $sql = 'SELECT id,lastname,positionid,department_name,email FROM account';
+        $sql = 'SELECT id,lastname,positionid,department_name,email FROM account ORDER BY department_name DESC';
         $conn = open_database();
         $result = $conn-> query($sql);
         $position = '';
