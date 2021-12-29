@@ -12,19 +12,12 @@
     $success = '';
     $npass = '';
     $cfpass = '';
-    $oldpass = '';
-    $pass = '';
 
     if (isset($_POST['newpass']) && isset($_POST['comfirmpass'])) {
         $npass = $_POST['newpass'];
         $cfpass = $_POST['comfirmpass'];
         $user = $_SESSION['username'];
-        $oldpass = $_POST['oldpass'];
-        $pass = $_SESSION['pwd'];
-        
-        if($oldpass != $pass){
-            $error = 'Mật khẩu hiện tại không đúng';
-        }
+ 
         if (empty($npass)) {
             $error = 'Vui lòng nhập mật khẩu mới';
         }
@@ -89,11 +82,7 @@
                 </div>
                 <div class="card-body">
                     <form id="loginForm" action="" method="post">
-                            <label class="label-pwd text-white" for="pwd">Nhập mật khẩu cũ:</label>
-                            <div class="input-group form-group">
-                                <input value="" id="oldpass" name="oldpass" type="password" class="form-control" placeholder="old password">
-                            </div>
-
+                            
                             <label class="label-username text-white" for="username">Mật khẩu:</label>
                             <div class="input-group form-group">
                                 <input value="<?= $npass ?>" id="newpass" name="newpass" type="password" class="form-control" placeholder="password">
