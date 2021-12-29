@@ -1,0 +1,285 @@
+/* Login From */
+html,body{
+    font-family:sans-serif;
+    background-image: linear-gradient(90deg, #00DBDE 0%, #FC00FF 100%);
+    height: 100%;
+    font-family:sans-serif;
+}
+
+.text-white {
+    color: #fff;
+}
+
+.text-black {
+    color: #000;
+}
+
+.card {
+    height: auto;
+    margin-top: 10%;
+    width: 400px;
+    background-color: rgba(0,0,0,0.5) !important;
+}
+
+.social_icon span{
+    font-size: 60px;
+    margin-left: 10px;
+    color: #FFC312;
+}
+
+.social_icon span:hover{
+    color: white;
+    cursor: pointer;
+}
+
+.card-header h3{
+    color: white;
+    text-align: center;
+}
+
+.social_icon{
+    position: absolute;
+    right: 20px;
+    top: -45px;
+    }
+
+.input-group-prepend span{
+    width: 50px;
+    background-color: #00DBDE;
+    color: black;
+    border:0 !important;
+}
+
+input:focus{
+    outline: 0 0 0 0  !important; 
+    box-shadow: 0 0 0 0 !important;
+}
+
+.remember{
+    color: white;
+}
+
+.remember input
+{
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+    margin-right: 5px;
+}
+
+.login_btn{
+    color: black;
+    background-color: #00DBDE;
+    width: 100px;
+}
+
+.login_btn:hover{
+    color: black;
+    background-color: #04fbff;
+}
+
+.links a{
+    margin-left: 4px;
+}
+
+.card-body #errorMessage {
+    color: white;
+}
+
+.card-body .label-username {
+    display: inline-block;
+}
+
+/* End Login From */
+
+/* index.php */
+/* Header */
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #000 !important;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 0;
+    min-height: 82px;
+}
+
+.navbar-nav .nav-item{
+    line-height: 3;
+    min-width: 100px;
+    text-align: center;
+}
+
+.navbar-nav .nav-item .nav-link {
+    padding: 16px 10px;
+}
+
+.navbar-nav .nav-item:hover .nav-link {
+    background-color: rgb(194, 194, 194);
+    color: #000;
+}
+
+.tdtu-img {
+    flex: 1;
+    max-width: 100%;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.tdtu-picture {
+    height: 50px;
+}
+
+.btn-list-item {
+    display: none;
+}
+
+/* End Header */
+
+@media (max-width: 46.1875em) {
+    .header {
+        position: relative
+    }
+
+    .navbar-nav {
+        display: block;
+        background-color: #fff;
+        position: absolute;
+        top: 66px;
+        right: 0;
+        background-color: #000;
+        padding-right: 0 !important;
+        width: 200px;
+        display: none;
+    }
+
+    .navbar-nav .nav-item:hover .nav-link {
+        background-color: #fff;
+        color: #000;
+    }
+
+    .navbar-nav .nav-link {
+        color: #fff;
+        width: 100% !important;  
+        padding-left: 16px !important;
+    } 
+
+    .btn-list-item {
+        display: block;
+        border: none;
+        border-radius: 5px;
+        width: 60px;
+        height: 50px;
+        background: linear-gradient(90deg, #00DBDE 0%, #fb00ffd2 100%);
+        position: absolute;
+        top: 14px;
+        right: 28px
+    }
+
+    .open {
+        display: block;
+    }
+}
+
+/* Body */
+.header-body {
+    padding: 20px 30px;
+    display: flex;
+}
+ 
+.header-body .add-staff {
+    margin-left: 30px;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    background-color: #1804ec;
+}
+
+.header-body .add-staff:hover {
+    background-color: #3c2aff;
+    cursor: pointer;
+}
+
+.header-body .search #search-staff {
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    width: 250px;
+    padding: 0 8px;
+}
+
+.header-body .search-lable {
+    margin: 0;
+}
+
+.header-body .search {
+    margin-left: auto;
+}
+
+#staff-table {
+    text-align: center;
+}
+
+#staff-table .list-btn {
+    display: flex;
+    justify-content: center;
+}
+
+#staff-table .btn-view {
+    background-color: #009c03;
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+#staff-table .btn-edit {
+    background-color: rgb(228, 194, 0);
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+#staff-table .btn-delete {
+    background-color: rgb(221, 0, 0);
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+#staff-table .btn-view:hover {
+    background-color: #00c403;
+    cursor: pointer;
+}
+
+#staff-table .btn-edit:hover {
+    background-color: rgb(255, 217, 2);
+    cursor: pointer;
+}
+
+#staff-table .btn-delete:hover {
+    background-color: rgb(255, 4, 4);
+    cursor: pointer;
+}
+
+/* End Body */
+
+/* End index.php */
+
+/* Logout.php */
+.logout-form,
+.addstaffform {
+    background-color: rgba(255, 255, 255, 0.8);
+    animation: modalSlipDown ease 0.4s;
+}
+
+@keyframes modalSlipDown {
+    from {
+        opacity: 0;
+        transform: translateY(-200px)
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+/* End Logout.php */
