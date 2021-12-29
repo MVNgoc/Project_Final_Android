@@ -60,12 +60,12 @@
 
 		<div class="body">
 			<div class="header-body">
-				<h3 style="margin-bottom:0">Danh sách nhân viên</h3>
-				<form action="addstaff.php">
+				<h3 class="user-list-header" style="margin-bottom:0">Danh sách nhân viên</h3>
+				<form class="add-staff-form" action="addstaff.php">
 					<button class="add-staff text-white" type="submit">+ Thêm nhân viên</button>
 				</form>
 				<div class="search">
-					<label for="search-staff" class="search-lable">Tìm kiếm:</label>
+					<label for="search-staff" class="search-lable">Tìm kiếm</label>
 					<input type="search" name="search-staff" id="search-staff" placeholder="Search...">
 				</div>
 			</div>

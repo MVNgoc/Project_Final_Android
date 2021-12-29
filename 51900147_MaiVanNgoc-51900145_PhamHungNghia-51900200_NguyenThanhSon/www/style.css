@@ -105,6 +105,10 @@ input:focus{
     min-height: 82px;
 }
 
+.navbar-nav {
+    z-index: 9999;
+}
+
 .navbar-nav .nav-item{
     line-height: 3;
     min-width: 100px;
@@ -136,52 +140,6 @@ input:focus{
 }
 
 /* End Header */
-
-@media (max-width: 46.1875em) {
-    .header {
-        position: relative
-    }
-
-    .navbar-nav {
-        display: block;
-        background-color: #fff;
-        position: absolute;
-        top: 66px;
-        right: 0;
-        background-color: #000;
-        padding-right: 0 !important;
-        width: 200px;
-        display: none;
-    }
-
-    .navbar-nav .nav-item:hover .nav-link {
-        background-color: #fff;
-        color: #000;
-    }
-
-    .navbar-nav .nav-link {
-        color: #fff;
-        width: 100% !important;  
-        padding-left: 16px !important;
-    } 
-
-    .btn-list-item {
-        display: block;
-        border: none;
-        border-radius: 5px;
-        width: 60px;
-        height: 50px;
-        background: linear-gradient(90deg, #00DBDE 0%, #fb00ffd2 100%);
-        position: absolute;
-        top: 14px;
-        right: 28px
-    }
-
-    .open {
-        display: block;
-    }
-}
-
 /* Body */
 .header-body {
     padding: 20px 30px;
@@ -211,6 +169,7 @@ input:focus{
 
 .header-body .search-lable {
     margin: 0;
+    padding-right: 10px;
 }
 
 .header-body .search {
@@ -318,3 +277,84 @@ input:focus{
 }
 
 /* End addstaff.php */
+
+/* Table and Mobile */
+@media (max-width: 63.9375em) {
+    .header {
+        position: relative
+    }
+
+    .navbar-nav {
+        display: block;
+        background-color: #fff;
+        position: absolute;
+        top: 66px;
+        right: 0;
+        background-color: #000;
+        padding-right: 0 !important;
+        width: 200px;
+        display: none;
+    }
+
+    .navbar-nav .nav-item:hover .nav-link {
+        background-color: #fff;
+        color: #000;
+    }
+
+    .navbar-nav .nav-link {
+        color: #fff;
+        width: 100% !important;  
+        padding-left: 16px !important;
+    } 
+
+    .btn-list-item {
+        display: block;
+        border: none;
+        border-radius: 5px;
+        width: 60px;
+        height: 50px;
+        background: linear-gradient(90deg, #00DBDE 0%, #fb00ffd2 100%);
+        position: absolute;
+        top: 14px;
+        right: 28px
+    }
+
+    .open {
+        display: block;
+    }
+
+    .header-body {
+        display: block !important;
+    }
+
+    .header-body .user-list-header {
+        margin-bottom: 16px !important;
+    }
+
+    .header-body .add-staff-form {
+        display: inline-block;
+        margin-left: -30px;
+    }
+
+    .header-body .search {
+        display: inline-block;
+        float: right;
+    }
+}
+
+/*Mobile */
+@media (max-width: 34.375em) {
+
+    .header-body .search {
+        flex-direction: row-reverse;
+        display: flex;
+        margin-top: 16px;
+        align-items: center;
+        float: left;
+        margin-bottom: 16px;     
+    }
+
+    .header-body .search .search-lable {
+        padding-left: 10px;
+    }
+}
