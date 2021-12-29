@@ -72,9 +72,7 @@
                     <div class="card-body">
                         <div class="account-settings">
                             <div class="user-profile">
-                                <div class="user-avatar">
-                                    <input type="file" class="avatar" accept="image/png, image/jpeg">
-                                </div>
+                                <input type="file" name="avatar" class="avatar" accept="image/png, image/jpeg">                              
                                 <h5 class="user-name"> <?= $_SESSION['username'] ?> </h5>
                             </div>
                             <div class="position">
@@ -132,7 +130,15 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="row gutters form-btn-submit">                             
+                            <form action="upload.php" class="user-avatar" method="post" enctype="multipart/form-data">
+                                <button type="submit" class="btn btn-submit btn-success px-5 mt-3 mr-2">Lưu</button>
+                            </form>
+                            <form action="changepassword.php" class="changepass-form">
+                                <button type="submit" class="btn btn-changepass btn-success px-5 mt-3 mr-2">Đổi mật khẩu</button>
+                            </form>                                                                       
+                        </div>
+                    </div>                   
                 </div>
             </div>
         </div>

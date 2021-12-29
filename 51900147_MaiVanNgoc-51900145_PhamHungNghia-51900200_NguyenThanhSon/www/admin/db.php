@@ -138,8 +138,11 @@
             while($row = $result-> fetch_assoc()){
                 if($row["positionid"] == 1){
                     $position = 'Trưởng phòng';
-                }else{
+                }else if($row["positionid"] == 2){
                     $position = 'Nhân viên';
+                }
+                else {
+                    $position = 'Giám đốc';
                 }
                 echo "<tr>";
 					echo "<td>" . $stt . "</td>";

@@ -377,6 +377,11 @@ input:focus{
     margin-top: 150px;
     padding: 20px;
     border-radius: 5px;
+    position: relative;
+}
+
+.profileform .btn-changepass {
+    
 }
 
 .account-settings .user-profile {
@@ -421,5 +426,11 @@ input:focus{
 
 .font-size-s {
     font-size: 0.9rem;
+}
+
+.profileform .form-btn-submit {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 0;
 }
 /* End profile.php */
