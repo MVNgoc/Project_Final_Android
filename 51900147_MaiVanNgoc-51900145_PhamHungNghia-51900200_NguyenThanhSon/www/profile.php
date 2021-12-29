@@ -9,6 +9,18 @@
 		header('Location: changepassword.php');
 		exit();; // Chuyển đến trang thay đổi mật khẩu
 	}
+
+    $position = '';
+    if($_SESSION['positionid'] == 1)
+    {
+        $position = 'Trưởng phòng';
+    }else if($_SESSION['positionid'] == 2)
+    {
+        $position = 'Nhân viên';
+    }
+    else {
+        $position = 'Giám đốc';
+    }
 ?>
 
 <!DOCTYPE html>
@@ -63,14 +75,14 @@
                                 <div class="user-avatar">
                                     <input type="file" class="avatar" accept="image/png, image/jpeg">
                                 </div>
-                                <h5 class="user-name">User Name</h5>
+                                <h5 class="user-name"> <?= $_SESSION['username'] ?> </h5>
                             </div>
                             <div class="position">
                                 <h5>Chức vụ</h5>
-                                <p>Trưởng phòng</p>
+                                <p><?= $position ?></p>
 
                                 <h5>Phòng ban</h5>
-                                <p>Kế toán</p>
+                                <p><?= $_SESSION['department_name'] ?></p>
                             </div>
                         </div>
                     </div>
@@ -85,17 +97,20 @@
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label for="fullName">ID</label>      
+                                    <label for="fullName">ID:</label>  
+                                    <p class="font-size-s"><?= $_SESSION['id'] ?></p>    
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label for="fullName">Họ và tên</label>                             
+                                    <label for="fullName">Họ và tên:</label>  
+                                     <p class="font-size-s"><?= $_SESSION['lastname']." ". $_SESSION['firstname']?></p>                        
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label for="eMail">Giới tính</label>
+                                    <label for="eMail">Giới tính:</label>
+                                    <p class="font-size-s"><?= $_SESSION['sex'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -105,12 +120,14 @@
                             </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="eMail">Email</label>
-                                                                    </div>
+                                        <label for="eMail">Email:</label>
+                                        <p class="font-size-s"><?= $_SESSION['email'] ?></p>
+                                    </div>                                 
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="phone">SĐT</label>                                 
+                                        <label for="phone">SĐT:</label>    
+                                        <p class="font-size-s"><?= $_SESSION['phone_number'] ?></p>                             
                                     </div>
                                 </div>
                             </div>

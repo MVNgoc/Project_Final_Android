@@ -12,7 +12,7 @@
 		exit();; // Chuyển đến trang thay đổi mật khẩu
 	}
 
-	if ($_SESSION['id'] != 3) {
+	if ($_SESSION['positionid'] != 3) {
         header('Location: index.php');
         exit();
     }

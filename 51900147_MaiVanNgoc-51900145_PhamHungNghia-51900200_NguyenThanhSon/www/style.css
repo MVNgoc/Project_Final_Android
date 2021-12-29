@@ -417,4 +417,8 @@ input:focus{
     border: 0;
     margin-bottom: 1rem;
 }
+
+.font-size-s {
+    font-size: 0.825rem;
+}
 /* End profile.php */
