@@ -7,9 +7,9 @@ CREATE TABLE tbl_position (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO tbl_position (id, position) VALUES
-(1, 'Admin'),
-(2, 'Manager'),
-(3, 'User');
+(1, 'Manager'),
+(2, 'User'),
+(3, 'Admin');
 
 CREATE TABLE account (
   id varchar(15) NOT NULL,

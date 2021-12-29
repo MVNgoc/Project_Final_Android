@@ -42,6 +42,14 @@
 
                 $_SESSION['username'] = $user;
 				$_SESSION['pwd'] = $pass;
+				$_SESSION['positionid'] = $data['positionid'];
+				$_SESSION['id'] = $data['id'];
+				$_SESSION['sex'] = $data['sex'];
+				$_SESSION['firstname'] = $data['firstname'];
+				$_SESSION['lastname'] = $data['lastname'];
+				$_SESSION['department_name'] = $data['department_name'];
+				$_SESSION['email'] = $data['email'];
+				$_SESSION['phone_number'] = $data['phone_number'];
 				if($_SESSION['pwd'] == $_SESSION['username']) {
 					header('Location: changepassword.php');
 					exit(); // Chuyển đến trang thay đổi mật khẩu

@@ -45,7 +45,9 @@
             return array('code' => 2, 'error' => 'Sai mật khẩu'); 
         }
         else {
-            return array('code' => 0, 'error' => '', 'data' => $data);
+            return array('code' => 0, 'error' => '', 'data' => $data, 'positionid' => $data['positionid'], 'id' => $data['id'], 'sex' => $data['sex'],
+            'firstname' => $data['firstname'], 'lastname' => $data['lastname'], 'department_name' => $data['department_name'], 
+            'email' => $data['email'], 'phone_number' => $data['phone_number']);
         }
 	}
 
@@ -136,8 +138,11 @@
             while($row = $result-> fetch_assoc()){
                 if($row["positionid"] == 1){
                     $position = 'Trưởng phòng';
-                }else{
+                }else if($row["positionid"] == 2){
                     $position = 'Nhân viên';
+                }
+                else {
+                    $position = 'Giám đốc';
                 }
                 echo "<tr>";
 					echo "<td>" . $stt . "</td>";
@@ -146,7 +151,7 @@
 					echo "<td>". $row["department_name"] ."</td>";
 					echo "<td>". $row["email"] ."</td>";
 					echo '<td class="list-btn">';
-					echo '<div class="btn-view text-white">Xem</div>';
+					echo '<div class="btn-view text-white" href="profile.php">Xem</div>';
 						echo '<div class="btn-edit text-white">Chỉnh sửa</div>';
 						echo '<div class="btn-delete text-white">Xóa</div>';
 					echo '</td>';

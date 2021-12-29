@@ -38,15 +38,19 @@
 				<!-- Links -->
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link" href="index.php">Trang chủ</a>
+						<a class="nav-link" href="#">Trang chủ</a>
 					</li>
 
 					<li class="nav-item">
-						<a class="nav-link" href="#">Hồ sơ</a>
+						<a class="nav-link" href="profile.php">Hồ sơ</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Quản lý phòng ban</a>
-					</li>
+					<?php
+						if($_SESSION['positionid'] == 3) {
+							echo '<li class="nav-item">
+									<a class="nav-link" href="#">Quản lý phòng ban</a>
+								</li>';
+						}
+					?>
 					<li class="nav-item">
 						<a class="nav-link" href="logout.php">Đăng xuất</a>
 					</li>		

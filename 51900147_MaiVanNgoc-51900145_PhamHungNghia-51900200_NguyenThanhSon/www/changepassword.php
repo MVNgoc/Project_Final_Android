@@ -34,6 +34,8 @@
             $data = changepass($cfpass, $user);
             if($data['code'] == 0) {
                 $success = $data['error'];
+                $npass = false;
+                $cfpass = false;
                 $_SESSION['pwd'] = $cfpass;
             }
             else {
@@ -64,9 +66,26 @@
 				</div>
 				<!-- Links -->
 				<ul class="navbar-nav">
+                    <?php
+                        if($_SESSION['pwd'] != $_SESSION['username']) {
+                            echo '<li class="nav-item">
+                                    <a class="nav-link" href="index.php">Trang chủ</a>
+                                </li>
+            
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Hồ sơ</a>
+                                </li>';                          
+                        }
+
+						if($_SESSION['positionid'] == 3) {
+							echo '<li class="nav-item">
+									<a class="nav-link" href="#">Quản lý phòng ban</a>
+								</li>';
+						}
+                    ?>
 					<li class="nav-item">
 						<a class="nav-link" href="logout.php">Đăng xuất</a>
-					</li>		
+					</li>	
 				</ul>
 			</nav>
 
