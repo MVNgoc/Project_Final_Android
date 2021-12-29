@@ -79,6 +79,13 @@
 			$result = register($id,$user, $pass, $sex, $first, $last, $position, $department, $email, $phone, $day_off);
 			if($result['code'] == 0){
                 $success = 'Đã thêm thành công một nhân viên mới.';
+				$first = false;
+				$last = false;
+				$phone = false;
+				$email = false;
+				$user = false;
+				$id = false;
+				$department = false;
             }else if ($result['code'] == 1){
                 $error = 'Username này đã tồn tại';
             }else if ($result['code'] == 3){
