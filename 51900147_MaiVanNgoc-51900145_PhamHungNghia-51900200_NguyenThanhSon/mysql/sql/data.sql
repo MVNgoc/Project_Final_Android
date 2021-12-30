@@ -22,12 +22,13 @@ CREATE TABLE account (
   department_name varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   email varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   phone_number varchar(15) NOT NULL,
-  day_off int(3) NOT NULL
+  day_off int(3) NOT NULL,
+  avatar varchar(255) COLLATE utf8_unicode_ci NOT NULL
 );
 
 
-INSERT INTO account (id, username, pass, sex, firstname, lastname, positionid, department_name, email,`phone_number`, day_off) VALUES
-('51900147', 'mvngoc288', '$2a$12$mmqKlIuYMv1CDbK8zBtaXO/4mzOYOupINHWcRZzzT/1K7oSEfitb6', 'Nam', 'Mai', 'Văn Ngọc', 1, 'Kế toán', 'mvngoc@gmail.com', '0337375401', 15);
+INSERT INTO account (id, username, pass, sex, firstname, lastname, positionid, department_name, email,`phone_number`, day_off, avatar) VALUES
+('51900147', 'mvngoc288', '$2a$12$mmqKlIuYMv1CDbK8zBtaXO/4mzOYOupINHWcRZzzT/1K7oSEfitb6', 'Nam', 'Mai', 'Văn Ngọc', 1, 'Kế toán', 'mvngoc@gmail.com', '0337375401', 15, '');
 
 ALTER TABLE tbl_position
   ADD PRIMARY KEY (id);

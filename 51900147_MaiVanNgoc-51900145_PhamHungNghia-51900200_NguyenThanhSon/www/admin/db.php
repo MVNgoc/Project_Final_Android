@@ -102,7 +102,7 @@
         }
     }
 
-    function register($id,$username, $pass, $sex, $first, $last, $position, $department, $email, $phone, $day_off){
+    function register($id,$username, $pass, $sex, $first, $last, $position, $department, $email, $phone, $day_off, $avatar){
 
         $hash = password_hash($pass, PASSWORD_BCRYPT);
 
@@ -120,7 +120,7 @@
         $conn = open_database();
 
         $stm = $conn->prepare($sql);
-        $stm->bind_param('isssssisssi',$id ,$username, $hash, $sex, $first, $last, $position, $department, $email, $phone, $day_off);
+        $stm->bind_param('isssssisssis',$id ,$username, $hash, $sex, $first, $last, $position, $department, $email, $phone, $day_off, $avatar);
 
         if(!$stm->execute()){
             return array('code' => 2, 'error' => 'Can not excute command');

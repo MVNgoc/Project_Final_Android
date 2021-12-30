@@ -31,6 +31,7 @@
 	$sex = '';
 	$position = '';
 	$pass = '';
+	$avatar = '';
 
 	if(isset($_POST['first']) && isset($_POST['last']) && isset($_POST['email']) && isset($_POST['user']) 
 	&& isset($_POST['id']) && isset($_POST['phone']) && isset($_POST['department']) && 
@@ -76,7 +77,7 @@
 			$error = "Hãy nhập tên phòng ban";
 		}
 		else {
-			$result = register($id,$user, $pass, $sex, $first, $last, $position, $department, $email, $phone, $day_off);
+			$result = register($id,$user, $pass, $sex, $first, $last, $position, $department, $email, $phone, $day_off, $avatar);
 			if($result['code'] == 0){
                 $success = 'Đã thêm thành công một nhân viên mới.';
 				$first = false;

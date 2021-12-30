@@ -21,6 +21,24 @@
     else {
         $position = 'Giám đốc';
     }
+
+    $msg = "";
+    $css_class = "";
+
+    if(isset($_POST['submit-avatar'])) {    
+        echo "<pre>", print_r($_FILES['file']['name']) ,"</pre>";
+        $profileImageName = time() . '_' . $_FILES['file']['name'];
+
+        $targer = 'images/' . $profileImageName;
+        if(move_uploaded_file($_FILES['file']['tmp_name'], $targer)) {
+            $msg = "Thay đổi ảnh đại diện thành công.";
+            $css_class = "alert-success";
+        } 
+        else {
+            $msg = "Thay đổi ảnh đại diện không thành công! Vui lòng thử lại.";
+            $css_class = "alert-danger";
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -72,7 +90,10 @@
                     <div class="card-body">
                         <div class="account-settings">
                             <div class="user-profile">
-                                <input type="file" name="avatar" class="avatar" accept="image/png, image/jpeg">                              
+                                <form action="" class="user-avatar" method="post" enctype="multipart/form-data">
+                                    <input type="file" name="file" class="avatar" accept="image/png, image/jpeg">   
+                                    <button type="submit" name="submit-avatar" class="btn btn-submit btn-success px-5 mt-3 mr-2">Lưu</button>                           
+                                </form>
                                 <h5 class="user-name"> <?= $_SESSION['username'] ?> </h5>
                             </div>
                             <div class="position">
@@ -131,9 +152,6 @@
                             </div>
                         </div>
                         <div class="row gutters form-btn-submit">                             
-                            <form action="upload.php" class="user-avatar" method="post" enctype="multipart/form-data">
-                                <button type="submit" class="btn btn-submit btn-success px-5 mt-3 mr-2">Lưu</button>
-                            </form>
                             <form action="changepassword.php" class="changepass-form">
                                 <button type="submit" class="btn btn-changepass btn-success px-5 mt-3 mr-2">Đổi mật khẩu</button>
                             </form>                                                                       
