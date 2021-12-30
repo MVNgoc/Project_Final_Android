@@ -115,7 +115,7 @@
         }
 
         $sql = 'INSERT INTO account (id,username, pass, sex, firstname, lastname, positionid, 
-        department_name, email, phone_number, day_off) values(?,?,?,?,?,?,?,?,?,?,?)';
+        department_name, email, phone_number, day_off, avatar) values(?,?,?,?,?,?,?,?,?,?,?,?)';
 
         $conn = open_database();
 
