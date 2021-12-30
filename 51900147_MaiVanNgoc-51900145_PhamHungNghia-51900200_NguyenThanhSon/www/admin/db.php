@@ -153,7 +153,7 @@
 					echo '<td class="list-btn">';
                         echo '<form action="" method="POST">';
                             echo '<button class="btn-view text-white" href="profile.php">Xem</button>';
-                            echo '<button class="btn-edit text-white">Chỉnh sửa</button>';
+                            echo '<button type="submit" name="user-edit" class="btn-edit text-white" value="'. $row["id"] .'">Chỉnh sửa</button>';
 						    echo '<button type="submit" name="user-delete" class="btn-delete text-white" value="'. $row["id"] .'">Xóa</button>';
                         echo '</form>';
 					echo '</td>';
