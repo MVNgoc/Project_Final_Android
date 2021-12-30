@@ -53,7 +53,7 @@
 	$pass = $_SESSION['pwd'];
     $data = login($user, $pass);
     if($data['code'] == 0) {
-        $_SESSION['avatar'] = $data['avatar'];
+        $avatar = $data['avatar'];
     }
     else {
         $error = $data['error'];
@@ -115,11 +115,11 @@
                             <div class="user-profile">
                                 <form action="" class="user-avatar" method="post" enctype="multipart/form-data">
                                     <?php
-                                        if($_SESSION['avatar'] == '') {
+                                        if($avatar == '') {
                                             echo '<img src="./images/avatar_placeholder.jpg" alt="avatar" id="avatar_placeholder">';
                                         }
                                         else {
-                                            echo '<img src="./images/'.$_SESSION['avatar'].'" alt="avatar" id="avatar_placeholder">';
+                                            echo '<img src="./images/'.$avatar.'" alt="avatar" id="avatar_placeholder">';
                                         }
                                     ?>
                                     <input type="file" name="file" class="avatar" onchange="displayImage(this)" accept="image/png, image/jpeg" style="display:none">   

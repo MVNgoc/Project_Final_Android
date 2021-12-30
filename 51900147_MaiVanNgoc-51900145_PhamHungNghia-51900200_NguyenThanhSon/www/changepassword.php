@@ -42,10 +42,10 @@
                 $data = changepass($cfpass, $user);
                 if($data['code'] == 0) {
                     $success = $data['error'];
+                    $_SESSION['pwd'] = $cfpass;
                     $oldpass = false;
                     $npass = false;
-                    $cfpass = false;
-                    $_SESSION['pwd'] = $cfpass;
+                    $cfpass = false;          
                 }
                 else {
                     $error = $data['error'];
@@ -75,9 +75,9 @@
                 $data = changepass($cfpass, $user);
                 if($data['code'] == 0) {
                     $success = $data['error'];
-                    $npass = false;
-                    $cfpass = false;
                     $_SESSION['pwd'] = $cfpass;
+                    $npass = false;
+                    $cfpass = false;              
                 }
                 else {
                     $error = $data['error'];
@@ -115,7 +115,7 @@
                                 </li>
             
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Hồ sơ</a>
+                                    <a class="nav-link" href="profile.php">Hồ sơ</a>
                                 </li>';
                         }
 
