@@ -153,7 +153,7 @@
 					echo '<td class="list-btn">';
 					echo '<div class="btn-view text-white" href="profile.php">Xem</div>';
 						echo '<div class="btn-edit text-white">Chỉnh sửa</div>';
-						echo '<div class="btn-delete text-white">Xóa</div>';
+						echo '<div class="btn-delete text-white" value = '. $row["id"] .'>Xóa</div>';
 					echo '</td>';
 				echo '</tr>';
                 $stt++;

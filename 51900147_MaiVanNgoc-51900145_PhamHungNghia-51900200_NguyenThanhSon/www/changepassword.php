@@ -10,36 +10,78 @@
 
     $error = '';
     $success = '';
+    $oldpass = '';
     $npass = '';
     $cfpass = '';
-
-    if (isset($_POST['newpass']) && isset($_POST['comfirmpass'])) {
-        $npass = $_POST['newpass'];
-        $cfpass = $_POST['comfirmpass'];
-        $user = $_SESSION['username'];
- 
-        if (empty($npass)) {
-            $error = 'Vui lòng nhập mật khẩu mới';
-        }
-        else if (strlen($npass) < 6) {
-            $error = 'Mật khẩu phải có ít nhất 6 kí tự';
-        }
-        else if (empty($cfpass)) {
-            $error = 'Vui lòng nhập lại mật khẩu để xác nhận';
-        }
-        else if ($npass != $cfpass) {
-            $error = 'Mật khẩu xác nhận không khớp với mật khẩu mới. Vui lòng nhập lại';
-        }
-        else {
-            $data = changepass($cfpass, $user);
-            if($data['code'] == 0) {
-                $success = $data['error'];
-                $npass = false;
-                $cfpass = false;
-                $_SESSION['pwd'] = $cfpass;
+    if($_SESSION['pwd'] != $_SESSION['username']) {
+        if (isset($_POST['newpass']) && isset($_POST['comfirmpass']) && isset($_POST['oldpass'])) {
+            $oldpass = $_POST['oldpass'];
+            $npass = $_POST['newpass'];
+            $cfpass = $_POST['comfirmpass'];
+            $user = $_SESSION['username'];
+    
+            if(empty($oldpass)) {
+                $error = 'Vui lòng nhập mật khẩu';
+            }
+            else if(empty($npass)) {
+                $error = 'Vui lòng nhập mật khẩu mới';
+            }
+            else if (strlen($npass) < 6) {
+                $error = 'Mật khẩu phải có ít nhất 6 kí tự';
+            }
+            else if (empty($cfpass)) {
+                $error = 'Vui lòng nhập lại mật khẩu để xác nhận';
+            }
+            else if ($npass != $cfpass) {
+                $error = 'Mật khẩu xác nhận không khớp với mật khẩu mới. Vui lòng nhập lại';
+            }
+            else if ($oldpass != $_SESSION['pwd']) {
+                $error = 'Mật khẩu cũ không đúng! Vuil lòng kiểm tra lại';
             }
             else {
-                $error = $data['error'];
+                $data = changepass($cfpass, $user);
+                if($data['code'] == 0) {
+                    $success = $data['error'];
+                    $oldpass = false;
+                    $npass = false;
+                    $cfpass = false;
+                    $_SESSION['pwd'] = $cfpass;
+                }
+                else {
+                    $error = $data['error'];
+                }
+            }
+        }
+    }
+    else {
+        if (isset($_POST['newpass']) && isset($_POST['comfirmpass'])) {
+            $npass = $_POST['newpass'];
+            $cfpass = $_POST['comfirmpass'];
+            $user = $_SESSION['username'];
+    
+            if(empty($npass)) {
+                $error = 'Vui lòng nhập mật khẩu mới';
+            }
+            else if (strlen($npass) < 6) {
+                $error = 'Mật khẩu phải có ít nhất 6 kí tự';
+            }
+            else if (empty($cfpass)) {
+                $error = 'Vui lòng nhập lại mật khẩu để xác nhận';
+            }
+            else if ($npass != $cfpass) {
+                $error = 'Mật khẩu xác nhận không khớp với mật khẩu mới. Vui lòng nhập lại';
+            }
+            else {
+                $data = changepass($cfpass, $user);
+                if($data['code'] == 0) {
+                    $success = $data['error'];
+                    $npass = false;
+                    $cfpass = false;
+                    $_SESSION['pwd'] = $cfpass;
+                }
+                else {
+                    $error = $data['error'];
+                }
             }
         }
     }
@@ -74,14 +116,11 @@
             
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Hồ sơ</a>
-                                </li>';                          
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Quản lý phòng ban</a>
+                                </li>';
                         }
-
-						if($_SESSION['positionid'] == 3) {
-							echo '<li class="nav-item">
-									<a class="nav-link" href="#">Quản lý phòng ban</a>
-								</li>';
-						}
                     ?>
 					<li class="nav-item">
 						<a class="nav-link" href="logout.php">Đăng xuất</a>
@@ -101,16 +140,23 @@
                 </div>
                 <div class="card-body">
                     <form id="loginForm" action="" method="post">
-                            
-                            <label class="label-username text-white" for="username">Mật khẩu:</label>
+                            <?php
+                                if($_SESSION['pwd'] != $_SESSION['username']) {
+                                    echo '<label class="label-oldpass text-white" for="oldpass">Mật khẩu:</label>
+                                            <div class="input-group form-group">
+                                                <input id="oldpass" name="oldpass" type="password" class="form-control" placeholder="password">     
+                                            </div>';
+                            }
+                            ?>
+
+                            <label class="label-newpass text-white" for="newpass">Mật khẩu mới:</label>
                             <div class="input-group form-group">
-                                <input value="<?= $npass ?>" id="newpass" name="newpass" type="password" class="form-control" placeholder="password">
-                                
+                                <input value="<?= $npass ?>" id="newpass" name="newpass" type="password" class="form-control" placeholder="new password">     
                             </div>
 
-                            <label class="label-pwd text-white" for="pwd">Xác nhận mật khẩu:</label>
+                            <label class="label-pwd text-white" for="comfirmpass">Xác nhận mật khẩu mới:</label>
                             <div class="input-group form-group">
-                                <input value="<?= $cfpass ?>" id="comfirmpass" name="comfirmpass" type="password" class="form-control" placeholder="comfirm password">
+                                <input value="<?= $cfpass ?>" id="comfirmpass" name="comfirmpass" type="password" class="form-control" placeholder="comfirm new password">
                             </div>
     
                             <div id="errorMessage" class="errorMessage my-3">
