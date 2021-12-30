@@ -21,6 +21,12 @@
         $stm = $conn->prepare($sql);
         $stm->execute();
 	}
+	
+	if(isset($_POST["user-edit"])){
+		$userid = $_POST["user-edit"];
+		header('Location: updatestaff.php');
+		exit();
+	}
 
 ?>
 
