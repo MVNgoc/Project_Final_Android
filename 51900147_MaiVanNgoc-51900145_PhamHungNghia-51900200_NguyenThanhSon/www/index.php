@@ -62,36 +62,39 @@
 			</div>
 		</header>
 
-		<div class="body">
-			<div class="header-body">
-				<h3 class="user-list-header" style="margin-bottom:0">Danh sách nhân viên</h3>
-				<form class="add-staff-form" action="addstaff.php">
-					<button class="add-staff text-white" type="submit">+ Thêm nhân viên</button>
-				</form>
-				<div class="search">
-					<label for="search-staff" class="search-lable">Tìm kiếm</label>
-					<input type="search" name="search-staff" id="search-staff" placeholder="Search...">
-				</div>
-			</div>
-			<table id="staff-table" class="table table-striped">
-				<thead>
-					<tr>
-						<th  class="text-center">STT</th>
-						<th  class="text-center">Tên</th>
-						<th  class="text-center">Chức vụ</th>
-						<th  class="text-center">Phòng ban</th>
-						<th  class="text-center">Email</th>
-						<th  class="text-center">Hoạt động</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php
-						selectAlluser();
-					?>
-				</tbody>
-			</table>
-		</div>
-
+		<?php
+			if($_SESSION['positionid'] == 3) {
+				echo '<div class="body">
+						<div class="header-body">
+							<h3 class="user-list-header" style="margin-bottom:0">Danh sách nhân viên</h3>
+							<form class="add-staff-form" action="addstaff.php">
+								<button class="add-staff text-white" type="submit">+ Thêm nhân viên</button>
+							</form>
+							<div class="search">
+								<label for="search-staff" class="search-lable">Tìm kiếm</label>
+								<input type="search" name="search-staff" id="search-staff" placeholder="Search...">
+							</div>
+						</div>
+						<table id="staff-table" class="table table-striped">
+							<thead>
+								<tr>
+									<th  class="text-center">STT</th>
+									<th  class="text-center">Tên</th>
+									<th  class="text-center">Chức vụ</th>
+									<th  class="text-center">Phòng ban</th>
+									<th  class="text-center">Email</th>
+									<th  class="text-center">Hoạt động</th>
+								</tr>
+							</thead>
+							<tbody> '
+								?><?php
+									selectAlluser();
+								?> <?php '
+							</tbody>
+						</table>
+					</div>';
+			}
+		?>
 		<footer class="footer">
 			
 		</footer>
