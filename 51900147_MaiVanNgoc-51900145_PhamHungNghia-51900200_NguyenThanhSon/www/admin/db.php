@@ -151,9 +151,11 @@
 					echo "<td>". $row["department_name"] ."</td>";
 					echo "<td>". $row["email"] ."</td>";
 					echo '<td class="list-btn">';
-					echo '<div class="btn-view text-white" href="profile.php">Xem</div>';
-						echo '<div class="btn-edit text-white">Chỉnh sửa</div>';
-						echo '<div class="btn-delete text-white" value = '. $row["id"] .'>Xóa</div>';
+                        echo '<form action="" method="POST">';
+                            echo '<button class="btn-view text-white" href="profile.php">Xem</button>';
+                            echo '<button class="btn-edit text-white">Chỉnh sửa</button>';
+						    echo '<button type="submit" name="user-delete" class="btn-delete text-white" value="'. $row["id"] .'">Xóa</button>';
+                        echo '</form>';
 					echo '</td>';
 				echo '</tr>';
                 $stt++;

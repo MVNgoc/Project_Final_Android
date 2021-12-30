@@ -13,6 +13,15 @@
 		header('Location: changepassword.php');
 		exit(); // Chuyển đến trang thay đổi mật khẩu
 	}
+
+	if(isset($_POST["user-delete"])){
+		$userid = $_POST["user-delete"];
+        $sql = "DELETE FROM account WHERE id = '$userid'";
+        $conn = open_database();
+        $stm = $conn->prepare($sql);
+        $stm->execute();
+	}
+
 ?>
 
 <!DOCTYPE html>
