@@ -36,7 +36,7 @@
                 $error = 'Mật khẩu xác nhận không khớp với mật khẩu mới. Vui lòng nhập lại';
             }
             else if ($oldpass != $_SESSION['pwd']) {
-                $error = 'Mật khẩu cũ không đúng! Vuil lòng kiểm tra lại';
+                $error = 'Mật khẩu cũ không đúng! Vui lòng kiểm tra lại';
             }
             else {
                 $data = changepass($cfpass, $user);
@@ -116,11 +116,14 @@
             
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Hồ sơ</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Quản lý phòng ban</a>
                                 </li>';
                         }
+
+                        if($_SESSION['positionid'] == 3) {
+							echo '<li class="nav-item">
+									<a class="nav-link" href="#">Quản lý phòng ban</a>
+								</li>';
+						}
                     ?>
 					<li class="nav-item">
 						<a class="nav-link" href="logout.php">Đăng xuất</a>
@@ -165,7 +168,7 @@
                                         echo "<div class='alert alert-danger'>$error</div>";
                                     }
                                     if(!empty($success)) {
-                                        echo "<div class='alert alert-success'>$success "?> <a href="index.php" class=""> Click here</a> to return Homepage <?php echo "</div>"; 
+                                        echo "<div class='alert alert-success'>$success "?> <a href="index.php" class=""> Nhấn vào đây</a> để trở lại trang chủ <?php echo "</div>"; 
                                     }
                                 ?>
                             </div>

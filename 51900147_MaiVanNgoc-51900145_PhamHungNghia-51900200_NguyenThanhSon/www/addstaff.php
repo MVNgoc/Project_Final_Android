@@ -54,6 +54,9 @@
 		else if($position == 2) {
 			$day_off = 12;
 		}
+		else {
+			$day_off = 0;
+		}
 
 		if(empty($first)){
 			$error = 'Hãy nhập họ';

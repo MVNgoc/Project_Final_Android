@@ -20,4 +20,32 @@ $(document).ready(() => {
 	notification_success.on("click", (event) => {
 		event.stopPropagation();
 	})
+
+	const avatar_placeholder = $("#avatar_placeholder");
+	const avatar = $(".avatar");
+	avatar_placeholder.on("click", function() {
+		avatar.click();
+	})
+
+	const btn_submit = $(".btn-submit");
+	const btn_placeholder_submit = $(".btn-placeholder-submit");
+
+	btn_placeholder_submit.on("click", function() {
+		btn_submit.click();
+	})
 })
+
+// function triggerClick() {
+// 	document.querySelector('.avatar').click();
+// }
+
+function displayImage(e) {
+	if(e.files[0]) {
+		var reader = new FileReader();
+
+		reader.onload = function(e) {
+			document.querySelector('#avatar_placeholder').setAttribute('src', e.target.result);
+		}
+		reader.readAsDataURL(e.files[0]);
+	}
+}

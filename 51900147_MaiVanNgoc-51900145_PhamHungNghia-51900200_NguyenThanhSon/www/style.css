@@ -378,14 +378,20 @@ input:focus{
 
 /* profile.php */
 .profileform {
-    margin-top: 150px;
+    margin-top: 60px;
     padding: 20px;
     border-radius: 5px;
     position: relative;
 }
 
-.profileform .btn-changepass {
-    
+    .profileform .card-body {
+        margin-bottom: 16%;
+    }
+
+.profileform #avatar_placeholder {
+    border-radius: 50%;
+    margin: 10px auto;
+    cursor: pointer;
 }
 
 .account-settings .user-profile {
@@ -397,8 +403,8 @@ input:focus{
     margin: 0 0 1rem 0;
 }
 .account-settings .user-profile .user-avatar img {
-    width: 90px;
-    height: 90px;
+    width: 130px;
+    height: 130px;
     -webkit-border-radius: 100px;
     -moz-border-radius: 100px;
     border-radius: 100px;
@@ -435,6 +441,6 @@ input:focus{
 .profileform .form-btn-submit {
     display: flex;
     flex-direction: row-reverse;
-    margin: 0;
+    margin-right: 15px;
 }
 /* End profile.php */

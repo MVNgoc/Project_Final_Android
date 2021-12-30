@@ -22,15 +22,24 @@
         $position = 'Giám đốc';
     }
 
+    require_once('./admin/db.php');
+
     $msg = "";
     $css_class = "";
+    $user_name = $_SESSION['username'];
+
 
     if(isset($_POST['submit-avatar'])) {    
-        echo "<pre>", print_r($_FILES['file']['name']) ,"</pre>";
+        // echo "<pre>", print_r($_FILES['file']['name']) ,"</pre>";
         $profileImageName = time() . '_' . $_FILES['file']['name'];
 
         $targer = 'images/' . $profileImageName;
         if(move_uploaded_file($_FILES['file']['tmp_name'], $targer)) {
+            $sql = "UPDATE account SET avatar = '$profileImageName' WHERE username = '$user_name'";
+            $conn = open_database();
+            $stm = $conn->prepare($sql);
+            $stm->execute();
+
             $msg = "Thay đổi ảnh đại diện thành công.";
             $css_class = "alert-success";
         } 
@@ -38,6 +47,16 @@
             $msg = "Thay đổi ảnh đại diện không thành công! Vui lòng thử lại.";
             $css_class = "alert-danger";
         }
+    }
+
+    $user = $_SESSION['username'];
+	$pass = $_SESSION['pwd'];
+    $data = login($user, $pass);
+    if($data['code'] == 0) {
+        $_SESSION['avatar'] = $data['avatar'];
+    }
+    else {
+        $error = $data['error'];
     }
 ?>
 
@@ -69,9 +88,13 @@
 				<li class="nav-item">
 					<a class="nav-link" href="#">Hồ sơ</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Quản lý phòng ban</a>
-				</li>
+				<?php
+                    if($_SESSION['positionid'] == 3) {
+                        echo '<li class="nav-item">
+                                <a class="nav-link" href="#">Quản lý phòng ban</a>
+                            </li>';
+                    }   
+				?>
 				<li class="nav-item">
 					<a class="nav-link" href="logout.php">Đăng xuất</a>
 				</li>		
@@ -91,8 +114,16 @@
                         <div class="account-settings">
                             <div class="user-profile">
                                 <form action="" class="user-avatar" method="post" enctype="multipart/form-data">
-                                    <input type="file" name="file" class="avatar" accept="image/png, image/jpeg">   
-                                    <button type="submit" name="submit-avatar" class="btn btn-submit btn-success px-5 mt-3 mr-2">Lưu</button>                           
+                                    <?php
+                                        if($_SESSION['avatar'] == '') {
+                                            echo '<img src="./images/avatar_placeholder.jpg" alt="avatar" id="avatar_placeholder">';
+                                        }
+                                        else {
+                                            echo '<img src="./images/'.$_SESSION['avatar'].'" alt="avatar" id="avatar_placeholder">';
+                                        }
+                                    ?>
+                                    <input type="file" name="file" class="avatar" onchange="displayImage(this)" accept="image/png, image/jpeg" style="display:none">   
+                                    <button type="submit" name="submit-avatar" class="btn btn-submit btn-success px-5 mt-3 mr-2" style="display:none">Lưu</button>                           
                                 </form>
                                 <h5 class="user-name"> <?= $_SESSION['username'] ?> </h5>
                             </div>
@@ -102,6 +133,12 @@
 
                                 <h5>Phòng ban</h5>
                                 <p><?= $_SESSION['department_name'] ?></p>
+
+                                <?php if(!empty($msg)): ?>
+                                    <div class="alert <?php echo  $css_class;?>">
+                                        <?php echo $msg; ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -151,7 +188,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row gutters form-btn-submit">                             
+                        <div class="row gutters form-btn-submit">   
+                                <button type="submit" name="submit-avatar" class="btn btn-placeholder-submit btn-success px-5 mt-3 mr-2">Lưu</button>                          
                             <form action="changepassword.php" class="changepass-form">
                                 <button type="submit" class="btn btn-changepass btn-success px-5 mt-3 mr-2">Đổi mật khẩu</button>
                             </form>                                                                       
