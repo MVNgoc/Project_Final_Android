@@ -151,9 +151,11 @@
 					echo "<td>". $row["department_name"] ."</td>";
 					echo "<td>". $row["email"] ."</td>";
 					echo '<td class="list-btn">';
-                        echo '<form action="" method="POST">';
-                            echo '<button class="btn-view text-white" href="profile.php">Xem</button>';
+                        echo '<form action="updatestaff.php" method="POST">';
+                            echo '<button class="btn-view text-white" >Xem</button>';
                             echo '<button type="submit" name="user-edit" class="btn-edit text-white" value="'. $row["id"] .'">Chỉnh sửa</button>';
+                        echo '</form>';
+                        echo '<form action="" method="POST">';
 						    echo '<button type="submit" name="user-delete" class="btn-delete text-white" value="'. $row["id"] .'">Xóa</button>';
                         echo '</form>';
 					echo '</td>';
@@ -162,5 +164,18 @@
             }
         }
         $conn->close();
+    }
+    function updatestaff($id,$username, $pass, $sex, $first, $last, $position, $department, $email, $phone, $day_off, $avatar){
+
+        $hash = password_hash($pass, PASSWORD_BCRYPT);
+
+        if(is_email_exists($email)){
+            return array('code' => 3,  'error' => 'Email đã tồn tại');
+        }
+
+        if(is_username_exists($username)){
+            return array('code' => 1,  'error' => 'Tài khoản đã tồn tại');
+        }
+
     }
 ?>

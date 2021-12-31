@@ -18,6 +18,77 @@
     }
 
     require_once('./admin/db.php');
+
+	if(isset($_POST["user-edit"])){
+		$id = $_POST["user-edit"];
+		$sql = "SELECT * FROM account WHERE id = '$id' ";
+		$conn = open_database();
+		$stm = $conn -> prepare($sql);
+		$result = $conn-> query($sql);
+		$row = $result->fetch_assoc();
+	}
+
+	$success = '';	
+	$error = '';
+	$first = '';	$first = $row["firstname"];
+	$last = '';		$last = $row["lastname"];
+	$phone = '';	$phone = $row["phone_number"];
+	$email = '';	$email = $row["email"];
+	$user = '';		$user = $row["username"];
+	$id = '';		$id = $row["id"];
+	$department = '';		$department = $row["department_name"];
+	$sex = '';				$sex = $row["sex"];
+	$position = '';			$position = $row["positionid"];
+	$pass = '';
+	$avatar = '';
+
+	if(isset($_POST['first']) && isset($_POST['last']) && isset($_POST['email']) && isset($_POST['user']) 
+	&& isset($_POST['id']) && isset($_POST['phone']) && isset($_POST['department']) && 
+	isset($_POST['department']) ){
+
+		$first = $_POST['first'];
+		$last = $_POST['last'];
+		$phone = $_POST['phone'];
+		$email = $_POST['email'];
+		$user = $_POST['user'];
+		$id = $_POST['id'];
+		$department = $_POST['department'];
+		$sex = $_POST['sex'];
+		$position = $_POST['position'];
+		$pass = $user;
+
+		if($position == 1) {
+			$day_off = 15;
+		}
+		else if($position == 2) {
+			$day_off = 12;
+		}
+		else {
+			$day_off = 0;
+		}
+
+		if(empty($first)){
+			$error = 'Hãy nhập họ';
+		}
+		elseif(empty($last)){
+			$error = "Hãy nhập tên";
+		}
+		elseif(empty($email)){
+			$error = "Hãy nhập email";
+		}
+		elseif(empty($user)){
+			$error = "Hãy nhập tên user";
+		}
+		elseif(empty($id)){
+			$error = "Hãy nhập mã nhân viên";
+		}
+		elseif(empty($phone)){
+			$error = "Hãy nhập số điện thoại";
+		}
+		elseif(empty($department)){
+			$error = "Hãy nhập tên phòng ban";
+		}
+	}
 ?>
 
 
@@ -76,42 +147,42 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="firstname">Họ</label>
-                            <input value="<?= $first ?>" name="first" required class="form-control" type="text" placeholder="First name" id="firstname">
+                            <input value="<?php echo $first;  ?>" name="first" required class="form-control" type="text" placeholder="First name" id="firstname">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="lastname">Tên</label>
-                            <input value="<?= $last ?>" name="last" required class="form-control" type="text" placeholder="Last name" id="lastname">
+                            <input value="<?php echo $last;  ?>" name="last" required class="form-control" type="text" placeholder="Last name" id="lastname">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input value="<?= $email ?>" name="email" required class="form-control" type="email" placeholder="Email" id="email">
+                        <input value="<?php echo $email;  ?>" name="email" required class="form-control" type="email" placeholder="Email" id="email">
                     </div>
                     <div class="form-group">
                         <label for="user">Tài khoản</label>
-                        <input value="<?= $user ?>" name="user" required class="form-control" type="text" placeholder="Username" id="user">
+                        <input value="<?php echo $user;  ?>" name="user" required class="form-control" type="text" placeholder="Username" id="user">
                     </div>
 					<div class="form-group">
                         <label for="id">Mã nhân viên</label>
-                        <input value="<?= $id ?>" name="id" required class="form-control" type="text" placeholder="Mã nhân viên" id="id">
+                        <input value="<?php echo $id;  ?>" name="id" required class="form-control" type="text" placeholder="Mã nhân viên" id="id">
                     </div>
 					<div class="form-group">
                         <label for="phone">Số điện thoại</label>
-                        <input value="<?= $phone ?>" name="phone" required class="form-control" type="text" placeholder="Số điện thoại" id="phone">
+                        <input value="<?php echo $phone; ?>" name="phone" required class="form-control" type="text" placeholder="Số điện thoại" id="phone">
                     </div>
 					<div class="form-group">
                         <label for="department">Phòng ban</label>
-                        <input value="<?= $department ?>" name="department" required class="form-control" type="text" placeholder="Tên phòng ban" id="department">
+                        <input value="<?php echo $department;  ?>" name="department" required class="form-control" type="text" placeholder="Tên phòng ban" id="department">
                     </div>
 					<div class="form-group">
 						<label for="sex">Giới Tính</label>
 						<div class="form-row">
 							<div class="form-check">
-								<input type="radio" class="form-check-input" id="radio1" name="sex" value="Nam" checked>Nam
+								<input type="radio" class="form-check-input" id="radio1" name="sex" value="Nam" <?php if($sex=="Nam") echo "checked='checked'"; ?> >Nam
 								<label class="form-check-label" for="radio1"></label>
 							</div>	  
 							<div class="form-check">
-								<input type="radio" class="form-check-input" id="radio1" name="sex" value="Nữ" checked>Nữ
+								<input type="radio" class="form-check-input" id="radio1" name="sex" value="Nữ" <?php if($sex=="Nữ") echo "checked='checked'"; ?> >Nữ
 								<label class="form-check-label" for="radio1"></label>
 							</div>
 						</div>
@@ -120,19 +191,20 @@
 					<div class="form-group">
 						<label for="position">Chọn chức vụ</label>
 						<select class="form-control" id="position" name="position">
-						<option value="1">Trưởng phòng</option>
-						<option value="2">Nhân viên</option>
+						<option <?php if($position=="1") echo"selected"; ?> value="1">Trưởng phòng</option>
+						<option <?php if($position=="2") echo"selected"; ?> value="2">Nhân viên</option>
 						</select>
 					</div>
 
                     <div class="form-group">
-                        <?php
-                            if (!empty($error)) {
-                                echo "<div class='alert alert-danger'>$error</div>";
-                            }
-                        ?>
-                        <button type="submit" class="btn btn-register-js btn-success px-5 mt-3 mr-2">Register</button>
-                        <button type="reset" class="btn btn-success px-5 mt-3 mr-2">Reset</button>
+						<div class="col text-center">
+							<?php
+								if (!empty($error)) {
+									echo "<div class='alert alert-danger'>$error</div>";
+								}
+							?>
+							<button type="submit" class="btn btn-register-js btn-success px-5 mt-3 mr-2">Update</button>
+						</div>
                     </div>
                 </form>
 
