@@ -20,8 +20,8 @@
     require_once('./admin/db.php');
 
 	if(isset($_POST["user-edit"])){
-		$id = $_POST["user-edit"];
-		$sql = "SELECT * FROM account WHERE id = '$id' ";
+		$name = $_POST["user-edit"];
+		$sql = "SELECT * FROM account WHERE username = '$name' ";
 		$conn = open_database();
 		$stm = $conn -> prepare($sql);
 		$result = $conn-> query($sql);
@@ -39,6 +39,7 @@
 		$dayoff = $row["day_off"];
 	}
 
+
 	if(isset($_POST['first']) && isset($_POST['last']) && isset($_POST['email']) && isset($_POST['user']) 
 	&& isset($_POST['id']) && isset($_POST['phone']) && isset($_POST['department']) && 
 	isset($_POST['department']) ){
@@ -52,7 +53,6 @@
 		$department = $_POST['department'];
 		$sex = $_POST['sex'];
 		$position = $_POST['position'];
-		$pass = $user;
 		$day_off='';
 		$avatar='';
 
@@ -87,7 +87,7 @@
 		elseif(empty($department)){
 			$error = "Hãy nhập tên phòng ban";
 		}else{
-			$result = updatestaff($user,$pass,$sex,$first,$last,$position,$department,$email,$phone,$day_off,$avatar,$id);
+			$result = updatestaff($user,$sex,$first,$last,$position,$department,$email,$phone,$day_off,$avatar,$id);
 			if($result['code'] == 0){
                 $success = 'Cập nhật thành công .';
 			}else {
@@ -166,7 +166,7 @@
                     </div>
                     <div class="form-group">
                         <label for="user">Tài khoản</label>
-                        <input value="<?php echo $user;  ?>" name="user" required class="form-control" type="text" placeholder="Username" id="user">
+                        <input value="<?php echo $user;  ?>" name="user" required class="form-control" type="text" placeholder="Username" id="user" readonly>
                     </div>
 					<div class="form-group">
                         <label for="id">Mã nhân viên</label>
