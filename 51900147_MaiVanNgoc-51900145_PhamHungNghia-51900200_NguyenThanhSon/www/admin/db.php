@@ -165,12 +165,4 @@
         }
         $conn->close();
     }
-    function updatestaff($id,$username, $pass, $sex, $first, $last, $position, $department, $email, $phone, $day_off, $avatar){
-
-        if(is_username_exists($username)){
-            return array('code' => 1,  'error' => 'Tài khoản đã tồn tại');
-        }
-        
-        $sql = "UPDATE account set ";
-    }
 ?>

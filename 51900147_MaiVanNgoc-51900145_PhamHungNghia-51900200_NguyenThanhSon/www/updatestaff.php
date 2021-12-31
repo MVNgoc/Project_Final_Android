@@ -28,6 +28,14 @@
 		$row = $result->fetch_assoc();
 	}
 
+	if(isset($_POST["update"])){
+		$sql = "UPDATE acccount set firstname = '$first', lastname = '$last', phone_number = '$phone',email = '$email', 
+			sex = '$sex', positionid = '$position', dapartment_name='$department' WHERE id = '$id'";
+		$conn = open_database();
+		$stm = $conn->prepare($sql);
+		$stm->execute();
+	}
+
 	$success = '';	
 	$error = '';
 	$first = '';	$first = $row["firstname"];
@@ -203,7 +211,7 @@
 									echo "<div class='alert alert-danger'>$error</div>";
 								}
 							?>
-							<button type="submit" class="btn btn-register-js btn-success px-5 mt-3 mr-2">Update</button>
+							<button name="update" type="submit" class="btn btn-register-js btn-success px-5 mt-3 mr-2">Update</button>
 						</div>
                     </div>
                 </form>
