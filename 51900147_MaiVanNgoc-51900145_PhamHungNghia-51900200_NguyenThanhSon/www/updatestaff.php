@@ -28,14 +28,6 @@
 		$row = $result->fetch_assoc();
 	}
 
-	if(isset($_POST["update"])){
-		$sql = "UPDATE acccount set firstname = '$first', lastname = '$last', phone_number = '$phone',email = '$email', 
-			sex = '$sex', positionid = '$position', dapartment_name='$department' WHERE id = '$id'";
-		$conn = open_database();
-		$stm = $conn->prepare($sql);
-		$stm->execute();
-	}
-
 	$success = '';	
 	$error = '';
 	$first = '';	$first = $row["firstname"];
