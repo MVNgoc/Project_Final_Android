@@ -165,4 +165,23 @@
         }
         $conn->close();
     }
+
+    function updatestaff($username, $pass, $sex, $first, $last, $position, $department, $email, $phone, $day_off, $avatar,$id){
+        $hash = password_hash($pass, PASSWORD_BCRYPT);
+
+        $sql = 'UPDATE account SET username= ?, pass= ?, sex= ?, firstname= ?, lastname= ?, positionid= ? ,department_name= ?,
+            email =  ? ,phone_number= ? ,day_off= ? ,avatar= ?  WHERE id= ? ';
+
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+
+        $stm->bind_param('sssssisssiss',$username,$hash,$sex,$first,$last,$position,$department,$email,$phone,$day_off,$avatar,$id);
+
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Cập nhật nhân viên thành công');
+
+    }
 ?>

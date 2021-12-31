@@ -26,21 +26,18 @@
 		$stm = $conn -> prepare($sql);
 		$result = $conn-> query($sql);
 		$row = $result->fetch_assoc();
+		$first = $row["firstname"];
+		$last = $row["lastname"];
+		$phone = $row["phone_number"];
+		$email = $row["email"];
+		$user = $row["username"];
+		$department = $row["department_name"];
+		$sex = $row["sex"];
+		$position = $row["positionid"];
+		$id = $row["id"];
+		$avatar = $row["avatar"];
+		$dayoff = $row["day_off"];
 	}
-
-	$success = '';	
-	$error = '';
-	$first = '';	$first = $row["firstname"];
-	$last = '';		$last = $row["lastname"];
-	$phone = '';	$phone = $row["phone_number"];
-	$email = '';	$email = $row["email"];
-	$user = '';		$user = $row["username"];
-	$id = '';		$id = $row["id"];
-	$department = '';		$department = $row["department_name"];
-	$sex = '';				$sex = $row["sex"];
-	$position = '';			$position = $row["positionid"];
-	$pass = '';
-	$avatar = '';
 
 	if(isset($_POST['first']) && isset($_POST['last']) && isset($_POST['email']) && isset($_POST['user']) 
 	&& isset($_POST['id']) && isset($_POST['phone']) && isset($_POST['department']) && 
@@ -56,6 +53,8 @@
 		$sex = $_POST['sex'];
 		$position = $_POST['position'];
 		$pass = $user;
+		$day_off='';
+		$avatar='';
 
 		if($position == 1) {
 			$day_off = 15;
@@ -87,6 +86,13 @@
 		}
 		elseif(empty($department)){
 			$error = "Hãy nhập tên phòng ban";
+		}else{
+			$result = updatestaff($user,$pass,$sex,$first,$last,$position,$department,$email,$phone,$day_off,$avatar,$id);
+			if($result['code'] == 0){
+                $success = 'Cập nhật thành công .';
+			}else {
+                $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
+            }
 		}
 	}
 ?>
