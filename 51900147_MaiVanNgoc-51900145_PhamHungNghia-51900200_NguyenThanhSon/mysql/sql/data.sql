@@ -36,6 +36,9 @@ CREATE TABLE department (
 INSERT INTO account (id, username, pass, sex, firstname, lastname, positionid, department_name, email,`phone_number`, day_off, avatar) VALUES
 ('51900147', 'admin', '$2a$12$mmqKlIuYMv1CDbK8zBtaXO/4mzOYOupINHWcRZzzT/1K7oSEfitb6', 'Nam', 'Mai', 'Văn Ngọc', 3, 'Kế toán', 'mvngoc@gmail.com', '0337375401', 15, '');
 
+INSERT INTO department (id, department_name, department_description, room_number) VALUES
+('19050202', 'Marketing', 'Có làm thì mới có ăn', 'I402');
+
 ALTER TABLE tbl_position
   ADD PRIMARY KEY (id);
 
@@ -47,5 +50,12 @@ ALTER TABLE account
   ADD UNIQUE KEY email (email);
 
 ALTER TABLE account
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+ALTER TABLE department
+  ADD PRIMARY KEY (id),
+  ADD UNIQUE KEY department_name (department_name);
+
+ALTER TABLE department
   MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 COMMIT;
