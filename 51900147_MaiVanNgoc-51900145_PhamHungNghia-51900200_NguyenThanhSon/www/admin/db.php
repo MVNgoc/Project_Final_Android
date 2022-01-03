@@ -158,7 +158,7 @@
                             echo '<button type="submit" name="user-edit" class="btn-edit text-white" value="'. $row["username"] .'">Chỉnh sửa</button>';
                         echo '</form>';
                         echo '<form action="" method="POST">';
-						    echo '<button type="submit" name="user-delete" class="btn-delete text-white" value="'. $row["username"] .'">Xóa</button>';
+						    echo '<button type="submit" name="user-delete" class="btn-delete text-white deletebtn" value="'. $row["username"] .'">Xóa</button>';
                         echo '</form>';
 					echo '</td>';
 				echo '</tr>';
@@ -208,7 +208,7 @@
                                 echo '<button type="submit" name="room-edit" class="btn-edit text-white" value="'. $row["id"] .'">Chỉnh sửa</button>';
                             echo '</form>';
                             echo '<form action="" method="POST">';
-                                echo '<button type="submit" name="room-delete" class="btn-delete text-white" value="'. $row["id"] .'">Xóa</button>';
+                                echo '<button type="submit" name="room-delete" class="btn-delete text-white deletebtn" value="'. $row["id"] .'">Xóa</button>';
                             echo '</form>';
                         echo '</td>';
                 echo '</tr>';

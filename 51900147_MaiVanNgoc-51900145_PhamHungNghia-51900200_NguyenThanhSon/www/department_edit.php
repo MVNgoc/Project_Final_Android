@@ -222,7 +222,7 @@
                 <div class="choose-manager">
                     <h5 class="font-weight-bold text-color-blue">Chọn nhân viên</h5>
                     <?php 
-                        $sql = 'SELECT * FROM account WHERE department_name = ?';
+                        $sql = 'SELECT * FROM account WHERE department_name = ? and positionid !="3"';
                         $conn = open_database();
                         
                         $stm = $conn->prepare($sql);

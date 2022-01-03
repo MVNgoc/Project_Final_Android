@@ -53,6 +53,7 @@ $(document).ready(() => {
 	chooseManager_form.on("click", (event) => {
 		event.stopPropagation();
 	})
+
 })
 
 // function triggerClick() {
