@@ -28,7 +28,7 @@ CREATE TABLE account (
 
 
 INSERT INTO account (id, username, pass, sex, firstname, lastname, positionid, department_name, email,`phone_number`, day_off, avatar) VALUES
-('51900147', 'mvngoc288', '$2a$12$mmqKlIuYMv1CDbK8zBtaXO/4mzOYOupINHWcRZzzT/1K7oSEfitb6', 'Nam', 'Mai', 'Văn Ngọc', 1, 'Kế toán', 'mvngoc@gmail.com', '0337375401', 15, '');
+('51900147', 'admin', '$2a$12$mmqKlIuYMv1CDbK8zBtaXO/4mzOYOupINHWcRZzzT/1K7oSEfitb6', 'Nam', 'Mai', 'Văn Ngọc', 3, 'Kế toán', 'mvngoc@gmail.com', '0337375401', 15, '');
 
 ALTER TABLE tbl_position
   ADD PRIMARY KEY (id);
