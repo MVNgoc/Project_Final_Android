@@ -19,7 +19,31 @@
 
     require_once('./admin/db.php');
 
-
+    if(isset($_POST['room-view'])) {
+        $id = $_POST['room-view'];
+        $_SESSION['id_room'] = $id;
+        $sql = "SELECT * FROM department WHERE id = '$id' ";
+        $conn = open_database();
+		$stm = $conn -> prepare($sql);
+		$result = $conn-> query($sql);
+		$row = $result->fetch_assoc();
+        $department_name = $row['department_name'];
+        $manager_name = $row['manager_name'];
+        $department_description = $row['department_description'];
+        $room_number = $row['room_number'];
+    }
+    else {
+        $id = $_SESSION['id_room'];
+        $sql = "SELECT * FROM department WHERE id = '$id' ";
+        $conn = open_database();
+		$stm = $conn -> prepare($sql);
+		$result = $conn-> query($sql);
+		$row = $result->fetch_assoc();
+        $department_name = $row['department_name'];
+        $manager_name = $row['manager_name'];
+        $department_description = $row['department_description'];
+        $room_number = $row['room_number'];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -75,11 +99,11 @@
                     <div class="card-body">
                         <div class="account-settings">
                             <div class="position">
-                                <h5>Phòng Ban</h5>
-                                <p>Marketing</p>
+                                <h5 class="font-weight-bold">Phòng Ban</h5>
+                                <p class="font-size-m"><?= $department_name ?></p>
                                         
-                                <h5>Mô tả</h5>
-                                <p>Tính toán thu chi cho công ty</p>
+                                <h5 class="font-weight-bold">Mô tả</h5>
+                                <p class="font-size-m"><?= $department_description ?></p>
                             </div>
                         </div>
                     </div>
@@ -90,43 +114,69 @@
                     <div class="card-body">
                         <div class="row gutters">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mb-2 text-primary">Thông tin phòng ban</h6>
+                                <h6 class="mb-2 text-primary font-weight-bold">Thông tin phòng ban</h6>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Trưởng phòng:</label> 
-                                    
+                                    <label class="font-weight-bold">Trưởng phòng:</label> 
+                                    <p class="font-size-s"> <?= $manager_name ?> </p>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Số phòng:</label>  
-                                                        
+                                    <label class="font-weight-bold">Số phòng:</label>  
+                                    <p class="font-size-s"> <?= $room_number ?> </p>    
                                 </div>
                             </div>
                         </div>
 
                         <div class="row gutters">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mb-2 text-primary">Danh sách nhân viên</h6>
+                                <h6 class="mb-2 text-primary font-weight-bold">Danh sách nhân viên của phòng ban</h6>                          
                             </div>
                             
-                            
-
+                            <?php selectAllNameUser($department_name) ?>
                         </div>
                     </div>                   
+                    <div class="row gutters form-btn-submit">   
+                        <button class="btn btn-add-manager btn-placeholder-submit btn-success px-5 mt-3 mr-2">Chọn trưởng phòng</button>                                                                                                
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <?php
-        if (!empty($success)) {
-            echo "<div class='notification'>
-                    <div class='notification_success'>$success</div>
-                </div>";
-        }
-	?>
+    <div class='notification_chooseManager'>
+        <div class='chooseManager_form'>
+            <div class='notification_exit'>X</div>
+            <h4 class="font-weight-bold chooseManager_title">Chọn trưởng phòng</h4>
+            <div class="chooseManager_body">
+                <div class="info">
+                    <div class="depart">
+                        <h5 class="font-weight-bold text-color-blue">Phòng ban</h5>
+                        <p><?= $department_name ?></p>
+                    </div>
+                    <div class="num_room">
+                        <h5 class="font-weight-bold text-color-blue">Số phòng</h5>
+                        <p><?= $room_number ?></p>
+                    </div>
+                </div>
+    
+                <div class="choose-manager">
+                    <h5 class="font-weight-bold text-color-blue">Chọn nhân viên</h5>
+                    <select required name="manager-list" class="form-control" id="">
+                        <option value="">Mai Ngoc</option>
+                        <option value="">Mai Ngoc</option>
+                        <option value="">Mai Ngoc</option>
+                        <option value="">Mai Ngoc</option>
+                        <option value="">Mai Ngoc</option>
+                        <option value="">Mai Ngoc</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn btn-add-manager-form btn-placeholder-submit btn-success px-5 mt-3 mr-2">Lưu</button> 
+        </div>
+    </div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

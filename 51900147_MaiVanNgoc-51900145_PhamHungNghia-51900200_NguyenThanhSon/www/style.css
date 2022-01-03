@@ -15,6 +15,10 @@ html,body{
     color: #000;
 }
 
+.text-color-blue {
+    color:#007ae1 !important;
+}
+
 .card {
     height: auto;
     margin-top: 10%;
@@ -435,7 +439,11 @@ input:focus{
 }
 
 .font-size-s {
-    font-size: 0.9rem;
+    font-size: 0.9rem !important;
+}
+
+.font-size-m {
+    font-size: 1.1rem !important;
 }
 
 .profileform .form-btn-submit {
@@ -444,3 +452,78 @@ input:focus{
     margin-right: 15px;
 }
 /* End profile.php */
+
+/* department_view.php */
+.notification_chooseManager {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    justify-content: center;
+    display: none;
+}
+
+.open-addmanagerform {
+    display: flex;
+}
+
+.notification_chooseManager .chooseManager_form {
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    min-width: 600px;
+    height: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    /* text-align: center; */
+    padding: 50px 0 16px 0;
+    border-radius: 4px;
+    font-size: 17px;
+    animation: modalSlipDown linear 0.3s;
+}
+
+.notification_chooseManager .notification_exit {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 20px;
+    width: 45px;
+    height: 40px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.notification_chooseManager .notification_exit:hover {
+    cursor: pointer;
+    opacity: 0.6;
+    background-color: rgb(231, 231, 231);
+}
+
+.notification_chooseManager .info {
+    width: calc(100%/ 2);
+    /* padding-left: 16px; */
+}
+
+.notification_chooseManager .chooseManager_title {
+    text-align: center;
+    color:#007ae1;
+    margin-bottom: 30px;
+}
+
+.notification_chooseManager .chooseManager_body {
+    display: flex;
+    padding: 0 14px;
+    text-align: center;
+}
+
+.notification_chooseManager .choose-manager {
+    width: calc(100%/ 2);
+    margin: 0;
+}
+
+.notification_chooseManager .btn-add-manager-form {
+    float: right;
+    margin-right: 14px !important;
+}
+/* End department_view.php */

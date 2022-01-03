@@ -129,12 +129,12 @@
                                 <h5 class="user-name"><?= $_SESSION["username"] ?></h5>
                             </div>
                             <div class="position">
-                                <h5>Chức vụ</h5>
+                                <h5 class="font-weight-bold">Chức vụ</h5>
                                 
-                                <p><?= $position ?></p>
+                                <p class="font-size-s"><?= $position ?></p>
                                         
-                                <h5>Phòng ban</h5>
-                                <p><?= $_SESSION['department_name'] ?></p>
+                                <h5 class="font-weight-bold">Phòng ban</h5>
+                                <p class="font-size-s"><?= $_SESSION['department_name'] ?></p>
 
                                 <?php if(!empty($msg)): ?>
                                     <div class="alert <?php echo  $css_class;?>">
@@ -151,40 +151,40 @@
                     <div class="card-body">
                         <div class="row gutters">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mb-2 text-primary">Thông tin cá nhân</h6>
+                                <h6 class="mb-2 text-primary font-weight-bold">Thông tin cá nhân</h6>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>ID:</label> 
+                                    <label class="font-weight-bold">ID:</label> 
                                     <p class="font-size-s"><?= $_SESSION['id'] ?></p>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Họ và tên:</label>  
+                                    <label class="font-weight-bold">Họ và tên:</label>  
                                     <p class="font-size-s"><?= $_SESSION['firstname']." ". $_SESSION['lastname'] ?></p>                    
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Giới tính:</label>
+                                    <label class="font-weight-bold">Giới tính:</label>
                                     <p class="font-size-s"><?= $_SESSION['sex'] ?></p>
                                 </div>
                             </div>
                         </div>
                         <div class="row gutters">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mt-3 mb-2 text-primary">Địa chỉ liên lạc</h6>
+                                <h6 class="mt-3 mb-2 text-primary font-weight-bold">Địa chỉ liên lạc</h6>
                             </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Email:</label>
+                                        <label class="font-weight-bold">Email:</label>
                                         <p class="font-size-s"><?= $_SESSION['email'] ?></p>                          
                                     </div>                                 
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>SĐT:</label> 
+                                        <label class="font-weight-bold">SĐT:</label> 
                                         <p class="font-size-s"><?= $_SESSION['phone_number'] ?></p>                                 
                                     </div>
                                 </div>

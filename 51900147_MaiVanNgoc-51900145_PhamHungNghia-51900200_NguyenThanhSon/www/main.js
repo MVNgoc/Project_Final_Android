@@ -33,6 +33,26 @@ $(document).ready(() => {
 	btn_placeholder_submit.on("click", function() {
 		btn_submit.click();
 	})
+
+	const btn_add_manager = $(".btn-add-manager");
+	const notification_chooseManager = $(".notification_chooseManager");
+	btn_add_manager.on("click", function() {
+		notification_chooseManager.toggleClass("open-addmanagerform");
+	})
+
+	const notification_exit = $(".notification_exit");
+	const chooseManager_form = $(".chooseManager_form");
+	notification_exit.on("click", function() {
+		notification_chooseManager.toggleClass("open-addmanagerform");
+	})
+
+	notification_chooseManager.on("click", function() {
+		notification_chooseManager.toggleClass("open-addmanagerform");
+	})
+
+	chooseManager_form.on("click", (event) => {
+		event.stopPropagation();
+	})
 })
 
 // function triggerClick() {

@@ -278,4 +278,27 @@
         return array('code' => 0,'error' => 'Thêm phòng ban thành công');
 
     }
+
+    function selectAllNameUser($department_name){
+        $sql = 'SELECT * FROM account WHERE department_name = ? ORDER BY department_name DESC';
+        $conn = open_database();
+        
+        $stm = $conn->prepare($sql);
+        $stm->bind_param('s',$department_name);
+        if(!$stm->execute()){
+            die('Query error: ' . $stm->error);
+        }
+        
+        $result = $stm->get_result();
+        if($result-> num_rows > 0){
+            while($row = $result-> fetch_assoc()){
+                echo '<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <p>'. $row["firstname"] . ' ' . $row["lastname"] .'</p>                              
+                        </div>
+                    </div>';
+            }
+        }
+        $conn->close();
+    }
 ?>
