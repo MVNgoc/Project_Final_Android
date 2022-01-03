@@ -147,7 +147,7 @@
     </div>
 
     <div class='notification_chooseManager'>
-        <div class='chooseManager_form'>
+        <form action="" method="POST" class='chooseManager_form'>
             <div class='notification_exit'>X</div>
             <h4 class="font-weight-bold chooseManager_title">Chọn trưởng phòng</h4>
             <div class="chooseManager_body">
@@ -174,7 +174,10 @@
                     </select>
                 </div>
             </div>
-            <button class="btn btn-add-manager-form btn-placeholder-submit btn-success px-5 mt-3 mr-2">Lưu</button> 
+            <button type="submit" class="btn btn-add-manager-form btn-placeholder-submit btn-success px-5 mt-3 mr-2">Lưu</button> 
+        </form>
+        <div class='chooseManager_form'>
+            
         </div>
     </div>
 
