@@ -66,7 +66,7 @@
 					<?php
 						if($_SESSION['positionid'] == 3) {
 							echo '<li class="nav-item">
-									<a class="nav-link" href="phongban.php">Quản lý phòng ban</a>
+									<a class="nav-link" href="#">Quản lý phòng ban</a>
 								</li>';
 						}
 					?>
