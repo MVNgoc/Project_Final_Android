@@ -195,11 +195,15 @@
 					</div>
 
 					<div class="form-group">
-						<label for="position">Chọn chức vụ</label>
-						<select class="form-control" id="position" name="position">
-						<option <?php if($position=="1") echo"selected"; ?> value="1">Trưởng phòng</option>
-						<option <?php if($position=="2") echo"selected"; ?> value="2">Nhân viên</option>
-						</select>
+						<label for="position">Chức vụ</label>
+
+						<?php 
+							if($position=="2"){
+								echo '<input value="Nhân viên" id="position" name="position" required class="form-control" readonly>';
+							}else{
+								echo '<input value="Trưởng phòng" id="position" name="position" required class="form-control" readonly>';
+							}
+						?>
 					</div>
 
                     <div class="form-group">
