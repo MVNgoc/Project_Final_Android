@@ -185,4 +185,37 @@
         return array('code' => 0,'error' => 'Cập nhật nhân viên thành công');
 
     }
+
+    function selectAllRoom(){
+        $sql = 'SELECT * FROM department';
+        $conn = open_database();
+        $result = $conn-> query($sql);
+        $stt = 1;
+
+        if($result-> num_rows > 0){
+            while($row = $result-> fetch_assoc()){
+                echo "<tr>";
+                        echo "<td>" . $stt . "</td>";
+                        echo "<td>". $row["department_name"]."</td>";
+                        echo "<td>". $row["room_number"] ."</td>";
+                        echo "<td>". $row["department_description"] ."</td>";
+                        echo "<td></td>";
+                        echo '<td class="list-btn">';
+                            echo '<form action="" method="POST">';
+                                echo '<button class="btn-view text-white" name="user-view" value="'. $row["id"] .'">Xem</button>';
+                            echo '</form>';
+                            echo '<form action="" method="POST">';
+                                echo '<button type="submit" name="user-edit" class="btn-edit text-white" value="'. $row["id"] .'">Chỉnh sửa</button>';
+                            echo '</form>';
+                            echo '<form action="" method="POST">';
+                                echo '<button type="submit" name="user-delete" class="btn-delete text-white" value="'. $row["id"] .'">Xóa</button>';
+                            echo '</form>';
+                        echo '</td>';
+                echo '</tr>';
+                $stt++;
+
+            }
+        }
+        $conn->close();
+    }
 ?>

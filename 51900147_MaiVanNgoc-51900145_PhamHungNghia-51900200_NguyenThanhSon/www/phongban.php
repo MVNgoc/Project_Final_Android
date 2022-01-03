@@ -13,15 +13,6 @@
 		header('Location: changepassword.php');
 		exit(); // Chuyển đến trang thay đổi mật khẩu
 	}
-
-	if(isset($_POST["user-delete"])){
-		$user = $_POST["user-delete"];
-        $sql = "DELETE FROM account WHERE username = '$user'";
-        $conn = open_database();
-        $stm = $conn->prepare($sql);
-        $stm->execute();
-	}
-
 ?>
 
 <!DOCTYPE html>
@@ -75,9 +66,9 @@
 			if($_SESSION['positionid'] == 3) {
 				echo '<div class="body">
 						<div class="header-body">
-							<h3 class="user-list-header" style="margin-bottom:0">Danh sách nhân viên</h3>
-							<form class="add-staff-form" action="addstaff.php">
-								<button class="add-staff text-white" type="submit">+ Thêm nhân viên</button>
+							<h3 class="user-list-header" style="margin-bottom:0">Danh sách phòng ban</h3>
+							<form class="add-staff-form" action="addroom.php">
+								<button class="add-staff text-white" type="submit">+ Thêm phòng ban</button>
 							</form>
 							<div class="search">
 								<label for="search-staff" class="search-lable">Tìm kiếm</label>
@@ -88,16 +79,16 @@
 							<thead>
 								<tr>
 									<th  class="text-center">STT</th>
-									<th  class="text-center">Tên</th>
-									<th  class="text-center">Chức vụ</th>
-									<th  class="text-center">Phòng ban</th>
-									<th  class="text-center">Email</th>
+									<th  class="text-center">Tên phòng ban</th>
+									<th  class="text-center">Số phòng</th>
+									<th  class="text-center">Mô tả</th>
+                                    <th  class="text-center">Trưởng phòng</th>
 									<th  class="text-center">Hoạt động</th>
 								</tr>
 							</thead>
 							<tbody> '
 								?><?php
-									selectAlluser();
+									selectAllRoom();
 								?> <?php '
 							</tbody>
 						</table>

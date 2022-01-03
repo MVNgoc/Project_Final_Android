@@ -116,9 +116,6 @@
 
 <body>
 
-	<?php	
-		
-	?>
 	<header class="header">
 		<nav class="navbar navbar-expand-sm bg-light">
 			<div class="tdtu-img">
