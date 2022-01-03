@@ -87,12 +87,12 @@
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link" href="#">Hồ sơ</a>
+					<a class="nav-link" href="profile.php">Hồ sơ</a>
 				</li>
 				<?php
                     if($_SESSION['positionid'] == 3) {
                         echo '<li class="nav-item">
-                                <a class="nav-link" href="#">Quản lý phòng ban</a>
+                                <a class="nav-link" href="phongban.php">Quản lý phòng ban</a>
                             </li>';
                     }   
 				?>
@@ -132,7 +132,7 @@
                                 <h5>Chức vụ</h5>
                                 
                                 <p><?= $position ?></p>
-
+                                        
                                 <h5>Phòng ban</h5>
                                 <p><?= $_SESSION['department_name'] ?></p>
 

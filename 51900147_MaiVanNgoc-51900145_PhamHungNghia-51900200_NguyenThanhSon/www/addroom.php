@@ -11,6 +11,49 @@
 		header('Location: changepassword.php');
 		exit();; // Chuyển đến trang thay đổi mật khẩu
 	}
+
+	if ($_SESSION['positionid'] != 3) {
+        header('Location: index.php');
+        exit();
+    }
+	
+	require_once('./admin/db.php');
+
+	$success = '';
+	$error = '';
+	$name = '';
+	$room = '';
+	$desciption = '';
+
+	if(isset($_POST['name']) && isset($_POST['room']) && isset($_POST['description'])){
+
+		$name = $_POST['name'];
+		$room = $_POST['room'];
+		$desciption = $_POST['description'];
+
+		if(empty($name)){
+			$error = 'Hãy nhập tên phòng ban';
+		}else if(empty($room)){
+			$error = 'Hãy nhập số phòng';
+		}else if(empty($desciption)){
+			$error = 'Hãy nhập mô tả';
+		}else{
+			$result = createRoom($name,$room,$desciption);
+			if($result['code'] == 0){
+                $success = 'Đã thêm thành công một phòng ban mới.';
+				$name = false;
+				$room = false;
+				$desciption = false;
+            }else if ($result['code'] == 1){
+                $error = 'Số phòng này bị trùng';
+            }else if ($result['code'] == 3){
+                $error = 'Tên phòng ban đã tồn tại';
+            }else {
+                $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
+            }
+		}
+
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,10 +82,10 @@
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link" href="#">Hồ sơ</a>
+					<a class="nav-link" href="profile.php">Hồ sơ</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Quản lý phòng ban</a>
+					<a class="nav-link" href="phongban.php">Quản lý phòng ban</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="logout.php">Đăng xuất</a>
@@ -62,15 +105,15 @@
                 <form method="post" action="" novalidate>
                     <div class="form-group">
                         <label for="name">Tên phòng ban</label>
-                        <input value="" name="name" required class="form-control" type="name" placeholder="Phòng ban" id="name">
+                        <input value="<?= $name ?>" name="name" required class="form-control" type="name" placeholder="Phòng ban" id="name">
                     </div>
                     <div class="form-group">
                         <label for="room">Số phòng</label>
-                        <input value="" name="room" required class="form-control" type="text" placeholder="Số phòng" id="room">
+                        <input value="<?= $room ?>" name="room" required class="form-control" type="text" placeholder="Số phòng" id="room">
                     </div>
 					<div class="form-group">
                         <label for="description">Mô tả</label>
-                        <input value="" name="description" required class="form-control" type="text" placeholder="Mô tả" id="description">
+                        <input value="<?= $desciption ?>" name="description" required class="form-control" type="text" placeholder="Mô tả" id="description">
                     </div>
 					
 
@@ -88,7 +131,7 @@
                                 echo "<div class='alert alert-danger'>$error</div>";
                             }
                         ?>
-                        <button type="submit" class="btn btn-register-js btn-success px-5 mt-3 mr-2">Register</button>
+                        <button type="submit" class="btn btn-register-js btn-success px-5 mt-3 mr-2">Add</button>
                         <button type="reset" class="btn btn-success px-5 mt-3 mr-2">Reset</button>
                     </div>
                 </form>

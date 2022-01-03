@@ -6,6 +6,16 @@
         exit();
     }
 
+	if($_SESSION['pwd'] == $_SESSION['username']) {
+		header('Location: changepassword.php');
+		exit();; // Chuyển đến trang thay đổi mật khẩu
+	}
+
+	if ($_SESSION['positionid'] != 3) {
+        header('Location: index.php');
+        exit();
+    }
+
 	require_once('./admin/db.php');
 
 	//nếu chưa thay đổi pass thì sẽ không truy cập được vào trang index mà sẽ bị chuyển hướng vế trang đổi mật khẩu
@@ -13,6 +23,15 @@
 		header('Location: changepassword.php');
 		exit(); // Chuyển đến trang thay đổi mật khẩu
 	}
+
+    if(isset($_POST["room-delete"])){
+		$id = $_POST["room-delete"];
+        $sql = "DELETE FROM department WHERE id = '$id'";
+        $conn = open_database();
+        $stm = $conn->prepare($sql);
+        $stm->execute();
+	}
+
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +57,7 @@
 				<!-- Links -->
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link" href="#">Trang chủ</a>
+						<a class="nav-link" href="login.php">Trang chủ</a>
 					</li>
 
 					<li class="nav-item">
