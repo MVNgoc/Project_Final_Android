@@ -202,13 +202,13 @@
                         echo "<td></td>";
                         echo '<td class="list-btn">';
                             echo '<form action="" method="POST">';
-                                echo '<button class="btn-view text-white" name="user-view" value="'. $row["id"] .'">Xem</button>';
+                                echo '<button class="btn-view text-white" name="room-view" value="'. $row["id"] .'">Xem</button>';
                             echo '</form>';
                             echo '<form action="" method="POST">';
-                                echo '<button type="submit" name="user-edit" class="btn-edit text-white" value="'. $row["id"] .'">Chỉnh sửa</button>';
+                                echo '<button type="submit" name="room-edit" class="btn-edit text-white" value="'. $row["id"] .'">Chỉnh sửa</button>';
                             echo '</form>';
                             echo '<form action="" method="POST">';
-                                echo '<button type="submit" name="user-delete" class="btn-delete text-white" value="'. $row["id"] .'">Xóa</button>';
+                                echo '<button type="submit" name="room-delete" class="btn-delete text-white" value="'. $row["id"] .'">Xóa</button>';
                             echo '</form>';
                         echo '</td>';
                 echo '</tr>';
@@ -217,5 +217,65 @@
             }
         }
         $conn->close();
+    }
+
+    function is_roomname_exists($department_name){
+        $sql = "select department_name from department where department_name = ?";
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+        $stm->bind_param('s',$department_name);
+        if(!$stm->execute()){
+            die('Query error: ' . $stm->error);
+        }
+
+        $result = $stm->get_result();
+        if($result->num_rows > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function is_roomnumber_exists($room_number){
+        $sql = "select room_number from department where room_number = ?";
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+        $stm->bind_param('s',$room_number);
+        if(!$stm->execute()){
+            die('Query error: ' . $stm->error);
+        }
+
+        $result = $stm->get_result();
+        if($result->num_rows > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    function createRoom($department_name, $department_description, $room_number){
+        if(is_roomname_exists($department_name)){
+            return array('code' => 3,  'error' => 'Tên phòng ban đã tồn tại');
+        }
+        if(is_roomnumber_exists($room_number)){
+            return array('code' => 1,  'error' => 'Số phòng bị trùng');
+        }
+
+        $sql = 'INSERT INTO department (department_name,department_description,room_number) values(?,?,?)';
+
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+
+        $stm->bind_param('sss',$department_name, $department_description, $room_number);
+
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Thêm phòng ban thành công');
+
     }
 ?>

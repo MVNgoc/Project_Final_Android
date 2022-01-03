@@ -13,6 +13,15 @@
 		header('Location: changepassword.php');
 		exit(); // Chuyển đến trang thay đổi mật khẩu
 	}
+
+    if(isset($_POST["room-delete"])){
+		$id = $_POST["room-delete"];
+        $sql = "DELETE FROM department WHERE id = '$id'";
+        $conn = open_database();
+        $stm = $conn->prepare($sql);
+        $stm->execute();
+	}
+
 ?>
 
 <!DOCTYPE html>
