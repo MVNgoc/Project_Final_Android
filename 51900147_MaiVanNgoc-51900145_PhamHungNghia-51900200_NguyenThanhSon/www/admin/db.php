@@ -151,7 +151,7 @@
 					echo "<td>". $row["department_name"] ."</td>";
 					echo "<td>". $row["email"] ."</td>";
 					echo '<td class="list-btn">';
-                        echo '<form action="profile.php" method="POST">';
+                        echo '<form action="viewprofile.php" method="POST">';
                             echo '<button class="btn-view text-white" name="user-view" value="'. $row["username"] .'">Xem</button>';
                         echo '</form>';
                         echo '<form action="updatestaff.php" method="POST">';

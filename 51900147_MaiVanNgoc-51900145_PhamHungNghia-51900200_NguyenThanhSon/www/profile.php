@@ -10,8 +10,6 @@
 		exit();; // Chuyển đến trang thay đổi mật khẩu
 	}
 
-    $position = '';
-
     require_once('./admin/db.php');
 
     $msg = "";
@@ -39,46 +37,28 @@
         }
     }
 
-    if(isset($_POST["user-view"])){
-		$name = $_POST["user-view"];
-		$sql = "SELECT * FROM account WHERE username = '$name' ";
-		$conn = open_database();
-		$stm = $conn -> prepare($sql);
-		$result = $conn-> query($sql);
-		$row = $result->fetch_assoc();
-        $name = $row["firstname"] . " " . $row["lastname"];
-		$phone = $row["phone_number"];
-		$email = $row["email"];
-		$user = $row["username"];
-		$department = $row["department_name"];
-		$sex = $row["sex"];
-		$positionid = $row["positionid"];
-		$id = $row["id"];
-		$avatar = $row["avatar"];
-	}
+    $user = $_SESSION['username'];
+    $pass = $_SESSION['pwd'];
+    $data = login($user, $pass);
+    if($data['code'] == 0) {
+        $avatar = $data['avatar'];
+    }
     else {
-        $positionid = $_SESSION['positionid'];
-        $user = $_SESSION['username'];
-        $pass = $_SESSION['pwd'];
-        $data = login($user, $pass);
-        if($data['code'] == 0) {
-            $avatar = $data['avatar'];
-        }
-        else {
-            $error = $data['error'];
-        }
+        $error = $data['error'];
     }
 
-    if($positionid == 1)
-        {
-            $position = 'Trưởng phòng';
-        }else if($positionid == 2)
-        {
-            $position = 'Nhân viên';
-        }
-        else {
-            $position = 'Giám đốc';
-        }
+    $position = '';
+
+    if($_SESSION['positionid'] == 1)
+    {
+        $position = 'Trưởng phòng';
+    }else if($_SESSION['positionid'] == 2)
+    {
+        $position = 'Nhân viên';
+    }
+    else {
+        $position = 'Giám đốc';
+    }
 ?>
 
 <!DOCTYPE html>
@@ -146,14 +126,7 @@
                                     <input type="file" name="file" class="avatar" onchange="displayImage(this)" accept="image/png, image/jpeg" style="display:none">   
                                     <button type="submit" name="submit-avatar" class="btn btn-submit btn-success px-5 mt-3 mr-2" style="display:none">Lưu</button>                           
                                 </form>
-                                <?php
-                                    if(isset($_POST["user-view"])) {
-                                        echo '<h5 class="user-name">' . $user . '</h5>';
-                                    }
-                                    else {
-                                        echo '<h5 class="user-name">' . $_SESSION["username"] . '</h5>';
-                                    }
-                                ?>
+                                <h5 class="user-name"><?= $_SESSION["username"] ?></h5>
                             </div>
                             <div class="position">
                                 <h5>Chức vụ</h5>
@@ -161,15 +134,7 @@
                                 <p><?= $position ?></p>
 
                                 <h5>Phòng ban</h5>
-
-                                <?php
-                                    if(isset($_POST["user-view"])) {
-                                        echo '<p>' . $department . '</p>';
-                                    }
-                                    else {
-                                        echo '<p>' . $_SESSION['department_name'] . '</p>';
-                                    }
-                                ?>
+                                <p><?= $_SESSION['department_name'] ?></p>
 
                                 <?php if(!empty($msg)): ?>
                                     <div class="alert <?php echo  $css_class;?>">
@@ -190,41 +155,20 @@
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label for="fullName">ID:</label> 
-                                    <?php
-                                        if(isset($_POST["user-view"])) {
-                                            echo '<p class="font-size-s">' . $id . '</p>';
-                                        }
-                                        else {
-                                            echo '<p class="font-size-s">' . $_SESSION['id'] . '</p>';
-                                        }
-                                    ?>  
+                                    <label>ID:</label> 
+                                    <p class="font-size-s"><?= $_SESSION['id'] ?></p>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label for="fullName">Họ và tên:</label>  
-                                    <?php
-                                        if(isset($_POST["user-view"])) {
-                                            echo '<p class="font-size-s">' . $name . '</p>';
-                                        }
-                                        else {
-                                            echo '<p class="font-size-s">' . $_SESSION['firstname']." ". $_SESSION['lastname'] . '</p>';
-                                        }
-                                    ?>                      
+                                    <label>Họ và tên:</label>  
+                                    <p class="font-size-s"><?= $_SESSION['firstname']." ". $_SESSION['lastname'] ?></p>                    
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label for="eMail">Giới tính:</label>
-                                    <?php
-                                        if(isset($_POST["user-view"])) {
-                                            echo '<p class="font-size-s">' . $sex . '</p>';
-                                        }
-                                        else {
-                                            echo '<p class="font-size-s">' . $_SESSION['sex'] . '</p>';
-                                        }
-                                    ?>
+                                    <label>Giới tính:</label>
+                                    <p class="font-size-s"><?= $_SESSION['sex'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -234,49 +178,24 @@
                             </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="eMail">Email:</label>
-                                        <?php
-                                            if(isset($_POST["user-view"])) {
-                                                echo '<p class="font-size-s">' . $email . '</p>';
-                                            }
-                                            else {
-                                                echo '<p class="font-size-s">' . $_SESSION['email'] . '</p>';
-                                            }
-                                        ?>                            
+                                        <label>Email:</label>
+                                        <p class="font-size-s"><?= $_SESSION['email'] ?></p>                          
                                     </div>                                 
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="phone">SĐT:</label> 
-                                        <?php
-                                            if(isset($_POST["user-view"])) {
-                                                echo '<p class="font-size-s">' . $phone . '</p>';
-                                            }
-                                            else {
-                                                echo '<p class="font-size-s">' . $_SESSION['phone_number'] . '</p>';
-                                            }
-                                        ?>                                  
+                                        <label>SĐT:</label> 
+                                        <p class="font-size-s"><?= $_SESSION['phone_number'] ?></p>                                 
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <?php
-                            if(isset($_POST["user-view"])) {
-                                echo '<div class="row gutters form-btn-submit">   
-                                        <form action=" " method="POST">
-                                            <button type="submit" name="reset-pass" class="btn btn-placeholder-submit btn-success px-5 mt-3 mr-2">Reset Password</button>                                                                                                                                             
-                                        </form>
-                                    </div>';
-                            }
-                            else {
-                                echo '<div class="row gutters form-btn-submit">   
-                                        <button type="submit" name="submit-avatar" class="btn btn-placeholder-submit btn-success px-5 mt-3 mr-2">Lưu</button>                          
-                                        <form action="changepassword.php" class="changepass-form">
-                                            <button type="submit" class="btn btn-changepass btn-success px-5 mt-3 mr-2">Đổi mật khẩu</button>
-                                        </form>                                                                       
-                                    </div>';
-                            }
-                        ?>
+                        <div class="row gutters form-btn-submit">   
+                            <button type="submit" name="submit-avatar" class="btn btn-placeholder-submit btn-success px-5 mt-3 mr-2">Lưu</button>                          
+                            <form action="changepassword.php" class="changepass-form">
+                                <button type="submit" class="btn btn-changepass btn-success px-5 mt-3 mr-2">Đổi mật khẩu</button>
+                            </form>                                                                       
+                        </div>
                     </div>                   
                 </div>
             </div>
