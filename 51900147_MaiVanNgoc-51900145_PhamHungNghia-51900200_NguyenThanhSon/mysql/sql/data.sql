@@ -35,7 +35,9 @@ CREATE TABLE department (
 );
 
 INSERT INTO account (id, username, pass, sex, firstname, lastname, positionid, department_name, email,`phone_number`, day_off, avatar) VALUES
-('51900147', 'admin', '$2a$12$mmqKlIuYMv1CDbK8zBtaXO/4mzOYOupINHWcRZzzT/1K7oSEfitb6', 'Nam', 'Mai', 'Văn Ngọc', 3, 'Kế toán', 'mvngoc@gmail.com', '0337375401', 15, '');
+('51900147', 'admin', '$2a$12$8CtP3.iNTmGI.j7J/gipzuo.GByjjRX7dhaGasw/dME80d71tuQN6', 'Nam', 'Mai', 'Văn Ngọc', 3, 'Marketing', 'mvngoc@gmail.com', '0337375401', null, ''),
+('51900145', 'hungnghia', '$2a$12$jJDsE0y3FCZDBfQHUUJBVuikkJ.DQtMBlaRoH9kj2dhETTeBUssD.', 'Nam', 'Phạm', 'Hùng Nghĩa', 1, 'Marketing', 'hungnghia@gmail.com', '0337375402', 15, ''),
+('51900200', 'thanhson', '$2a$12$B1IIlvosaj6uXvSDAQypGepQKbaSCRHgtw5bYT1I3z/FbYmKvVWyS', 'Nam', 'Nguyễn', 'Thanh Sơn', 2, 'Marketing', 'thanhson@gmail.com', '0337375403', 15, '');
 
 INSERT INTO department (id, department_name, manager_name, department_description, room_number) VALUES
 ('19050202', 'Marketing', '', 'Có làm thì mới có ăn', 'I402');
