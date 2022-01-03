@@ -82,6 +82,7 @@
 									<th  class="text-center">Tên phòng ban</th>
 									<th  class="text-center">Số phòng</th>
 									<th  class="text-center">Mô tả</th>
+                                    <th  class="text-center">Trưởng phòng</th>
 									<th  class="text-center">Hoạt động</th>
 								</tr>
 							</thead>
