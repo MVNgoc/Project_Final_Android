@@ -29,6 +29,7 @@ CREATE TABLE account (
 CREATE TABLE department (
   id varchar(15) NOT NULL,
   department_name varchar(64) NOT NULL,
+  manager_name varchar(64) COLLATE utf8_unicode_ci,
   department_description varchar(255) NOT NULL,
   room_number varchar(64) NOT NULL
 );
@@ -36,8 +37,8 @@ CREATE TABLE department (
 INSERT INTO account (id, username, pass, sex, firstname, lastname, positionid, department_name, email,`phone_number`, day_off, avatar) VALUES
 ('51900147', 'admin', '$2a$12$mmqKlIuYMv1CDbK8zBtaXO/4mzOYOupINHWcRZzzT/1K7oSEfitb6', 'Nam', 'Mai', 'Văn Ngọc', 3, 'Kế toán', 'mvngoc@gmail.com', '0337375401', 15, '');
 
-INSERT INTO department (id, department_name, department_description, room_number) VALUES
-('19050202', 'Marketing', 'Có làm thì mới có ăn', 'I402');
+INSERT INTO department (id, department_name, manager_name, department_description, room_number) VALUES
+('19050202', 'Marketing', '', 'Có làm thì mới có ăn', 'I402');
 
 ALTER TABLE tbl_position
   ADD PRIMARY KEY (id);

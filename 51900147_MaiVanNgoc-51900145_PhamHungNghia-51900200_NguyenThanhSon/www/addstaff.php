@@ -47,16 +47,7 @@
 		$sex = $_POST['sex'];
 		$position = $_POST['position'];
 		$pass = $user;
-
-		if($position == 1) {
-			$day_off = 15;
-		}
-		else if($position == 2) {
-			$day_off = 12;
-		}
-		else {
-			$day_off = '';
-		}
+		$day_off = 12;
 
 		if(empty($first)){
 			$error = 'Hãy nhập họ';
@@ -80,7 +71,7 @@
 			$error = "Hãy nhập tên phòng ban";
 		}
 		else {
-			$result = register($id,$user, $pass, $sex, $first, $last, $position, $department, $email, $phone, $day_off, $avatar);
+			$result = register($id,$user, $pass, $sex, $first, $last, 2, $department, $email, $phone, $day_off, $avatar);
 			if($result['code'] == 0){
                 $success = 'Đã thêm thành công một nhân viên mới.';
 				$first = false;
@@ -194,11 +185,8 @@
 					</div>
 
 					<div class="form-group">
-						<label for="position">Chọn chức vụ</label>
-						<select class="form-control" id="position" name="position">
-						<option value="1">Trưởng phòng</option>
-						<option value="2">Nhân viên</option>
-						</select>
+						<label for="position">Chức vụ</label>
+						<input value="Nhân viên" id="position" name="position" required class="form-control" readonly>
 					</div>
 
                     <div class="form-group">

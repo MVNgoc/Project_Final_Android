@@ -197,9 +197,9 @@
                 echo "<tr>";
                         echo "<td>" . $stt . "</td>";
                         echo "<td>". $row["department_name"]."</td>";
+                        echo "<td>" . $row["manager_name"]. "</td>";
                         echo "<td>". $row["room_number"] ."</td>";
                         echo "<td>". $row["department_description"] ."</td>";
-                        echo "<td></td>";
                         echo '<td class="list-btn">';
                             echo '<form action="" method="POST">';
                                 echo '<button class="btn-view text-white" name="room-view" value="'. $row["id"] .'">Xem</button>';
@@ -264,7 +264,7 @@
             return array('code' => 1,  'error' => 'Số phòng bị trùng');
         }
 
-        $sql = 'INSERT INTO department (department_name,department_description,room_number) values(?,?,?)';
+        $sql = 'INSERT INTO department (department_name, room_number,department_description) values(?,?,?)';
 
         $conn = open_database();
 
