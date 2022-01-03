@@ -117,14 +117,6 @@
                     </div>
 					
 
-					<div class="form-group">
-						<label for="position">Chọn trưởng phòng</label>
-						<select class="form-control" id="position" name="position">
-						<option value="1">Trưởng phòng</option>
-						<option value="2">Nhân viên</option>
-						</select>
-					</div>
-
                     <div class="form-group">
                         <?php
                             if (!empty($error)) {

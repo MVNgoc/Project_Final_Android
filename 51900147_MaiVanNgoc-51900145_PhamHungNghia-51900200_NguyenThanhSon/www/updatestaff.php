@@ -52,19 +52,9 @@
 		$id = $_POST['id'];
 		$department = $_POST['department'];
 		$sex = $_POST['sex'];
-		$position = $_POST['position'];
 		$day_off='';
 		$avatar='';
-
-		if($position == 1) {
-			$day_off = 15;
-		}
-		else if($position == 2) {
-			$day_off = 12;
-		}
-		else {
-			$day_off = 0;
-		}
+		$day_off = 12;
 
 		if(empty($first)){
 			$error = 'Hãy nhập họ';
@@ -84,10 +74,8 @@
 		elseif(empty($phone)){
 			$error = "Hãy nhập số điện thoại";
 		}
-		elseif(empty($department)){
-			$error = "Hãy nhập tên phòng ban";
-		}else{
-			$result = updatestaff($user,$sex,$first,$last,$position,$department,$email,$phone,$day_off,$avatar,$id);
+		else{
+			$result = updatestaff($user,$sex,$first,$last,2,$department,$email,$phone,$day_off,$avatar,$id);
 			if($result['code'] == 0){
                 $success = 'Cập nhật thành công .';
 			}else {
@@ -129,10 +117,10 @@
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link" href="#">Hồ sơ</a>
+					<a class="nav-link" href="profile.php">Hồ sơ</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Quản lý phòng ban</a>
+					<a class="nav-link" href="phongban.php">Quản lý phòng ban</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="logout.php">Đăng xuất</a>
@@ -176,10 +164,29 @@
                         <label for="phone">Số điện thoại</label>
                         <input value="<?php echo $phone; ?>" name="phone" required class="form-control" type="text" placeholder="Số điện thoại" id="phone">
                     </div>
+					
 					<div class="form-group">
                         <label for="department">Phòng ban</label>
-                        <input value="<?php echo $department;  ?>" name="department" required class="form-control" type="text" placeholder="Tên phòng ban" id="department">
+                        <?php 
+							$sql = 'SELECT department_name FROM department';
+							$conn = open_database();
+        					$result = $conn-> query($sql);
+							$dbselected = $department;
+							echo '<select required class="form-control" name="department">';
+								if($result->num_rows > 0){
+									while($row = $result->fetch_array()){
+										if($row["department_name"] != $dbselected){
+											echo '<option value="'.$row["department_name"].'">'.$row["department_name"].'</option>';
+										}else{
+											echo '<option value="'.$row["department_name"].'"selected>'.$row["department_name"].'</option>';
+										}
+										
+									}
+								}
+							echo '</select>';
+						?>
                     </div>
+
 					<div class="form-group">
 						<label for="sex">Giới Tính</label>
 						<div class="form-row">
