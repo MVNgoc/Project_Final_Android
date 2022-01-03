@@ -15,17 +15,11 @@
 	}
 
 	if(isset($_POST["user-delete"])){
-		$userid = $_POST["user-delete"];
-        $sql = "DELETE FROM account WHERE id = '$userid'";
+		$user = $_POST["user-delete"];
+        $sql = "DELETE FROM account WHERE username = '$user'";
         $conn = open_database();
         $stm = $conn->prepare($sql);
         $stm->execute();
-	}
-	
-	if(isset($_POST["user-edit"])){
-		$userid = $_POST["user-edit"];
-		header('Location: updatestaff.php');
-		exit();
 	}
 
 ?>

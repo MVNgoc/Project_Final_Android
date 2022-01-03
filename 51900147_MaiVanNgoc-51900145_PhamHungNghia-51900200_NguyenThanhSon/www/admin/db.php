@@ -129,7 +129,7 @@
     }
 
     function selectAlluser(){
-        $sql = 'SELECT id,firstname,lastname,positionid,department_name,email FROM account ORDER BY department_name DESC';
+        $sql = 'SELECT * FROM account ORDER BY department_name DESC';
         $conn = open_database();
         $result = $conn-> query($sql);
         $position = '';
@@ -151,10 +151,14 @@
 					echo "<td>". $row["department_name"] ."</td>";
 					echo "<td>". $row["email"] ."</td>";
 					echo '<td class="list-btn">';
+                        echo '<form action="profile.php" method="POST">';
+                            echo '<button class="btn-view text-white" name="user-view" value="'. $row["username"] .'">Xem</button>';
+                        echo '</form>';
+                        echo '<form action="updatestaff.php" method="POST">';
+                            echo '<button type="submit" name="user-edit" class="btn-edit text-white" value="'. $row["username"] .'">Chỉnh sửa</button>';
+                        echo '</form>';
                         echo '<form action="" method="POST">';
-                            echo '<button class="btn-view text-white" href="profile.php">Xem</button>';
-                            echo '<button type="submit" name="user-edit" class="btn-edit text-white" value="'. $row["id"] .'">Chỉnh sửa</button>';
-						    echo '<button type="submit" name="user-delete" class="btn-delete text-white" value="'. $row["id"] .'">Xóa</button>';
+						    echo '<button type="submit" name="user-delete" class="btn-delete text-white" value="'. $row["username"] .'">Xóa</button>';
                         echo '</form>';
 					echo '</td>';
 				echo '</tr>';
@@ -162,5 +166,23 @@
             }
         }
         $conn->close();
+    }
+
+    function updatestaff($username, $sex, $first, $last, $position, $department, $email, $phone, $day_off, $avatar,$id){
+
+        $sql = 'UPDATE account SET id= ?, sex= ?, firstname= ?, lastname= ?, positionid= ? ,department_name= ?,
+            email =  ? ,phone_number= ? ,day_off= ? ,avatar= ?  WHERE username= ? ';
+
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+
+        $stm->bind_param('ssssisssiss',$id,$sex,$first,$last,$position,$department,$email,$phone,$day_off,$avatar,$username);
+
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Cập nhật nhân viên thành công');
+
     }
 ?>
