@@ -55,7 +55,7 @@
 			$day_off = 12;
 		}
 		else {
-			$day_off = 0;
+			$day_off = '';
 		}
 
 		if(empty($first)){
