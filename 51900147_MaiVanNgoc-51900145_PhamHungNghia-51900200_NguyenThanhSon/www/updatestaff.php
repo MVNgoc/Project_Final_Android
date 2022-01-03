@@ -21,6 +21,26 @@
 
 	if(isset($_POST["user-edit"])){
 		$name = $_POST["user-edit"];
+		$_SESSION['user-name'] = $name;
+		$sql = "SELECT * FROM account WHERE username = '$name' ";
+		$conn = open_database();
+		$stm = $conn -> prepare($sql);
+		$result = $conn-> query($sql);
+		$row = $result->fetch_assoc();
+		$first = $row["firstname"];
+		$last = $row["lastname"];
+		$phone = $row["phone_number"];
+		$email = $row["email"];
+		$user = $row["username"];
+		$department = $row["department_name"];
+		$sex = $row["sex"];
+		$position = $row["positionid"];
+		$id = $row["id"];
+		$avatar = $row["avatar"];
+		$dayoff = $row["day_off"];
+	}
+	else {
+		$name = $_SESSION['user-name'];
 		$sql = "SELECT * FROM account WHERE username = '$name' ";
 		$conn = open_database();
 		$stm = $conn -> prepare($sql);
@@ -136,7 +156,7 @@
 	<div class="container">
         <div class="row justify-content-center ">
             <div class="col-xl-5 col-lg-6 col-md-8 border my-5 p-4 rounded mx-3 addstaffform">
-                <h3 class="text-center text-secondary mt-2 mb-3 mb-3">Thêm nhân viên</h3>
+                <h3 class="text-center text-secondary mt-2 mb-3 mb-3">Chỉnh sửa thông tin nhân viên</h3>
                 <form method="post" action="" novalidate>
                     <div class="form-row">
                         <div class="form-group col-md-6">

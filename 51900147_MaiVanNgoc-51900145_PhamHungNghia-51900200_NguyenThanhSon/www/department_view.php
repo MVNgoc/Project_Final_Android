@@ -43,7 +43,7 @@
         $manager_name = $row['manager_name'];
         $department_description = $row['department_description'];
         $room_number = $row['room_number'];
-    }
+    }   
 ?>
 
 <!DOCTYPE html>
@@ -134,50 +134,12 @@
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <h6 class="mb-2 text-primary font-weight-bold">Danh sách nhân viên của phòng ban</h6>                          
                             </div>
-                            
+        
                             <?php selectAllNameUser($department_name) ?>
                         </div>
                     </div>                   
-                    <div class="row gutters form-btn-submit">   
-                        <button class="btn btn-add-manager btn-placeholder-submit btn-success px-5 mt-3 mr-2">Chọn trưởng phòng</button>                                                                                                
-                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class='notification_chooseManager'>
-        <form action="" method="POST" class='chooseManager_form'>
-            <div class='notification_exit'>X</div>
-            <h4 class="font-weight-bold chooseManager_title">Chọn trưởng phòng</h4>
-            <div class="chooseManager_body">
-                <div class="info">
-                    <div class="depart">
-                        <h5 class="font-weight-bold text-color-blue">Phòng ban</h5>
-                        <p><?= $department_name ?></p>
-                    </div>
-                    <div class="num_room">
-                        <h5 class="font-weight-bold text-color-blue">Số phòng</h5>
-                        <p><?= $room_number ?></p>
-                    </div>
-                </div>
-    
-                <div class="choose-manager">
-                    <h5 class="font-weight-bold text-color-blue">Chọn nhân viên</h5>
-                    <select required name="manager-list" class="form-control" id="">
-                        <option value="">Mai Ngoc</option>
-                        <option value="">Mai Ngoc</option>
-                        <option value="">Mai Ngoc</option>
-                        <option value="">Mai Ngoc</option>
-                        <option value="">Mai Ngoc</option>
-                        <option value="">Mai Ngoc</option>
-                    </select>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-add-manager-form btn-placeholder-submit btn-success px-5 mt-3 mr-2">Lưu</button> 
-        </form>
-        <div class='chooseManager_form'>
-            
         </div>
     </div>
 

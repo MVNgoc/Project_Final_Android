@@ -204,7 +204,7 @@
                             echo '<form action="department_view.php" method="POST">';
                                 echo '<button class="btn-view text-white" name="room-view" value="'. $row["id"] .'">Xem</button>';
                             echo '</form>';
-                            echo '<form action="" method="POST">';
+                            echo '<form action="department_edit.php" method="POST">';
                                 echo '<button type="submit" name="room-edit" class="btn-edit text-white" value="'. $row["id"] .'">Chỉnh sửa</button>';
                             echo '</form>';
                             echo '<form action="" method="POST">';
@@ -301,4 +301,35 @@
         }
         $conn->close();
     }
+
+    // Hàm update trưởng phòng (Chưa xong) 
+
+    // function updateManager($manager_name ,$department_name) {
+    //     $sql = 'UPDATE department SET manager_name = ? WHERE department_name = ?';
+    //     $conn = open_database();
+
+    //     $stm = $conn->prepare($sql);
+
+    //     $stm->bind_param('ss',$manager_name ,$department_name);
+    //     if(!$stm->execute()){
+    //         return array('code' => 2, 'error' => 'Can not excute command');
+    //     }
+    //     return array('code' => 0,'error' => 'Cập nhật trưởng phòng thành công');
+    // }
+
+    // Hàm update Phòng ban (Chưa xong)
+
+    // function updateDepartment($manager_name ,$department_name) {
+    //     $sql = 'UPDATE department SET manager_name = ? WHERE department_name = ?';
+    //     $conn = open_database();
+
+    //     $stm = $conn->prepare($sql);
+
+    //     $stm->bind_param('ss',$manager_name ,$department_name);
+    //     if(!$stm->execute()){
+    //         return array('code' => 2, 'error' => 'Can not excute command');
+    //     }
+    //     return array('code' => 0,'error' => 'Cập nhật trưởng phòng thành công');
+    // }
+
 ?>

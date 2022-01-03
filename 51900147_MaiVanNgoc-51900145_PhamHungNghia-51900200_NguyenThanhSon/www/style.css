@@ -439,7 +439,7 @@ input:focus{
 }
 
 .font-size-s {
-    font-size: 0.9rem !important;
+    font-size: 16px !important;
 }
 
 .font-size-m {
@@ -526,4 +526,14 @@ input:focus{
     float: right;
     margin-right: 14px !important;
 }
+
+.btn-add-manager {
+    margin-left: 16px;
+}
 /* End department_view.php */
+
+/* department_edit.php */
+.btn-add-manager {
+    margin-left: 16px;
+}
+/* End department_edit.php */
