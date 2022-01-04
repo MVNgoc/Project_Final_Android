@@ -32,6 +32,9 @@
 		$result = $conn-> query($sql);
 		$row = $result->fetch_assoc();
 		$name = $row['department_name'];
+
+        $_SESSION['department_name'] = $name;
+
         $room = $row['room_number'];
         $desciption = $row['department_description'];
         if($row['manager_name'] != null) {
@@ -49,6 +52,9 @@
 		$result = $conn-> query($sql);
 		$row = $result->fetch_assoc();
 		$name = $row['department_name'];
+
+        $_SESSION['department_name'] = $name;
+
         $room = $row['room_number'];
         $desciption = $row['department_description'];
         if($row['manager_name'] != null) {
@@ -62,51 +68,90 @@
 	$success = '';
 	$error = '';
 
-    // Hàm Update Phòng ban (Chưa xong  )
+    if(isset($_POST['manager-list'])) {
+        $_SESSION['temp'] = $manager_name; // Tên trưởng phòng củ
+        $manager_name_select = $_POST['manager-list']; // Tên trưởng phòng mới
+        if($manager_name == "Không có" || $manager_name_select == $manager_name) {
+            $manager_name = $manager_name_select;
+        }
+        else {
+            $manager_name = $manager_name_select;
+            $error = 'Phòng ban này đang có ' . $_SESSION['temp'] . ' làm trưởng phòng. Bấm Update để thay đổi trưởng phòng hoặc thoát.';
+        }  
+    }
 
-	// if(isset($_POST['name']) && isset($_POST['room']) && isset($_POST['description'])){
+    if(isset($_POST['name']) && isset($_POST['room']) && isset($_POST['description']) && isset($_POST['managername'])){
+
+		$name = $_POST['name'];
+		$room = $_POST['room'];
+		$desciption = $_POST['description'];
+        $managername = $_POST['managername']; // Tên trưởng phòng mới
+        $oldmanager = $_SESSION['temp']; // Tên trưởng phòng cũ
+
+		if(empty($name)){
+			$error = 'Hãy nhập tên phòng ban';
+		}else if(empty($room)){
+			$error = 'Hãy nhập số phòng';
+		}else if(empty($desciption)){
+			$error = 'Hãy nhập mô tả';
+		}else{
+            $id = $_SESSION['id_room'];
+			$data = updateDepartment($name, $managername, $desciption, $room, $id);
+
+            // Update account table
+            $sql = 'SELECT * FROM account WHERE department_name = ? ORDER BY department_name DESC';
+            $conn = open_database();
+            
+            $stm = $conn->prepare($sql);
+            $stm->bind_param('s',$_SESSION['department_name']);
+            if(!$stm->execute()){
+                die('Query error: ' . $stm->error);
+            }
+            // $result = $stm->get_result();
+            if($result-> num_rows > 0){
+                while($row = $result-> fetch_assoc()){
+                    $fullname = $row["firstname"]. ' ' .$row["lastname"];
+                    if($fullname == $oldmanager) {
+                        $fist = $row["firstname"];
+                        $last = $row["lastname"];
+                        $positionid = 2;
+                        $day_off = 12;
+                        $result = updatePosition($positionid ,$day_off, $fist, $last);
+                    }
+        
+                    if($fullname == $managername) {
+                        $fist = $row["firstname"];
+                        $last = $row["lastname"];
+                        $positionid = 1;
+                        $day_off = 15;
+                        $result = updatePosition($positionid ,$day_off, $fist, $last);
+                    }
+                }
+            }
+            $conn->close();
+            // End Update account table
+
+			if($data['code'] == 0)
+            {
+                $manager_name = $managername;
+                // $success = $data['error'];
+            }
+            else 
+            {
+                $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
+            }
+		}
+	}
+
+    // if(isset($_POST['name']) && isset($_POST['room']) && isset($_POST['description']) && isset($_POST['managername'])){
 
 	// 	$name = $_POST['name'];
 	// 	$room = $_POST['room'];
 	// 	$desciption = $_POST['description'];
+    //     $managername = $_POST['managername']; // Tên trưởng phòng mới
+    //     $oldmanager = $_SESSION['temp']; // Tên trưởng phòng cũ
 
-	// 	if(empty($name)){
-	// 		$error = 'Hãy nhập tên phòng ban';
-	// 	}else if(empty($room)){
-	// 		$error = 'Hãy nhập số phòng';
-	// 	}else if(empty($desciption)){
-	// 		$error = 'Hãy nhập mô tả';
-	// 	}else{
-	// 		$result = createRoom($name,$room,$desciption);
-	// 		if($result['code'] == 0){
-    //             $success = 'Đã thêm thành công một phòng ban mới.';
-	// 			$name = false;
-	// 			$room = false;
-	// 			$desciption = false;
-    //         }else if ($result['code'] == 1){
-    //             $error = 'Số phòng này bị trùng';
-    //         }else if ($result['code'] == 3){
-    //             $error = 'Tên phòng ban đã tồn tại';
-    //         }else {
-    //             $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
-    //         }
-	// 	}
-
-	// }
-
-    $error = '';
-    $success = '';
-    // Hàm update trưởng phòng (Chưa xong)
-
-    // if(isset($_POST['manager-list'])) {
-    //     $manager_name = $_POST['manager-list'];
-    //     $data = updateManager($manager_name, $department_name);
-    //     if($data['code'] == 0) {
-    //         $success = $data['error'];
-    //     }
-    //     else {
-    //         $error = 'Đã có lỗi xãy ra vui lòng thử lại sau';
-    //     }
+        
     // }
 ?>
 <!DOCTYPE html>
@@ -171,8 +216,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="description">Trưởng phòng</label>
-                        <input value="<?php echo $manager_name; ?>" name="description" required class="form-control" type="text" placeholder="Mô tả" id="description" readonly>
+                        <label for="">Trưởng phòng</label>
+                        <input value="<?php echo $manager_name; ?>" name="managername" required class="form-control" type="text" placeholder="Mô tả" id="" readonly>
                     </div>
 					
 
@@ -220,9 +265,9 @@
                 </div>
     
                 <div class="choose-manager">
-                    <h5 class="font-weight-bold text-color-blue">Chọn nhân viên</h5>
+                    <h5 class="font-weight-bold text-color-blue">Chọn trưởng phòng mới</h5>
                     <?php 
-                        $sql = 'SELECT * FROM account WHERE department_name = ?';
+                        $sql = 'SELECT * FROM account WHERE department_name = ? and positionid !="3"';
                         $conn = open_database();
                         
                         $stm = $conn->prepare($sql);
@@ -239,11 +284,14 @@
                             }
                             echo '</select>';
                         }
+                        else {
+                            echo 'Phòng ban này chưa có nhân viên.';
+                        }
                         $conn->close();
 					?>
                 </div>
             </div>
-            <button type="submit" class="btn btn-add-manager-form btn-placeholder-submit btn-success px-5 mt-3 mr-2">Lưu</button> 
+            <button type="submit" class="btn btn-add-manager-form btn-placeholder-submit btn-success px-5 mt-3 mr-2">Lưu</button>
         </form>
     </div>
 

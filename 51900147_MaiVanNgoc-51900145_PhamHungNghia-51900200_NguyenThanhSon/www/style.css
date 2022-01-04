@@ -533,7 +533,11 @@ input:focus{
 /* End department_view.php */
 
 /* department_edit.php */
-.btn-add-manager {
+.btn-add-manager-form {
     margin-left: 16px;
+}
+
+.notification_chooseManager .error-select-manager {
+    margin-top: 80px;
 }
 /* End department_edit.php */

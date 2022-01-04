@@ -158,7 +158,7 @@
                             echo '<button type="submit" name="user-edit" class="btn-edit text-white" value="'. $row["username"] .'">Chỉnh sửa</button>';
                         echo '</form>';
                         echo '<form action="" method="POST">';
-						    echo '<button type="submit" name="user-delete" class="btn-delete text-white" value="'. $row["username"] .'">Xóa</button>';
+						    echo '<button type="submit" name="user-delete" class="btn-delete text-white deletebtn" value="'. $row["username"] .'">Xóa</button>';
                         echo '</form>';
 					echo '</td>';
 				echo '</tr>';
@@ -208,7 +208,7 @@
                                 echo '<button type="submit" name="room-edit" class="btn-edit text-white" value="'. $row["id"] .'">Chỉnh sửa</button>';
                             echo '</form>';
                             echo '<form action="" method="POST">';
-                                echo '<button type="submit" name="room-delete" class="btn-delete text-white" value="'. $row["id"] .'">Xóa</button>';
+                                echo '<button type="submit" name="room-delete" class="btn-delete text-white deletebtn" value="'. $row["id"] .'">Xóa</button>';
                             echo '</form>';
                         echo '</td>';
                 echo '</tr>';
@@ -302,34 +302,29 @@
         $conn->close();
     }
 
-    // Hàm update trưởng phòng (Chưa xong) 
+    function updatePosition($positionid ,$day_off, $firstname, $lastname) {
+        $sql = 'UPDATE account SET positionid = ?, day_off = ? WHERE firstname = ? AND lastname = ?';
+        $conn = open_database();
 
-    // function updateManager($manager_name ,$department_name) {
-    //     $sql = 'UPDATE department SET manager_name = ? WHERE department_name = ?';
-    //     $conn = open_database();
+        $stm = $conn->prepare($sql);
 
-    //     $stm = $conn->prepare($sql);
+        $stm->bind_param('siss',$positionid ,$day_off, $firstname, $lastname);
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Chỉnh sửa account thành công');
+    }
 
-    //     $stm->bind_param('ss',$manager_name ,$department_name);
-    //     if(!$stm->execute()){
-    //         return array('code' => 2, 'error' => 'Can not excute command');
-    //     }
-    //     return array('code' => 0,'error' => 'Cập nhật trưởng phòng thành công');
-    // }
+    function updateDepartment($department_name, $manager_name, $department_description, $room_number, $id) {
+        $sql = 'UPDATE department SET department_name = ?, manager_name = ?, department_description = ?, room_number = ? WHERE id = ?';
+        $conn = open_database();
 
-    // Hàm update Phòng ban (Chưa xong)
+        $stm = $conn->prepare($sql);
 
-    // function updateDepartment($manager_name ,$department_name) {
-    //     $sql = 'UPDATE department SET manager_name = ? WHERE department_name = ?';
-    //     $conn = open_database();
-
-    //     $stm = $conn->prepare($sql);
-
-    //     $stm->bind_param('ss',$manager_name ,$department_name);
-    //     if(!$stm->execute()){
-    //         return array('code' => 2, 'error' => 'Can not excute command');
-    //     }
-    //     return array('code' => 0,'error' => 'Cập nhật trưởng phòng thành công');
-    // }
-
+        $stm->bind_param('sssss',$department_name, $manager_name, $department_description, $room_number, $id);
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Chỉnh sửa thành công');
+    }
 ?>

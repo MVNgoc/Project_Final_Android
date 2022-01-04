@@ -15,12 +15,15 @@
 	}
 
 	if(isset($_POST["user-delete"])){
+
 		$user = $_POST["user-delete"];
-        $sql = "DELETE FROM account WHERE username = '$user'";
-        $conn = open_database();
-        $stm = $conn->prepare($sql);
-        $stm->execute();
+		$sql = "DELETE FROM account WHERE username = '$user'";
+		$conn = open_database();
+		$stm = $conn->prepare($sql);
+		$stm->execute();
 	}
+
+
 
 ?>
 
@@ -104,6 +107,7 @@
 					</div>';
 			}
 		?>
+
 		<footer class="footer">
 			
 		</footer>
