@@ -12,11 +12,10 @@
 		exit(); // Chuyển đến trang thay đổi mật khẩu
 	}
 
-    if ($_SESSION['positionid'] != 3 || $_SESSION['positionid'] != 1) {
+    if ($_SESSION['positionid'] == 2) {
         header('Location: index.php');
         exit();
     }
-
 ?>
 
 <!DOCTYPE html>

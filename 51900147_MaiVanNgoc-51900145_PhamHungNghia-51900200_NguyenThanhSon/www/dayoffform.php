@@ -12,7 +12,7 @@
 		exit(); // Chuyển đến trang thay đổi mật khẩu
 	}
 
-    if ($_SESSION['positionid'] != 1 || $_SESSION['positionid'] != 2) {
+    if ($_SESSION['positionid'] == 3) {
         header('Location: index.php');
         exit();
     }
@@ -58,7 +58,7 @@
                                             	<a class="nav-link" href="#">Tạo đơn xin nghỉ phép</a>
                                             </li>
                                             <li class="nav-item">
-                                            	<a class="nav-link" href="#">Duyệt đơn nghỉ phép</a>
+                                            	<a class="nav-link" href="duyetdon.php">Duyệt đơn nghỉ phép</a>
                                             </li>
                                         </ul>
                                     </li>';
