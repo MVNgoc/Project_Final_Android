@@ -105,7 +105,7 @@
 		elseif(empty($phone)){
 			$error = "Hãy nhập số điện thoại";
 		}elseif(department_is($user,$department)==false && $positionid ==1){
-			$error = "Không thể chuyển phòng ban, Hãy vô quản lí phòng ban và đổi trưởng phòng khác để đổi phòng ban";
+			$error = "Không thể chuyển phòng ban, Hãy vào quản lý phòng ban và thay đổi chức trưởng phòng của nhân viên này để chuyển phòng ban";
 		}
 		else{
 			$result = updatestaff($user,$sex,$first,$last,$positionid,$department,$email,$phone,$day_off,$avatar,$id);

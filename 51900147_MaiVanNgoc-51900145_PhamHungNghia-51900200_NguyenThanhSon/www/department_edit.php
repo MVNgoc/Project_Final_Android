@@ -80,6 +80,11 @@
         }  
     }
 
+    if(isset($_POST['btn-reset-manager'])) {
+        $_SESSION['temp'] = $manager_name;
+        $manager_name = '';
+    }
+
     if(isset($_POST['name']) && isset($_POST['room']) && isset($_POST['description']) && isset($_POST['managername'])){
 
 		$name = $_POST['name'];
@@ -206,7 +211,7 @@
 
                     <div class="form-group">
                         <label for="">Trưởng phòng</label>
-                        <input value="<?php echo $manager_name; ?>" name="managername" required class="form-control" type="text" placeholder="Mô tả" id="" readonly>
+                        <input value="<?php echo $manager_name; ?>" name="managername" required class="form-control" type="text" placeholder="Không có" id="" readonly>
                     </div>
 					
 
@@ -216,11 +221,15 @@
                                 echo "<div class='alert alert-danger'>$error</div>";
                             }
                         ?>
-                        <button type="submit" class="btn btn-register-js btn-success px-5 mt-3 mr-2">Update</button>
+                        <button type="submit" class="btn btn-update-manager btn-register-js btn-success px-5 mt-3 mr-2">Update</button>
                     </div>
                 </form>
                 <div class="row gutters form-btn-submit">   
-                    <button class="btn btn-add-manager btn-placeholder-submit btn-success px-5 mt-3 mr-2">Chọn trưởng phòng</button>                                                                                                
+                    <button class="btn btn-add-manager btn-placeholder-submit btn-success px-5 mt-3 mr-2">Chọn trưởng phòng</button>  
+                    <form action="" method="POST">
+                        <button type="submit" name="btn-reset-manager" class="btn btn-reset-manager btn-placeholder-submit btn-success px-5 mt-3 mr-2">Xóa trưởng phòng</button>
+                    </form>                                                                        
+                </div>                                                                     
                 </div>
             </div>
         </div>

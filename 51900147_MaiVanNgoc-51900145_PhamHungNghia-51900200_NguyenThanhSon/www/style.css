@@ -529,6 +529,13 @@ input:focus{
 
 .btn-add-manager {
     margin-left: 16px;
+    padding-right: 16px !important;
+    padding-left: 16px !important;
+}
+
+.btn-reset-manager {
+    padding-right: 16px !important;
+    padding-left: 16px !important;
 }
 /* End department_view.php */
 
@@ -539,5 +546,13 @@ input:focus{
 
 .notification_chooseManager .error-select-manager {
     margin-top: 80px;
+}
+
+.container .form-btn-submit {
+    justify-content: center;
+}
+
+.container .btn-update-manager {
+    margin-left: 34%;
 }
 /* End department_edit.php */
