@@ -143,15 +143,21 @@
                                             <li class="nav-item">
                                             	<a class="nav-link" href="duyetdon.php">Duyệt đơn nghỉ phép</a>
                                             </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="dayoffhistory.php">Lịch sử nghỉ phép</a>
+                                            </li>
                                         </ul>
                                     </li>';
                             }
                             else {
 								echo '<li class="nav-item day-off-header">
                                         <a class="nav-link" href="#">Nghỉ phép</a>
-                                        <ul class="navbar-nav">
-											<li class="nav-item day-off-tag">
+                                        <ul class="navbar-nav day-off-tag">
+											<li class="nav-item">
                                             	<a class="nav-link" href="dayoffform.php">Tạo đơn xin nghỉ phép</a>
+                                            </li>
+											<li class="nav-item">
+                                            	<a class="nav-link" href="dayoffhistory.php">Lịch sử nghỉ phép</a>
                                             </li>
                                         </ul>
                                     </li>';
