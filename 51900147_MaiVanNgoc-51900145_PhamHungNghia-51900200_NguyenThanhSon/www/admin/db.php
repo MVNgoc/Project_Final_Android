@@ -129,7 +129,7 @@
     }
 
     function selectAlluser(){
-        $sql = 'SELECT * FROM account WHERE positionid  = "1" or positionid = "2" ORDER BY department_name DESC';
+        $sql = 'SELECT * FROM account WHERE positionid  = "1" or positionid = "2" ORDER BY department_name DESC,positionid ASC';
         $conn = open_database();
         $result = $conn-> query($sql);
         $position = '';
