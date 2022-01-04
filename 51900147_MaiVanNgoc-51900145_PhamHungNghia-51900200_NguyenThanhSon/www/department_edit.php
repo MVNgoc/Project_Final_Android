@@ -101,16 +101,16 @@
             // Update account table
             $sql = 'SELECT * FROM account WHERE department_name = ? ORDER BY department_name DESC';
             $conn = open_database();
-            
             $stm = $conn->prepare($sql);
             $stm->bind_param('s',$_SESSION['department_name']);
             if(!$stm->execute()){
                 die('Query error: ' . $stm->error);
             }
-            // $result = $stm->get_result();
+            $result = $stm->get_result();
             if($result-> num_rows > 0){
-                while($row = $result-> fetch_assoc()){
+                foreach($result as $row) {
                     $fullname = $row["firstname"]. ' ' .$row["lastname"];
+
                     if($fullname == $oldmanager) {
                         $fist = $row["firstname"];
                         $last = $row["lastname"];
@@ -134,7 +134,7 @@
 			if($data['code'] == 0)
             {
                 $manager_name = $managername;
-                // $success = $data['error'];
+                $success = $data['error'];
             }
             else 
             {
@@ -142,17 +142,6 @@
             }
 		}
 	}
-
-    // if(isset($_POST['name']) && isset($_POST['room']) && isset($_POST['description']) && isset($_POST['managername'])){
-
-	// 	$name = $_POST['name'];
-	// 	$room = $_POST['room'];
-	// 	$desciption = $_POST['description'];
-    //     $managername = $_POST['managername']; // Tên trưởng phòng mới
-    //     $oldmanager = $_SESSION['temp']; // Tên trưởng phòng cũ
-
-        
-    // }
 ?>
 <!DOCTYPE html>
 <html lang="en">

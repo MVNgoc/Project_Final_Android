@@ -135,7 +135,7 @@
         $position = '';
         $stt = 1;
         if($result->num_rows >0){
-            while($row = $result-> fetch_assoc()){
+            foreach($result as $row) {
                 if($row["positionid"] == 1){
                     $position = 'Trưởng phòng';
                 }else if($row["positionid"] == 2){
@@ -193,7 +193,7 @@
         $stt = 1;
 
         if($result-> num_rows > 0){
-            while($row = $result-> fetch_assoc()){
+            foreach($result as $row) {
                 echo "<tr>";
                         echo "<td>" . $stt . "</td>";
                         echo "<td>". $row["department_name"]."</td>";
@@ -213,7 +213,6 @@
                         echo '</td>';
                 echo '</tr>';
                 $stt++;
-
             }
         }
         $conn->close();
@@ -291,7 +290,7 @@
         
         $result = $stm->get_result();
         if($result-> num_rows > 0){
-            while($row = $result-> fetch_assoc()){
+            foreach($result as $row) {
                 echo '<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="form-group">
                             <p>'. $row["firstname"] . ' ' . $row["lastname"] .'</p>                              

@@ -125,7 +125,7 @@
                                     ?>
                                     <input type="file" name="file" class="avatar" onchange="displayImage(this)" accept="image/png, image/jpeg" style="display:none">   
                                     <button type="submit" name="submit-avatar" class="btn btn-submit btn-success px-5 mt-3 mr-2" style="display:none">Lưu</button>                           
-                                </form>
+                                </form> 
                                 <h5 class="user-name"><?= $_SESSION["username"] ?></h5>
                             </div>
                             <div class="position">
