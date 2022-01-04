@@ -123,9 +123,35 @@ input:focus{
     padding: 16px 10px;
 }
 
-.navbar-nav .nav-item:hover .nav-link {
+.navbar-nav .nav-item:hover > .nav-link {
     background-color: rgb(194, 194, 194);
     color: #000;
+}
+
+.day-off-header {
+    position: relative;
+}
+
+.nav-item .day-off-tag {
+    position: absolute;
+    background-color: #000;
+    width: 180px;
+    left: -40px;
+    display: none;
+    animation: modalappear linear 0.3s;
+}
+
+@keyframes modalappear {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.day-off-header:hover .day-off-tag {
+    display: block;
 }
 
 .tdtu-img {

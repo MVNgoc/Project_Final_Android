@@ -87,14 +87,47 @@
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link" href="profile.php">Hồ sơ</a>
+					<a class="nav-link" href="#">Hồ sơ</a>
 				</li>
 				<?php
                     if($_SESSION['positionid'] == 3) {
                         echo '<li class="nav-item">
                                 <a class="nav-link" href="phongban.php">Quản lý phòng ban</a>
+                            </li>
+                            <li class="nav-item day-off-header">
+                                <a class="nav-link" href="#">Nghỉ phép</a>
+                                <ul class="navbar-nav">
+                                    <li class="nav-item day-off-tag">
+                                    <a class="nav-link" href="duyetdon.php">Duyệt đơn nghỉ phép</a>
+                                    </li>
+                                </ul>
                             </li>';
-                    }   
+                    }  
+                    else if ($_SESSION['positionid'] == 1 || $_SESSION['positionid'] == 2) {
+                        if($_SESSION['positionid'] == 1) {
+                            echo '<li class="nav-item day-off-header">
+                                    <a class="nav-link" href="#">Nghỉ phép</a>
+                                    <ul class="navbar-nav day-off-tag">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="dayoffform.php">Tạo đơn xin nghỉ phép</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="duyetdon.php">Duyệt đơn nghỉ phép</a>
+                                        </li>
+                                    </ul>
+                                </li>';
+                        }
+                        else {
+                            echo '<li class="nav-item day-off-header">
+                                    <a class="nav-link" href="#">Nghỉ phép</a>
+                                    <ul class="navbar-nav">
+                                        <li class="nav-item day-off-tag">
+                                            <a class="nav-link" href="dayoffform.php">Tạo đơn xin nghỉ phép</a>
+                                        </li>
+                                    </ul>
+                                </li>';
+                        }
+                    } 
 				?>
 				<li class="nav-item">
 					<a class="nav-link" href="logout.php">Đăng xuất</a>
