@@ -73,6 +73,7 @@
 		$department = $_POST['department'];
 		$sex = $_POST['sex'];
 		$position = $_POST['position'];
+		$fullname = $first. " ".$last;
 		$positionid='';
 		$day_off='';
 		$avatar='';
@@ -103,6 +104,8 @@
 		}
 		elseif(empty($phone)){
 			$error = "Hãy nhập số điện thoại";
+		}elseif(department_is($user,$department)==false && $positionid ==1){
+			$error = "Không thể chuyển phòng ban, Hãy vô quản lí phòng ban và đổi trưởng phòng khác để đổi phòng ban";
 		}
 		else{
 			$result = updatestaff($user,$sex,$first,$last,$positionid,$department,$email,$phone,$day_off,$avatar,$id);

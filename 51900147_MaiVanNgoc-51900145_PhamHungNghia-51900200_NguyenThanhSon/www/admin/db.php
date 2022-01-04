@@ -354,4 +354,22 @@
         }
         return array('code' => 0,'error' => 'Chỉnh sửa thành công');
     }
+
+    function department_is($username,$department_name){
+        $sql = 'SELECT * FROM account WHERE username = ? and department_name = ?';
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+        $stm ->bind_param('ss',$username,$department_name);
+        if(!$stm->execute()){
+            die('Query error: ' . $stm->error);
+        }
+        
+        $result = $stm->get_result();
+        if($result->num_rows > 0){
+            return true;
+        }
+        return false;
+    }
+
 ?>
