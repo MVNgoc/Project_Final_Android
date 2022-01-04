@@ -168,7 +168,35 @@
         $conn->close();
     }
 
+    function is_exist_managername($department_name,$username){
+        $sql = 'SELECT *
+                FROM account,department
+                WHERE account.department_name = department.department_name AND account.department_name = ? AND username != ?';
+        $conn = open_database();
+        $stm = $conn->prepare($sql);
+
+        $stm->bind_param('ss',$department_name,$username);
+        if(!$stm->execute()){
+            die('Query error: ' . $stm->error);
+        }
+
+        $result = $stm->get_result();
+        if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+                if($row["manager_name"] == null){
+                    return false;
+                }
+                return true;
+            }
+        }
+
+    }
+
     function updatestaff($username, $sex, $first, $last, $position, $department, $email, $phone, $day_off, $avatar,$id){
+
+        if(is_exist_managername($department,$username)){
+            return array('code' => 1,  'error' => 'Phòng ban này đã có trưởng phòng');
+        }
 
         $sql = 'UPDATE account SET id= ?, sex= ?, firstname= ?, lastname= ?, positionid= ? ,department_name= ?,
             email =  ? ,phone_number= ? ,day_off= ? ,avatar= ?  WHERE username= ? ';

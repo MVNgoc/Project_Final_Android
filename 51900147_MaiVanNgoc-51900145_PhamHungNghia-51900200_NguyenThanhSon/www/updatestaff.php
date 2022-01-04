@@ -72,9 +72,19 @@
 		$id = $_POST['id'];
 		$department = $_POST['department'];
 		$sex = $_POST['sex'];
+		$position = $_POST['position'];
+		$positionid='';
 		$day_off='';
 		$avatar='';
-		$day_off = 12;
+
+		if($position == "Nhân viên"){
+			$positionid = 2;
+			$day_off = 12;
+		}else{
+			$positionid = 1;
+			$day_off = 15;
+		}
+
 
 		if(empty($first)){
 			$error = 'Hãy nhập họ';
@@ -95,9 +105,11 @@
 			$error = "Hãy nhập số điện thoại";
 		}
 		else{
-			$result = updatestaff($user,$sex,$first,$last,2,$department,$email,$phone,$day_off,$avatar,$id);
+			$result = updatestaff($user,$sex,$first,$last,$positionid,$department,$email,$phone,$day_off,$avatar,$id);
 			if($result['code'] == 0){
                 $success = 'Cập nhật thành công .';
+			}if($result['code'] == 1){
+				$error = 'Phòng ban này đã có trưởng phòng';
 			}else {
                 $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
             }
