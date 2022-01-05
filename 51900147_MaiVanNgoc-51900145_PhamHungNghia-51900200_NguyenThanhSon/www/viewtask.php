@@ -78,8 +78,8 @@
     }
 
     if(isset($_POST['btnstarttask'])) {
-        $status = 'In progress';
-        updateStatus($status, $id_task);
+        $task_status = 'In progress';
+        updateStatus($task_status, $id_task);
     }
 ?>
 
