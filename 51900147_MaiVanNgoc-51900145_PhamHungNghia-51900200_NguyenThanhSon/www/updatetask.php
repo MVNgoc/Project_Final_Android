@@ -40,14 +40,14 @@
 		$task_description = $row["task_description"];
 		$staff_assign = $row["staff_assign"];
         
-        $sql = "SELECT DATE_FORMAT(start_time, '%m/%d/%Y %h:%i:%s') AS start_time FROM task WHERE id = '$id'" ;
+        $sql = "SELECT DATE_FORMAT(start_time, '%Y-%m-%dT%h:%i') AS start_time FROM task WHERE id = '$id'" ;
         $conn = open_database();
 		$stm = $conn -> prepare($sql);
 		$result = $conn-> query($sql);
 		$row = $result->fetch_assoc();
         $start_time = $row["start_time"];
 
-        $sql = "SELECT DATE_FORMAT(deadline, '%m/%d/%Y %h:%i:%s') AS deadline FROM task WHERE id = '$id'";
+        $sql = "SELECT DATE_FORMAT(deadline, '%Y-%m-%dT%h:%i') AS deadline FROM task WHERE id = '$id'";
         $conn = open_database();
 		$stm = $conn -> prepare($sql);
 		$result = $conn-> query($sql);
@@ -65,14 +65,14 @@
 		$task_description = $row["task_description"];
 		$staff_assign = $row["staff_assign"];
 
-        $sql = "SELECT DATE_FORMAT(start_time, '%m/%d/%Y %h:%i:%s') AS start_time FROM task WHERE id = '$id'" ;
+        $sql = "SELECT DATE_FORMAT(start_time, '%Y-%m-%dT%h:%i') AS start_time FROM task WHERE id = '$id'" ;
         $conn = open_database();
 		$stm = $conn -> prepare($sql);
 		$result = $conn-> query($sql);
 		$row = $result->fetch_assoc();
         $start_time = $row["start_time"];
 
-        $sql = "SELECT DATE_FORMAT(deadline, '%m/%d/%Y %h:%i:%s') AS deadline FROM task WHERE id = '$id'";
+        $sql = "SELECT DATE_FORMAT(deadline, '%Y-%m-%dT%h:%i') AS deadline FROM task WHERE id = '$id'";
         $conn = open_database();
 		$stm = $conn -> prepare($sql);
 		$result = $conn-> query($sql);
