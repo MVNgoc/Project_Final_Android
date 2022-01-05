@@ -145,6 +145,29 @@
 			}
 		?>
 
+			<div class="body">
+				<div class="header-body">
+					<h3 class="task-list-header" style="margin-bottom:0">Danh sách task đã giao</h3>
+					<form class="create-task-form" action="createtask.php">
+						<button class="add-staff text-white" type="submit">+ Tạo task mới</button>
+					</form>	
+				</div>
+				<table id="staff-table" class="table table-striped">
+					<thead>
+						<tr>
+							<th  class="text-center">STT</th>
+							<th  class="text-center">Tên task</th>
+							<th  class="text-center">Người giao</th>
+							<th  class="text-center">Người nhận</th>
+							<th  class="text-center">Trạng thái</th>
+						</tr>
+					</thead>
+					<tbody> 
+
+					</tbody>
+				</table>
+			</div>
+
 		<footer class="footer">
 			
 		</footer>

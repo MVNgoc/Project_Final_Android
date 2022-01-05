@@ -34,6 +34,21 @@ CREATE TABLE department (
   room_number varchar(64) NOT NULL
 );
 
+CREATE TABLE task (
+  id varchar(15) NOT NULL,
+  task_title varchar(64) NOT NULL COLLATE utf8_unicode_ci,
+  task_description varchar(64) NOT NULL COLLATE utf8_unicode_ci,
+  start_time datetime COLLATE utf8_unicode_ci NOT NULL,
+  deadline datetime NOT NULL,
+  staff_assign varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  task_status varchar(64) COLLATE utf8_unicode_ci NOT NULL
+);
+
+CREATE TABLE taskfile (
+  id varchar(15) NOT NULL,
+  name_task_file varchar(64) NOT NULL COLLATE utf8_unicode_ci
+);
+
 INSERT INTO account (id, username, pass, sex, firstname, lastname, positionid, department_name, email,`phone_number`, day_off, avatar) VALUES
 ('51900147', 'admin', '$2a$12$8CtP3.iNTmGI.j7J/gipzuo.GByjjRX7dhaGasw/dME80d71tuQN6', 'Nam', 'Mai', 'Văn Ngọc', 3, 'Marketing', 'mvngoc@gmail.com', '0337375401', null, ''),
 ('51900145', 'hungnghia', '$2a$12$jJDsE0y3FCZDBfQHUUJBVuikkJ.DQtMBlaRoH9kj2dhETTeBUssD.', 'Nam', 'Phạm', 'Hùng Nghĩa', 1, 'Marketing', 'hungnghia@gmail.com', '0337375402', 15, ''),
@@ -60,5 +75,17 @@ ALTER TABLE department
   ADD UNIQUE KEY department_name (department_name);
 
 ALTER TABLE department
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+ALTER TABLE task
+  ADD PRIMARY KEY (id);
+
+ALTER TABLE task
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+ALTER TABLE taskfile
+  ADD PRIMARY KEY (id);
+
+ALTER TABLE taskfile
   MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 COMMIT;

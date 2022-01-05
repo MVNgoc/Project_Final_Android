@@ -372,4 +372,34 @@
         return false;
     }
 
+    function inserttask($task_title, $task_description, $start_time, $deadline, $staff_assign, $task_status) {
+        $sql = 'INSERT INTO task (task_title, task_description, start_time, deadline, staff_assign, task_status) values(?,?,?,?,?,?)';
+
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+
+        $stm->bind_param('ssssss',$task_title, $task_description, $start_time, $deadline, $staff_assign, $task_status);
+
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Tạo Task ban thành công');
+    }
+
+    function insertfiletask($name_task_file) {
+        $sql = 'INSERT INTO taskfile values(?)';
+
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+
+        $stm->bind_param('s',$name_task_file);
+
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Thêm file thành công');
+    }
+
 ?>
