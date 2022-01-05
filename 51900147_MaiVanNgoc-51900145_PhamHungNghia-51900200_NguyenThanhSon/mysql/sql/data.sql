@@ -60,7 +60,7 @@ CREATE TABLE leaveform (
   leave_status varchar(30) NOT NULL DEFAULT 'Đang đợi', 
   day_left int(2) NOT NULL,
   day_use int(2) NOT NULL,
-  uploadd_file varchar(255) COLLATE utf8_unicode_ci,
+  uploadd_file varchar(255) COLLATE utf8_unicode_ci
 );
 
 INSERT INTO account (id, username, pass, sex, firstname, lastname, positionid, department_name, email,`phone_number`, day_off, avatar) VALUES
