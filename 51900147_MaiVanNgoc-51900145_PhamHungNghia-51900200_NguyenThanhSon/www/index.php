@@ -22,11 +22,8 @@
 		$stm = $conn->prepare($sql);
 		$stm->execute();
 	}
-
 	$nameStaff = $_SESSION['firstname'] . ' ' . $_SESSION['lastname'];
 ?>
-
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -195,9 +192,6 @@
 				</div>';
 			}
 		?>
-
-		?>
-
 			<div class="body">
 				<div class="header-body">
 					<h3 class="task-list-header" style="margin-bottom:0">Danh sách task đã giao</h3>
