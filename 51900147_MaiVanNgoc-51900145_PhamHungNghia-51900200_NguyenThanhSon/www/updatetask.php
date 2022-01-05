@@ -104,14 +104,41 @@
         else if(empty($department)) {
             $error = 'Vui lòng chọn nhân viên thực hiện task';
         }
-        else {
-            $task_deliver = $_SESSION['username'];
+        else if(!empty($starttime) && !empty($deadline)) {
+            $currenttime = date('d/m/Y');
+            $currenttimecheck =explode('/', $currenttime); //Tách thành date, month, year
+            $starttimecheck = explode('-', $starttime); //Tách thành year, month, dayTtime
+            $deadlinetimecheck = explode('-', $deadline); //Tách thành year, month, dayTtime
+            $starttimecheck2 = explode('T', $starttimecheck[2]); //Tách thành day, time
+            $deadlinetimecheck2 = explode('T', $deadlinetimecheck[2]); //Tách thành day, time
+
+            if($starttimecheck[0] < $currenttimecheck[2]) {
+                $error = 'Thời gian bắt đầu task không hợp lệ ';
+            }
+            else if($starttimecheck[1] < $currenttimecheck[1]) {
+                $error = 'Thời gian bắt đầu task không hợp lệ ';
+            }
+            else if($starttimecheck2[0] < $currenttimecheck[0]) {
+                $error = 'Thời gian bắt đầu task không hợp lệ ';
+            }
+            else if($starttimecheck[0] < $deadlinetimecheck[0]) {
+                $error = 'Thời gian kết thúc task không hợp lệ ';
+            }
+            else if($starttimecheck[1] < $deadlinetimecheck[1]) {
+                $error = 'Thời gian kết thúc task không hợp lệ ';
+            }
+            else if($starttimecheck2[0] >= $deadlinetimecheck2[0]) {
+                $error = 'Thời gian kết thúc task không hợp lệ ';
+            }
+            else {
+                $task_deliver = $_SESSION['username'];
             $data = updatetask($tasktitle, $taskdescription, $starttime, $deadline, $department , $id);
             if($data['code'] == 0) {
                 $success = 'Update Task thành công.';
             }
             else {
                 $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
+            }
             }
         }
     }
