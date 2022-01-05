@@ -24,6 +24,13 @@
 	}
 
 	$nameStaff = $_SESSION['firstname'] . ' ' . $_SESSION['lastname'];
+
+	if(isset($_POST["task-delete"])){
+		$id_task = $_POST["task-delete"];
+		$task_status = 'Canceled';
+        updateStatus($task_status, $id_task);
+	}
+	
 ?>
 <html lang="en">
 

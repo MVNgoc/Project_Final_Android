@@ -112,16 +112,7 @@
             $starttimecheck2 = explode('T', $starttimecheck[2]); //Tách thành day, time
             $deadlinetimecheck2 = explode('T', $deadlinetimecheck[2]); //Tách thành day, time
 
-            if($starttimecheck[0] < $currenttimecheck[2]) {
-                $error = 'Thời gian bắt đầu task không hợp lệ ';
-            }
-            else if($starttimecheck[1] < $currenttimecheck[1]) {
-                $error = 'Thời gian bắt đầu task không hợp lệ ';
-            }
-            else if($starttimecheck2[0] < $currenttimecheck[0]) {
-                $error = 'Thời gian bắt đầu task không hợp lệ ';
-            }
-            else if($starttimecheck[0] > $deadlinetimecheck[0]) {
+            if($starttimecheck[0] > $deadlinetimecheck[0]) {
                 $error = 'Thời gian kết thúc task không hợp lệ ';
             }
             else if($starttimecheck[1] > $deadlinetimecheck[1]) {
@@ -133,6 +124,11 @@
                     $task_deliver = $_SESSION['username'];
                     $data = updatetask($tasktitle, $taskdescription, $starttime, $deadline, $department , $id);
                     if($data['code'] == 0) {
+                        $task_title = $row["task_title"];
+                        $task_description = $row["task_description"];
+                        $staff_assign = $row["staff_assign"];
+                        $deadline = $row["deadline"];
+                        $start_time = $row["start_time"];
                         $success = 'Update Task thành công.';
                     }
                     else {
@@ -245,7 +241,7 @@
                     </div>
                     <div class="form-group">
                         <label for="starttime">Thời gian bắt đầu</label>
-                        <input value="<?=  $start_time ?>" name="starttime" required class="form-control" type="datetime-local" placeholder="Thời gian bắt đầu" id="starttime">
+                        <input value="<?=  $start_time ?>" name="starttime" required class="form-control" type="datetime-local" placeholder="Thời gian bắt đầu" id="starttime" readonly>
                     </div>
 					<div class="form-group">
                         <label for="deadline">Thời gian kết thúc</label>

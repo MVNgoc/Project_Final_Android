@@ -55,10 +55,14 @@
         else if(!empty($starttime) && !empty($deadline)) {
             $currenttime = date('d/m/Y');
             $currenttimecheck =explode('/', $currenttime); //Tách thành date, month, year
-            $starttimecheck = explode('-', $starttime); //Tách thành year, month, dayTtime
-            $deadlinetimecheck = explode('-', $deadline); //Tách thành year, month, dayTtime
-            $starttimecheck2 = explode('T', $starttimecheck[2]); //Tách thành day, time
-            $deadlinetimecheck2 = explode('T', $deadlinetimecheck[2]); //Tách thành day, time
+            $starttimecheck = explode('-', $starttime); //Tách starttime thành year, month, dayTtime
+            $deadlinetimecheck = explode('-', $deadline); //Tách deadline thành year, month, dayTtime
+            $starttimecheck2 = explode('T', $starttimecheck[2]); //Tách starttime thành day, time
+            $deadlinetimecheck2 = explode('T', $deadlinetimecheck[2]); //Tách deadline thành day, time
+            $starttimecheck3 = explode(':', $starttimecheck2[1]); // Tách starttime thành H, M
+            $d = new DateTime('', new DateTimeZone('Asia/Ho_Chi_Minh')); 
+            $a = $d->format('H:i');
+            $h_m = explode(':', $a); //Tách giờ phút hiện tại
 
             if($starttimecheck[0] < $currenttimecheck[2]) {
                 $error = 'Thời gian bắt đầu task không hợp lệ ';
@@ -69,43 +73,62 @@
             else if($starttimecheck2[0] < $currenttimecheck[0]) {
                 $error = 'Thời gian bắt đầu task không hợp lệ ';
             }
-            else if($starttimecheck[0] > $deadlinetimecheck[0]) {
-                $error = 'Thời gian kết thúc task không hợp lệ ';
+            else if($h_m[0] > $starttimecheck3[0]) {
+                $error = 'Thời gian bắt đầu task không hợp lệ ';
             }
-            else if($starttimecheck[1] > $deadlinetimecheck[1]) {
-                $error = 'Thời gian kết thúc task không hợp lệ';
-            }
-            else if($starttimecheck2[0] >= $deadlinetimecheck2[0]) {
-                $daycheck = ($deadlinetimecheck[1] - $starttimecheck[1])* 30;
-                if((($deadlinetimecheck2[0] - $starttimecheck2[0]) + $daycheck) > 0) {
-                    $taskstatus = 'New';
-                    $task_deliver = $_SESSION['username'];
-                    $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $task_deliver);
-                    if($data['code'] == 0) {
-                    $success = 'Task được tạo thành công.';
-                    $tasktitle = false;
-                    $taskdescription = false;
-                    $starttime = false;
-                    $deadline = false;
-                    $department = false;
-                    $error = false;
-                    }
-                    else {
-                        $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
-                    }
+            else if($h_m[1] >= $starttimecheck3[1]) {
+                $hourcheck = ($starttimecheck3[0] - $h_m[0]) * 60;
+                $timecheck = ($starttimecheck3[1] - $h_m[1]) + $hourcheck;
+                if($timecheck < 0) {
+                    $error = 'Thời gian bắt đầu task không hợp lệ ';
                 }
-                else if((($deadlinetimecheck2[0] - $starttimecheck2[0]) + $daycheck) == 0) {
-                    $error = 'Thời gian kết thúc phải lớn hơn thời gian bắt đầu ít nhất 1 ngày';
-                }   
                 else {
-                    $error = 'Thời gian kết thúc task không hợp lệ';
-                }
+                    if($starttimecheck[0] > $deadlinetimecheck[0]) {
+                        $error = 'Thời gian kết thúc task không hợp lệ ';
+                    }
+                    else if($starttimecheck[1] > $deadlinetimecheck[1]) {
+                        $error = 'Thời gian kết thúc task không hợp lệ';
+                    }
+                    else if($starttimecheck2[0] >= $deadlinetimecheck2[0]) {
+                        $daycheck = ($deadlinetimecheck[1] - $starttimecheck[1])* 30;
+                        if((($deadlinetimecheck2[0] - $starttimecheck2[0]) + $daycheck) > 0) {
+                            $taskstatus = 'New';
+                            $task_deliver = $_SESSION['username'];
+                            $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $task_deliver);
+                            if($data['code'] == 0) {
+                            $success = 'Task được tạo thành công.';
+                            $tasktitle = false;
+                            $taskdescription = false;
+                            $starttime = false;
+                            $deadline = false;
+                            $department = false;
+                            $error = false;
+                            }
+                            else {
+                                $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
+                            }
+                        }
+                        else if((($deadlinetimecheck2[0] - $starttimecheck2[0]) + $daycheck) == 0) {
+                            $error = 'Thời gian kết thúc phải lớn hơn thời gian bắt đầu ít nhất 1 ngày';
+                        }   
+                        else {
+                            $error = 'Thời gian kết thúc task không hợp lệ';
+                        }
+                    }
+                }     
             }
             else {
+                $taskstatus = 'New';
                 $task_deliver = $_SESSION['username'];
-                $data = updatetask($tasktitle, $taskdescription, $starttime, $deadline, $department , $id);
+                $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $task_deliver);
                 if($data['code'] == 0) {
-                    $success = 'Update Task thành công.';
+                $success = 'Task được tạo thành công.';
+                $tasktitle = false;
+                $taskdescription = false;
+                $starttime = false;
+                $deadline = false;
+                $department = false;
+                $error = false;
                 }
                 else {
                     $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';

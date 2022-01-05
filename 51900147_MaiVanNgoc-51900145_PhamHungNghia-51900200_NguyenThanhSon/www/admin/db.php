@@ -444,7 +444,7 @@
     }
 
     function selectallTaskStaff($staff_assign) {
-        $sql = "SELECT id, task_title, task_status, DATE_FORMAT(deadline, '%d/%m/%Y %h:%i:%s') AS deadline FROM task WHERE staff_assign = ?";
+        $sql = "SELECT id, task_title, task_status, DATE_FORMAT(deadline, '%d/%m/%Y %h:%i:%s') AS deadline FROM task WHERE staff_assign = ? AND task_status != 'Canceled'";
         $conn = open_database();
         
         $stm = $conn->prepare($sql);
