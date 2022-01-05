@@ -28,6 +28,58 @@
     $task_deliver = '';
     $error = '';
 
+    if(isset($_POST["task-edit"])){
+		$id = $_POST["task-edit"];
+        $_SESSION['id_task'] = $id;
+		$sql = "SELECT task_title, task_description, staff_assign FROM task WHERE id = '$id' ";
+		$conn = open_database();
+		$stm = $conn -> prepare($sql);
+		$result = $conn-> query($sql);
+		$row = $result->fetch_assoc();
+		$task_title = $row["task_title"];
+		$task_description = $row["task_description"];
+		$staff_assign = $row["staff_assign"];
+        
+        $sql = "SELECT DATE_FORMAT(start_time, '%m/%d/%Y %h:%i:%s') AS start_time FROM task WHERE id = '$id'" ;
+        $conn = open_database();
+		$stm = $conn -> prepare($sql);
+		$result = $conn-> query($sql);
+		$row = $result->fetch_assoc();
+        $start_time = $row["start_time"];
+
+        $sql = "SELECT DATE_FORMAT(deadline, '%m/%d/%Y %h:%i:%s') AS deadline FROM task WHERE id = '$id'";
+        $conn = open_database();
+		$stm = $conn -> prepare($sql);
+		$result = $conn-> query($sql);
+		$row = $result->fetch_assoc();
+        $deadline = $row["deadline"];
+	}
+	else {
+		$id = $_SESSION['id_task'];
+		$sql = "SELECT * FROM task WHERE id = '$id' ";
+		$conn = open_database();
+		$stm = $conn -> prepare($sql);
+		$result = $conn-> query($sql);
+		$row = $result->fetch_assoc();
+		$task_title = $row["task_title"];
+		$task_description = $row["task_description"];
+		$staff_assign = $row["staff_assign"];
+
+        $sql = "SELECT DATE_FORMAT(start_time, '%m/%d/%Y %h:%i:%s') AS start_time FROM task WHERE id = '$id'" ;
+        $conn = open_database();
+		$stm = $conn -> prepare($sql);
+		$result = $conn-> query($sql);
+		$row = $result->fetch_assoc();
+        $start_time = $row["start_time"];
+
+        $sql = "SELECT DATE_FORMAT(deadline, '%m/%d/%Y %h:%i:%s') AS deadline FROM task WHERE id = '$id'";
+        $conn = open_database();
+		$stm = $conn -> prepare($sql);
+		$result = $conn-> query($sql);
+		$row = $result->fetch_assoc();
+        $deadline = $row["deadline"];
+	}
+
     if(isset($_POST['tasktitle']) && isset($_POST['taskdescription']) 
     && isset($_POST['starttime']) && isset($_POST['deadline']) 
     && isset($_POST['department'])) {
@@ -53,17 +105,10 @@
             $error = 'Vui lòng chọn nhân viên thực hiện task';
         }
         else {
-            $taskstatus = 'New';
             $task_deliver = $_SESSION['username'];
-            $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $task_deliver);
+            $data = updatetask($tasktitle, $taskdescription, $starttime, $deadline, $department , $id);
             if($data['code'] == 0) {
-                $success = 'Task được tạo thành công.';
-                $tasktitle = false;
-                $taskdescription = false;
-                $starttime = false;
-                $deadline = false;
-                $department = false;
-                $error = false;
+                $success = 'Update Task thành công.';
             }
             else {
                 $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
@@ -149,19 +194,19 @@
                 <form method="post" action="" novalidate>
                     <div class="form-group">
                         <label for="tasktitle">Tiêu đề Task</label>
-                        <input value="<?= $tasktitle ?>" name="tasktitle" required class="form-control" type="text" placeholder="Tiêu đề Task" id="tasktitle">         
+                        <input value="<?= $task_title ?>" name="tasktitle" required class="form-control" type="text" placeholder="Tiêu đề Task" id="tasktitle">         
                     </div>
                     <div class="form-group">
                         <label for="taskdescription">Mô tả</label>
-                        <input value="<?= $taskdescription ?>" name="taskdescription" required class="form-control" type="text" placeholder="Mô tả" id="taskdescription">
+                        <input value="<?php echo  $task_description; ?>" name="taskdescription" required class="form-control" type="text" placeholder="Mô tả" id="taskdescription">
                     </div>
                     <div class="form-group">
                         <label for="starttime">Thời gian bắt đầu</label>
-                        <input value="<?= $starttime ?>" name="starttime" required class="form-control" type="datetime-local" placeholder="Thời gian bắt đầu" id="starttime">
+                        <input value="<?=  $start_time ?>" name="starttime" required class="form-control" type="datetime-local" placeholder="Thời gian bắt đầu" id="starttime">
                     </div>
 					<div class="form-group">
                         <label for="deadline">Thời gian kết thúc</label>
-                        <input value="<?= $deadline ?>" name="deadline" required class="form-control" type="datetime-local" placeholder="Thời gian kết thúc" id="deadline">
+                        <input value="<?=  $deadline ?>" name="deadline" required class="form-control" type="datetime-local" placeholder="Thời gian kết thúc" id="deadline">
                     </div>
 					<div class="form-group">
                         <label for="choosestaff">Chọn nhân viên</label>
@@ -174,10 +219,16 @@
                                 die('Query error: ' . $stm->error);
                             }
                             $result = $stm->get_result();
+                            $dbselected = $staff_assign;
                             if($result-> num_rows > 0) {
                                 echo '<select required class="form-control" name="department">';
                                 foreach($result as $row) {
-                                    echo '<option value="'.$row["firstname"].' '.$row["lastname"].'">'.$row["firstname"].' '.$row["lastname"].'</option>';
+                                    if(($row["firstname"].' '.$row["lastname"]) != $dbselected) {
+                                        echo '<option value="'.$row["firstname"].' '.$row["lastname"].'">'.$row["firstname"].' '.$row["lastname"].'</option>';
+                                    }
+                                    else {
+                                        echo '<option value="'.$row["firstname"].' '.$row["lastname"].'"selected>'.$row["firstname"].' '.$row["lastname"].'</option>';
+                                    }
                                 }
 							    echo '</select>';
                             }
@@ -197,8 +248,7 @@
                                 echo "<div class='alert alert-danger'>$error</div>";
                             }
                         ?>
-                        <button type="submit" class="btn btn-register-js btn-assign-task btn-success px-5 mt-3 mr-2">Assign Task</button>
-                        <button type="reset" class="btn btn-success px-5 mt-3 mr-2">Reset</button>
+                        <button type="submit" class="btn btn-register-js btn-assign-task btn-success px-5 mt-3 mr-2">Update Task</button>
                     </div>
                 </form>
 

@@ -422,13 +422,18 @@
 					echo "<td>". $row["staff_assign"] ."</td>";
 					echo "<td>". $row["task_status"] ."</td>";
 					echo '<td class="list-btn">';
-                        echo '<form action="viewtask.php" method="POST">';
+                        if($row["task_status"] != "Canceled") {
+                            echo '<form action="viewtask.php" method="POST">';
                             echo '<button class="btn-view text-white" name="task-view" value="'. $row["id"] .'">Xem</button>';
-                        echo '</form>';
-                        if($row["task_status"] == "New") {
-                            echo '<form action="" method="POST">';
-						        echo '<button type="submit" name="task-delete" class="btn-delete text-white deletebtn" value="'. $row["id"] .'">Hủy bỏ</button>';
                             echo '</form>';
+                            if($row["task_status"] == "New" || $row["task_status"] == "Waiting") {
+                                echo '<form action="updatetask.php" method="POST">';
+                                    echo '<button type="submit" name="task-edit" class="btn-edit text-white deletebtn" value="'. $row["id"] .'">Tùy chỉnh</button>';
+                                echo '</form>';
+                                echo '<form action="" method="POST">';
+                                    echo '<button type="submit" name="task-delete" class="btn-delete text-white deletebtn" value="'. $row["id"] .'">Hủy bỏ</button>';
+                                echo '</form>';
+                            }
                         }
 					echo '</td>';
 				echo '</tr>';
@@ -469,38 +474,30 @@
         $conn->close();
     }
 
-    // function updateStatus($status, $id) {
-    //     $sql = 'UPDATE department SET department_name = ?, manager_name = ?, department_description = ?, room_number = ? WHERE id = ?';
-    //     $conn = open_database();
+    function updateStatus($status, $id) {
+        $sql = 'UPDATE task SET task_status = ? WHERE id = ?';
+        $conn = open_database();
 
-    //     $stm = $conn->prepare($sql);
+        $stm = $conn->prepare($sql);
 
-    //     $stm->bind_param('sssss',$department_name, $manager_name, $department_description, $room_number, $id);
-    //     if(!$stm->execute()){
-    //         return array('code' => 2, 'error' => 'Can not excute command');
-    //     }
-    //     return array('code' => 0,'error' => 'Chỉnh sửa thành công');
-    // function selectallTask() {
-    //     $sql = 'SELECT * FROM task WHERE department_name = ? ORDER BY department_name DESC';
-    //     $conn = open_database();
-        
-    //     $stm = $conn->prepare($sql);
-    //     $stm->bind_param('s',$department_name);
-    //     if(!$stm->execute()){
-    //         die('Query error: ' . $stm->error);
-    //     }
-        
-    //     $result = $stm->get_result();
-    //     if($result-> num_rows > 0){
-    //         foreach($result as $row) {
-    //             echo '<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-    //                     <div class="form-group">
-    //                         <p>'. $row["firstname"] . ' ' . $row["lastname"] .'</p>                              
-    //                     </div>
-    //                 </div>';
-    //         }
-    //     }
-    //     $conn->close();
-    // }
+        $stm->bind_param('ss',$status, $id);
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Thành công');
+    }
+
+    function updatetask($task_title, $task_description, $start_time, $deadline, $staff_assign , $id) { 
+        $sql = 'UPDATE task SET task_title = ?, task_description = ?, start_time = ?, deadline = ?, staff_assign = ? WHERE id = ?';
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+
+        $stm->bind_param('ssssss',$task_title, $task_description, $start_time, $deadline, $staff_assign , $id);
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Thành công');
+    }
 
 ?>

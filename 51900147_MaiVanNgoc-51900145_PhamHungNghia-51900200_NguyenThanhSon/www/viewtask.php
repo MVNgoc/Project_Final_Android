@@ -76,6 +76,11 @@
 		$row = $result->fetch_assoc();
         $deadline = $row['deadline'];
     }
+
+    if(isset($_POST['btnstarttask'])) {
+        $status = 'In progress';
+        updateStatus($status, $id_task);
+    }
 ?>
 
 <!DOCTYPE html>
