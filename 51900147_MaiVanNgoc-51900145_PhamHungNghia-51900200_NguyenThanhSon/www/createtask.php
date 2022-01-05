@@ -52,6 +52,21 @@
         else if(empty($department)) {
             $error = 'Vui lòng chọn nhân viên thực hiện task';
         }
+        else if(!empty($starttime) && !empty($deadline)) {
+            $starttimecheck = explode('-', $starttime);
+            $deadlinetimecheck = explode('-', $deadline);
+            if(count($starttimecheck) == 3 && count($deadlinetimecheck) == 3) {
+                if($starttimecheck[0] <= $deadlinetimecheck[0]) {
+                    $error = 'Ngày kết thúc task không hợp lệ';
+                }
+                else if($starttimecheck[1] <= $deadlinetimecheck[1]) {
+                    $error = 'Ngày kết thúc task không hợp lệ';
+                }
+                else if($starttimecheck[2] <= $deadlinetimecheck[2]) {
+                    $error = 'Ngày kết thúc task không hợp lệ';
+                }
+            }
+        }
         else {
             $taskstatus = 'New';
             $task_deliver = $_SESSION['username'];
