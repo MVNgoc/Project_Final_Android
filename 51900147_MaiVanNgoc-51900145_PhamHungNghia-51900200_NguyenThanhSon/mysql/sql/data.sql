@@ -41,7 +41,8 @@ CREATE TABLE task (
   start_time datetime COLLATE utf8_unicode_ci NOT NULL,
   deadline datetime NOT NULL,
   staff_assign varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  task_status varchar(64) COLLATE utf8_unicode_ci NOT NULL
+  task_status varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  task_deliver varchar(64) COLLATE utf8_unicode_ci NOT NULL
 );
 
 CREATE TABLE taskfile (

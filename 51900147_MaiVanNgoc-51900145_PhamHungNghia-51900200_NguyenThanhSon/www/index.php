@@ -157,8 +157,7 @@
 						<tr>
 							<th  class="text-center">STT</th>
 							<th  class="text-center">Tên task</th>
-							<th  class="text-center">Người giao</th>
-							<th  class="text-center">Người nhận</th>
+							<th  class="text-center">Người thực hiện</th>
 							<th  class="text-center">Trạng thái</th>
 						</tr>
 					</thead>

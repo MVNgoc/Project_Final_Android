@@ -25,6 +25,7 @@
     $deadline = '';
     $department = '';
     $taskstatus = '';
+    $task_deliver = '';
     $error = '';
 
     if(isset($_POST['tasktitle']) && isset($_POST['taskdescription']) 
@@ -53,7 +54,8 @@
         }
         else {
             $taskstatus = 'New';
-            $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus);
+            $task_deliver = $_SESSION['username'];
+            $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $task_deliver);
             if($data['code'] == 0) {
                 $success = 'Task được tạo thành công.';
                 $tasktitle = false;
