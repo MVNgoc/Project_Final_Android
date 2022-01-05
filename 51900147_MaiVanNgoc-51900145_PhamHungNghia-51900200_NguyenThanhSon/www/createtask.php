@@ -69,20 +69,19 @@
             else if($starttimecheck2[0] < $currenttimecheck[0]) {
                 $error = 'Thời gian bắt đầu task không hợp lệ ';
             }
-            else if($starttimecheck[0] < $deadlinetimecheck[0]) {
+            else if($starttimecheck[0] > $deadlinetimecheck[0]) {
                 $error = 'Thời gian kết thúc task không hợp lệ ';
             }
-            else if($starttimecheck[1] < $deadlinetimecheck[1]) {
-                $error = 'Thời gian kết thúc task không hợp lệ ';
+            else if($starttimecheck[1] > $deadlinetimecheck[1]) {
+                $error = 'Thời gian kết thúc task không hợp lệ';
             }
             else if($starttimecheck2[0] >= $deadlinetimecheck2[0]) {
-                $error = 'Thời gian kết thúc task không hợp lệ ';
-            }
-            else {
-                $taskstatus = 'New';
-                $task_deliver = $_SESSION['username'];
-                $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $task_deliver);
-                if($data['code'] == 0) {
+                $daycheck = ($deadlinetimecheck[1] - $starttimecheck[1])* 30;
+                if((($deadlinetimecheck2[0] - $starttimecheck2[0]) + $daycheck) > 0) {
+                    $taskstatus = 'New';
+                    $task_deliver = $_SESSION['username'];
+                    $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $task_deliver);
+                    if($data['code'] == 0) {
                     $success = 'Task được tạo thành công.';
                     $tasktitle = false;
                     $taskdescription = false;
@@ -90,6 +89,23 @@
                     $deadline = false;
                     $department = false;
                     $error = false;
+                    }
+                    else {
+                        $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
+                    }
+                }
+                else if((($deadlinetimecheck2[0] - $starttimecheck2[0]) + $daycheck) == 0) {
+                    $error = 'Thời gian kết thúc phải lớn hơn thời gian bắt đầu ít nhất 1 ngày';
+                }   
+                else {
+                    $error = 'Thời gian kết thúc task không hợp lệ';
+                }
+            }
+            else {
+                $task_deliver = $_SESSION['username'];
+                $data = updatetask($tasktitle, $taskdescription, $starttime, $deadline, $department , $id);
+                if($data['code'] == 0) {
+                    $success = 'Update Task thành công.';
                 }
                 else {
                     $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
