@@ -22,11 +22,8 @@
 		$stm = $conn->prepare($sql);
 		$stm->execute();
 	}
-<<<<<<< HEAD
 
 	$nameStaff = $_SESSION['firstname'] . ' ' . $_SESSION['lastname'];
-=======
->>>>>>> 615001ecbf89c95312dce14a169d505e4c5abc00
 ?>
 
 <!DOCTYPE html>
@@ -148,7 +145,6 @@
 						</table>
 					</div>';
 			}
-<<<<<<< HEAD
 			else if($_SESSION['positionid'] == 1) {
 				echo '<div class="body">
 					<div class="header-body">
@@ -200,7 +196,6 @@
 			}
 		?>
 
-=======
 		?>
 
 			<div class="body">
@@ -225,7 +220,6 @@
 				</table>
 			</div>
 
->>>>>>> 615001ecbf89c95312dce14a169d505e4c5abc00
 		<footer class="footer">
 			
 		</footer>
