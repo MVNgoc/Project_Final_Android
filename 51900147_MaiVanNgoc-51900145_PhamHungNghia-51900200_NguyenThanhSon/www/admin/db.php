@@ -500,4 +500,21 @@
         return array('code' => 0,'error' => 'Thành công');
     }
 
+    function insertleave($username,$leavetype,$leavereason,$star_date,$end_date,$date_apply,$dayleft,$dayuse,$uploadfile){
+        $sql = 'INSERT INTO leaveform(username,leavetype,leavereson,star_date,end_date,date_applied,day_left,
+            day_use,uploadd_file) VALUES(?,?,?,?,?,?,?,?,?)';
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+        $stm->bind_param('ssssssiis',$username,$leavetype,$leavereason,$star_date,$end_date,$date_apply,$dayleft,$dayuse,$uploadfile);
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Tạo đơn xin nghỉ thành công');
+    }
+
+    function displayleaveofUser($username){
+        
+    }
+
 ?>
