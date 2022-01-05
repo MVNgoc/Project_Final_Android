@@ -22,8 +22,11 @@
 		$stm = $conn->prepare($sql);
 		$stm->execute();
 	}
+<<<<<<< HEAD
 
 	$nameStaff = $_SESSION['firstname'] . ' ' . $_SESSION['lastname'];
+=======
+>>>>>>> 615001ecbf89c95312dce14a169d505e4c5abc00
 ?>
 
 <!DOCTYPE html>
@@ -145,6 +148,7 @@
 						</table>
 					</div>';
 			}
+<<<<<<< HEAD
 			else if($_SESSION['positionid'] == 1) {
 				echo '<div class="body">
 					<div class="header-body">
@@ -196,6 +200,32 @@
 			}
 		?>
 
+=======
+		?>
+
+			<div class="body">
+				<div class="header-body">
+					<h3 class="task-list-header" style="margin-bottom:0">Danh sách task đã giao</h3>
+					<form class="create-task-form" action="createtask.php">
+						<button class="add-staff text-white" type="submit">+ Tạo task mới</button>
+					</form>	
+				</div>
+				<table id="staff-table" class="table table-striped">
+					<thead>
+						<tr>
+							<th  class="text-center">STT</th>
+							<th  class="text-center">Tên task</th>
+							<th  class="text-center">Người thực hiện</th>
+							<th  class="text-center">Trạng thái</th>
+						</tr>
+					</thead>
+					<tbody> 
+
+					</tbody>
+				</table>
+			</div>
+
+>>>>>>> 615001ecbf89c95312dce14a169d505e4c5abc00
 		<footer class="footer">
 			
 		</footer>

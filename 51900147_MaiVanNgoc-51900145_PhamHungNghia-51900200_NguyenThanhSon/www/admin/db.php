@@ -480,6 +480,27 @@
     //         return array('code' => 2, 'error' => 'Can not excute command');
     //     }
     //     return array('code' => 0,'error' => 'Chỉnh sửa thành công');
+    // function selectallTask() {
+    //     $sql = 'SELECT * FROM task WHERE department_name = ? ORDER BY department_name DESC';
+    //     $conn = open_database();
+        
+    //     $stm = $conn->prepare($sql);
+    //     $stm->bind_param('s',$department_name);
+    //     if(!$stm->execute()){
+    //         die('Query error: ' . $stm->error);
+    //     }
+        
+    //     $result = $stm->get_result();
+    //     if($result-> num_rows > 0){
+    //         foreach($result as $row) {
+    //             echo '<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+    //                     <div class="form-group">
+    //                         <p>'. $row["firstname"] . ' ' . $row["lastname"] .'</p>                              
+    //                     </div>
+    //                 </div>';
+    //         }
+    //     }
+    //     $conn->close();
     // }
 
 ?>

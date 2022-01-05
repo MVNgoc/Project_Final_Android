@@ -581,6 +581,7 @@ input:focus{
 .container .btn-update-manager {
     margin-left: 34%;
 }
+<<<<<<< HEAD
 /* End department_edit.php */
 
 /* viewtask.php */
@@ -589,3 +590,6 @@ input:focus{
     margin-top: 4% !important;
 }
 /* End viewtask.php */
+=======
+/* End department_edit.php */
+>>>>>>> 615001ecbf89c95312dce14a169d505e4c5abc00
