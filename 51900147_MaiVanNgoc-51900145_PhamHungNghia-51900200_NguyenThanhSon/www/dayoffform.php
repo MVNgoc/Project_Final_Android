@@ -43,9 +43,27 @@
 		}else if(empty($leavereason)){
 			$error = "Hãy nhập lí do nghỉ";
 		}else if(!empty($star_date) && !empty($end_date)){
-			//Thêm vào database
+			$currenttime = date('Y-m-d');
+			$start = strtotime($star_date);
+			$end = strtotime($end_date);
+			$now = strtotime($currenttime);
+			$interval = $end - $start;
+			$interval2 = $start - $now;
+			$date_number = floor($interval / (60*60*24));
+			$date_check = floor($interval2 / (60*60*24));
+
+			if($date_check <= 0){
+				$error = 'Thời gian bắt đầu không hợp lệ';
+			}
+			else if($date_number <= 0){
+				$error = 'Thời gian kết thúc không hợp lệ';
+			}
+            else if($date_number > $_SESSION['day_off']){
+				$error = 'Số ngày nghỉ không hợp lệ';
+			}
+		}else{
+			//addtodtb
 		}
-		echo $_SESSION['email'];
 	}
 
 ?>
