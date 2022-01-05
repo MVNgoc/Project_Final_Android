@@ -51,6 +51,7 @@
 				$_SESSION['email'] = $data['email'];
 				$_SESSION['phone_number'] = $data['phone_number'];
 				$_SESSION['avatar'] = $data['avatar'];
+				$_SESSION['day_off'] = $data['day_off'];
 				if($_SESSION['pwd'] == $_SESSION['username']) {
 					header('Location: changepassword.php');
 					exit(); // Chuyển đến trang thay đổi mật khẩu
