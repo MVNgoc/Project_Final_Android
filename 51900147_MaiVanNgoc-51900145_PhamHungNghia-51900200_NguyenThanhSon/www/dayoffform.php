@@ -27,8 +27,6 @@
 	$date_number = '';
 	$leavereason = '';
 	$upload ='';
-	$day_left = 0;
-	$day_use = 0;
 
 	if(isset($_POST['leavetype']) && isset($_POST['star_date']) && isset($_POST['end_date']) &&
 	isset($_POST['date_number']) &&isset($_POST['leavereson'])){
@@ -68,7 +66,7 @@
 			}
 			else{
 				$username = $_SESSION['username'];
-				$data = insertleave($username,$leavetype,$leavereason,$star_date,$end_date,$currenttime,$day_left,$day_use,$upload);
+				$data = insertleave($username,$leavetype,$leavereason,$star_date,$end_date,$currenttime,$upload,$date_number);
 				if($data['code']==0){
 					$success = 'Tạo đơn xin nghỉ thành công';
 					$leavetype = false;
@@ -159,56 +157,56 @@
 		</header>
 
 		<div class="container">
-        <div class="row justify-content-center ">
-            <div class="col-xl-5 col-lg-6 col-md-8 border my-5 p-4 rounded mx-3 addstaffform">
-                <h3 class="text-center text-secondary mt-2 mb-3 mb-3">Đơn xin nghỉ phép</h3>
-                <form method="post" action="" novalidate>
-                    <div class="form-group">
-                        <label for="leavetype">Tiêu đề</label>
-                        <input value="<?= $leavetype ?>" name="leavetype" required class="form-control" type="leavetype" placeholder="Nhập tiêu đề" id="leavetype">
-                    </div>
+			<div class="row justify-content-center ">
+				<div class="col-xl-5 col-lg-6 col-md-8 border my-5 p-4 rounded mx-3 addstaffform">
+					<h3 class="text-center text-secondary mt-2 mb-3 mb-3">Đơn xin nghỉ phép</h3>
+					<form method="post" action="" novalidate>
+						<div class="form-group">
+							<label for="leavetype">Tiêu đề</label>
+							<input value="<?= $leavetype ?>" name="leavetype" required class="form-control" type="leavetype" placeholder="Nhập tiêu đề" id="leavetype">
+						</div>
 
-					<div class="form-group">
-                        <label for="star_date">Thời gian bắt đầu</label>
-                        <input value="<?= $star_date ?>" name="star_date" required class="form-control" type="date"  id="star_date">
-                    </div>
+						<div class="form-group">
+							<label for="star_date">Thời gian bắt đầu</label>
+							<input value="<?= $star_date ?>" name="star_date" required class="form-control" type="date"  id="star_date">
+						</div>
 
-					<div class="form-group">
-                        <label for="end_date">Thời gian kết thúc</label>
-                        <input value="<?= $end_date ?>" name="end_date" required class="form-control" type="date" id="end_date">
-                    </div>
+						<div class="form-group">
+							<label for="end_date">Thời gian kết thúc</label>
+							<input value="<?= $end_date ?>" name="end_date" required class="form-control" type="date" id="end_date">
+						</div>
 
-					<div class="form-group">
-                        <label for="date_number">Số ngày nghỉ</label>
-                        <input value="<?= $date_number ?>" name="date_number" required class="form-control" type="text" id="date_number" readonly>
-                    </div>
+						<div class="form-group">
+							<label for="date_number">Số ngày nghỉ</label>
+							<input value="<?= $date_number ?>" name="date_number" required class="form-control" type="text" id="date_number" readonly>
+						</div>
 
-                    <div class="form-group">
-                        <label for="leavereson">Lí do nghỉ phép</label>
-                        <input value="<?= $leavereason ?>" name="leavereson" required class="form-control" type="text" placeholder="Nhập lí do nghỉ" id="leavereson">
-                    </div>
+						<div class="form-group">
+							<label for="leavereson">Lí do nghỉ phép</label>
+							<input value="<?= $leavereason ?>" name="leavereson" required class="form-control" type="text" placeholder="Nhập lí do nghỉ" id="leavereson">
+						</div>
 
-                    <div class="form-group">
-                        <?php
-                            if (!empty($error)) {
-                                echo "<div class='alert alert-danger'>$error</div>";
-                            }
-                        ?>
-                        <button type="submit" class="btn btn-register-js btn-success px-5 mt-3 mr-2">Nộp form</button>
-                        <button type="reset" class="btn btn-success px-5 mt-3 mr-2">Reset</button>
-                    </div>
-                </form>
+						<div class="form-group">
+							<?php
+								if (!empty($error)) {
+									echo "<div class='alert alert-danger'>$error</div>";
+								}
+							?>
+							<button type="submit" class="btn btn-register-js btn-success px-5 mt-3 mr-2">Nộp form</button>
+							<button type="reset" class="btn btn-success px-5 mt-3 mr-2">Reset</button>
+						</div>
+					</form>
 
-            </div>
-        </div>
-		<?php
-			if (!empty($success)) {
-				echo "<div class='notification'>
-						<div class='notification_success'>$success</div>
-					</div>";
-			}
-		?>
-    </div>
+				</div>
+			</div>
+			<?php
+				if (!empty($success)) {
+					echo "<div class='notification'>
+							<div class='notification_success'>$success</div>
+						</div>";
+				}
+			?>
+    	</div>
 
 
 		<footer class="footer">	

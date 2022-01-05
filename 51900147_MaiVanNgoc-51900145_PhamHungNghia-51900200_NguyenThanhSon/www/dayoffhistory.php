@@ -17,6 +17,8 @@
         exit();
     }
 
+	require_once('./admin/db.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -92,6 +94,27 @@
 				<button class="btn-list-item"></button>
 			</div>
 		</header>
+
+		<div class="body">
+			<div class="header-body">
+				<h3 class="user-list-header" style="margin-bottom:0">Danh sách đơn xin nghỉ phép đã tạo</h3>
+			</div>
+			<table id="staff-table" class="table table-striped">
+				<thead>
+					<tr>
+						<th  class="text-center">STT</th>
+						<th  class="text-center">Tiêu đề</th>
+						<th  class="text-center">Ngày tạo</th>
+						<th  class="text-center">Số ngày nghỉ</th>
+						<th  class="text-center">Trạng thái</th>
+						<th  class="text-center">Hoạt động</th>
+					</tr>
+				</thead>
+			<tbody> 
+				<?php displayleaveofUser($_SESSION["username"]) ?>			
+			</tbody>
+			</table>
+		</div>
 
 		
 

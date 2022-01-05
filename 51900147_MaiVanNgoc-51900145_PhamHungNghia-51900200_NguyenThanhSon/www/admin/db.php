@@ -500,13 +500,13 @@
         return array('code' => 0,'error' => 'Thành công');
     }
 
-    function insertleave($username,$leavetype,$leavereason,$star_date,$end_date,$date_apply,$dayleft,$dayuse,$uploadfile){
-        $sql = 'INSERT INTO leaveform(username,leavetype,leavereson,star_date,end_date,date_applied,day_left,
-            day_use,uploadd_file) VALUES(?,?,?,?,?,?,?,?,?)';
+    function insertleave($username,$leavetype,$leavereason,$star_date,$end_date,$date_apply,$uploadfile,$date_num){
+        $sql = 'INSERT INTO leaveform(username,leavetype,leavereson,star_date,end_date,date_applied,
+            uploadd_file,date_num) VALUES(?,?,?,?,?,?,?,?)';
         $conn = open_database();
 
         $stm = $conn->prepare($sql);
-        $stm->bind_param('ssssssiis',$username,$leavetype,$leavereason,$star_date,$end_date,$date_apply,$dayleft,$dayuse,$uploadfile);
+        $stm->bind_param('sssssssi',$username,$leavetype,$leavereason,$star_date,$end_date,$date_apply,$uploadfile,$date_num);
         if(!$stm->execute()){
             return array('code' => 2, 'error' => 'Can not excute command');
         }
@@ -514,7 +514,36 @@
     }
 
     function displayleaveofUser($username){
+        $sql = 'SELECT * FROM leaveform WHERE username = ?';
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+        $stm->bind_param('s',$username);
+        if(!$stm->execute()){
+            die('Query error: ' . $stm->error);
+        }
         
+        $result = $stm->get_result();
+        $stt = 1;
+        if($result-> num_rows > 0){
+            foreach($result as $row) {
+                echo "<tr>";
+					echo "<td>" . $stt . "</td>";
+					echo "<td>". $row["leavetype"] . "</td>";
+					echo "<td>". $row["date_applied"] ."</td>";
+                    echo "<td>". $row["date_num"] ."</td>";
+					echo "<td>". $row["leave_status"] ."</td>";
+					echo '<td class="list-btn">';
+                        echo '<form action="duyetdon.php" method="POST">';
+                            echo '<button class="btn-view text-white" name="leave-view" value="'. $row["username"] .'">Xem</button>';
+                        echo '</form>';
+					echo '</td>';
+				echo '</tr>';
+                $stt++;
+            }
+        }
+        $conn->close();
+
     }
 
 ?>

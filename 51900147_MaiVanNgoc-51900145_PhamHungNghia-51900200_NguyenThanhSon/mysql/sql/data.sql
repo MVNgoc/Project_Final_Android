@@ -58,9 +58,14 @@ CREATE TABLE leaveform (
   end_date date NOT NULL,
   date_applied date NOT NULL,
   leave_status varchar(30) NOT NULL DEFAULT 'Đang đợi', 
+  uploadd_file varchar(255) COLLATE utf8_unicode_ci,
+  date_num int(2) NOT NULL
+);
+
+CREATE TABLE leaverequest(
+  username varchar(64) NOT NULL,
   day_left int(2) NOT NULL,
-  day_use int(2) NOT NULL,
-  uploadd_file varchar(255) COLLATE utf8_unicode_ci
+  day_use int(2) NOT NULL
 );
 
 INSERT INTO account (id, username, pass, sex, firstname, lastname, positionid, department_name, email,`phone_number`, day_off, avatar) VALUES
@@ -103,6 +108,6 @@ ALTER TABLE taskfile
 ALTER TABLE taskfile
   MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
-ALTER TABLE leaveform
+ALTER TABLE leaverequest
   ADD PRIMARY KEY (username);
 COMMIT;
