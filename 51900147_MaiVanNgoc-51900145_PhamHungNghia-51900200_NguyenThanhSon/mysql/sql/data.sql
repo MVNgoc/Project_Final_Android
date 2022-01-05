@@ -50,6 +50,19 @@ CREATE TABLE taskfile (
   name_task_file varchar(64) NOT NULL COLLATE utf8_unicode_ci
 );
 
+CREATE TABLE leaveform (
+  username varchar(64) NOT NULL,
+  leavetype varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  leavereson varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  star_date date NOT NULL,
+  end_date date NOT NULL,
+  date_applied date NOT NULL,
+  leave_status varchar(30) NOT NULL DEFAULT 'Đang đợi', 
+  day_left int(2) NOT NULL,
+  day_use int(2) NOT NULL,
+  uploadd_file varchar(255) COLLATE utf8_unicode_ci NOT NULL
+);
+
 INSERT INTO account (id, username, pass, sex, firstname, lastname, positionid, department_name, email,`phone_number`, day_off, avatar) VALUES
 ('51900147', 'admin', '$2a$12$8CtP3.iNTmGI.j7J/gipzuo.GByjjRX7dhaGasw/dME80d71tuQN6', 'Nam', 'Mai', 'Văn Ngọc', 3, 'Marketing', 'mvngoc@gmail.com', '0337375401', null, ''),
 ('51900145', 'hungnghia', '$2a$12$jJDsE0y3FCZDBfQHUUJBVuikkJ.DQtMBlaRoH9kj2dhETTeBUssD.', 'Nam', 'Phạm', 'Hùng Nghĩa', 1, 'Marketing', 'hungnghia@gmail.com', '0337375402', 15, ''),
@@ -89,4 +102,7 @@ ALTER TABLE taskfile
 
 ALTER TABLE taskfile
   MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+ALTER TABLE leaveform
+  ADD PRIMARY KEY (username);
 COMMIT;
