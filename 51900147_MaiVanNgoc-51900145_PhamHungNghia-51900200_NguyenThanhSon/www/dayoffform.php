@@ -17,6 +17,8 @@
         exit();
     }
 
+	require_once('./admin/db.php');
+
 	$error = '';
 	$success = '';
 	$leavetype = '';
@@ -24,6 +26,9 @@
 	$end_date = '';
 	$date_number = '';
 	$leavereason = '';
+	$upload ='';
+	$day_left = 0;
+	$day_use = 0;
 
 	if(isset($_POST['leavetype']) && isset($_POST['star_date']) && isset($_POST['end_date']) &&
 	isset($_POST['date_number']) &&isset($_POST['leavereson'])){
@@ -61,8 +66,20 @@
             else if($date_number > $_SESSION['day_off']){
 				$error = 'Số ngày nghỉ không hợp lệ';
 			}
-		}else{
-			//addtodtb
+			else{
+				$username = $_SESSION['username'];
+				$data = insertleave($username,$leavetype,$leavereason,$star_date,$end_date,$currenttime,$day_left,$day_use,$upload);
+				if($data['code']==0){
+					$success = 'Tạo đơn xin nghỉ thành công';
+					$leavetype = false;
+					$leavereason = false;
+					$star_date = false;
+					$end_date = false;
+					$date_number = false;
+				}else{
+					$error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
+				}
+			}
 		}
 	}
 
