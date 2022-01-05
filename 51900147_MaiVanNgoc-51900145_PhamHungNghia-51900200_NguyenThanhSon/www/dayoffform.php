@@ -16,6 +16,7 @@
         header('Location: index.php');
         exit();
     }
+	echo "12343543";
 
 ?>
 
