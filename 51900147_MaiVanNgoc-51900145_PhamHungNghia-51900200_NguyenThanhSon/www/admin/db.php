@@ -426,7 +426,7 @@
                             echo '<form action="viewtask.php" method="POST">';
                             echo '<button class="btn-view text-white" name="task-view" value="'. $row["id"] .'">Xem</button>';
                             echo '</form>';
-                            if($row["task_status"] == "New") {
+                            if($row["task_status"] == "New" || $row["task_status"] == "Waiting") {
                                 echo '<form action="updatetask.php" method="POST">';
                                     echo '<button type="submit" name="task-edit" class="btn-edit text-white deletebtn" value="'. $row["id"] .'">Tùy chỉnh</button>';
                                 echo '</form>';
