@@ -34,7 +34,6 @@
         $staff_assign = $row['staff_assign'];
         $task_status = $row['task_status'];
         $message_task = $row['message_task'];
-        $time_submit = $row['time_submit'];
 
         $sql = "SELECT DATE_FORMAT(start_time, '%d/%m/%Y %h:%i:%s') AS start_time FROM task WHERE id = '$id_task'" ;
         $conn = open_database();
@@ -71,7 +70,6 @@
         $staff_assign = $row['staff_assign'];
         $task_status = $row['task_status'];
         $message_task = $row['message_task'];
-        $time_submit = $row['time_submit'];
 
         $sql = "SELECT DATE_FORMAT(start_time, '%d/%m/%Y %h:%i:%s') AS start_time FROM task WHERE id = '$id_task'";
         $conn = open_database();
@@ -149,14 +147,13 @@
           }
     }
 
-    if(isset($_POST['btncompletetask'])) {
-        $task_status = 'Completed';
-        updateStatus($task_status, $id_task);
-    }
+    // if(isset($_POST['btncompletetask'])) {
+    //     $task_status = 'Completed';
+    //     updateStatus($task_status, $id_task);
+    // }
 
     // Kiểm tra xem submit trước deadline hay không
-    $dl = $deadline;
-    $ts = $time_submit;
+    
 ?>
 
 <!DOCTYPE html>
@@ -308,7 +305,7 @@
                                 ?>
 
                                 <?php 
-                                    if($_SESSION['positionid'] == 1) {
+                                    if($_SESSION['positionid'] == 1 || $_SESSION['positionid'] == 2) {
                                         
                                         if($task_status == 'Waiting') {
                                             echo '<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">

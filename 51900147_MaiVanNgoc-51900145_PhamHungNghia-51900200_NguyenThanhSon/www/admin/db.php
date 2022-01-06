@@ -471,9 +471,7 @@
 					echo "<td>". $row["task_status"] ."</td>";
 					echo '<td class="list-btn">';
                         echo '<form action="viewtask.php" method="POST">';
-                            if($row["task_status"] != 'Waiting') {
                                 echo '<button class="btn-view text-white" name="task-view" value="'. $row["id"] .'">Xem</button>';
-                            }
                         echo '</form>';
 					echo '</td>';
 				echo '</tr>';
