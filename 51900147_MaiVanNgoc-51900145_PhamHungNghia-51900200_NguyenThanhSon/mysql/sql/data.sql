@@ -42,6 +42,7 @@ CREATE TABLE task (
   deadline datetime NOT NULL,
   staff_assign varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   task_status varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  message_task varchar(255) COLLATE utf8_unicode_ci,
   task_deliver varchar(64) COLLATE utf8_unicode_ci NOT NULL
 );
 
