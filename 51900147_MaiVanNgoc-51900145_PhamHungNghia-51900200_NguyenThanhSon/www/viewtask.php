@@ -23,7 +23,7 @@
         $id_task = $_POST['task-view'];
         $_SESSION['id_task'] = $id_task;
         
-        $sql = "SELECT task_title, task_description, staff_assign, task_status, message_task FROM task WHERE id = '$id_task' ";
+        $sql = "SELECT task_title, task_description, staff_assign, task_status, message_task, time_submit FROM task WHERE id = '$id_task' ";
         $conn = open_database();
 		$stm = $conn -> prepare($sql);
 		$result = $conn-> query($sql);
@@ -34,6 +34,7 @@
         $staff_assign = $row['staff_assign'];
         $task_status = $row['task_status'];
         $message_task = $row['message_task'];
+        $time_submit = $row['time_submit'];
 
         $sql = "SELECT DATE_FORMAT(start_time, '%d/%m/%Y %h:%i:%s') AS start_time FROM task WHERE id = '$id_task'" ;
         $conn = open_database();
@@ -70,6 +71,7 @@
         $staff_assign = $row['staff_assign'];
         $task_status = $row['task_status'];
         $message_task = $row['message_task'];
+        $time_submit = $row['time_submit'];
 
         $sql = "SELECT DATE_FORMAT(start_time, '%d/%m/%Y %h:%i:%s') AS start_time FROM task WHERE id = '$id_task'";
         $conn = open_database();
@@ -133,10 +135,11 @@
             $error = 'Vui lòng nhập ghi chú trước khi Rejected Task';
           }
           else {
-            $task_status = 'Rejected';
+            
             $data = updateRejectedTask($notetask, $deadline, $id_task);
-            updateStatus($task_status, $id_task);
             if($data['code'] == 0) {
+                $task_status = 'Rejected';
+                updateStatus($task_status, $id_task);
                 $success = $data['error'];
                 $error = '';
             }
@@ -150,6 +153,9 @@
         $task_status = 'Completed';
         updateStatus($task_status, $id_task);
     }
+
+    $dl = $deadline;
+    $ts = $time_submit;
 ?>
 
 <!DOCTYPE html>
@@ -310,6 +316,30 @@
                                                         <p class="font-size-s">' . $message_task . '</p>
                                                     </div>
                                                 </div>';
+                                        }
+                                    }
+                                ?>
+
+                                <?php
+                                    if(isset($_POST['btncompletetask'])) {
+                                        if($task_status == 'Waiting') {
+                                            echo '<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold">Đánh giá mức độ hoàn thành:</label> 
+                                                    <select class="form-control" name="level_complete" id="level_complete">
+                                                        <option value="good">Good</option>
+                                                        <option value="ok">OK</option>
+                                                        <option value="bad">Bad</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+            
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold">Tiến độ hoàn thành:</label> 
+                                                    
+                                                </div>
+                                            </div>';
                                         }
                                     }
                                 ?>

@@ -54,7 +54,7 @@
         }
         else if(!empty($starttime) && !empty($deadline)) {
             $currenttime = date('d/m/Y');
-            $currenttimecheck =explode('/', $currenttime); //Tách thành date, month, year
+            $currenttimecheck = explode('/', $currenttime); //Tách thành date, month, year
             $starttimecheck = explode('-', $starttime); //Tách starttime thành year, month, dayTtime
             $deadlinetimecheck = explode('-', $deadline); //Tách deadline thành year, month, dayTtime
             $starttimecheck2 = explode('T', $starttimecheck[2]); //Tách starttime thành day, time
