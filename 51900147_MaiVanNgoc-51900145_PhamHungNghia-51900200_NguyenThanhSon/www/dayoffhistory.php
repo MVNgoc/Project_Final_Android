@@ -111,7 +111,7 @@
 					</tr>
 				</thead>
 			<tbody> 
-				<?php displayleaveofUser($_SESSION["username"]) ?>			
+				<?php displayleaveofUser($_SESSION["username"]); ?>			
 			</tbody>
 			</table>
 		</div>
