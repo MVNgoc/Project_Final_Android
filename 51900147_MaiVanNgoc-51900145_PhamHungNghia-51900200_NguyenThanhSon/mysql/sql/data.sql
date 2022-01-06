@@ -126,7 +126,7 @@ INSERT INTO leaverequest VALUES
 ('batung',0,0),
 ('hoangloc',0,0),
 ('congtuan',0,0),
-('tranhau',0,0),
+('tranhau',0,0);
 
 ALTER TABLE tbl_position
   ADD PRIMARY KEY (id);
