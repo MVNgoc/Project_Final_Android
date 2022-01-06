@@ -227,7 +227,6 @@
                         echo "<td>". $row["department_name"]."</td>";
                         echo "<td>" . $row["manager_name"]. "</td>";
                         echo "<td>". $row["room_number"] ."</td>";
-                        echo "<td>". $row["department_description"] ."</td>";
                         echo '<td class="list-btn">';
                             echo '<form action="department_view.php" method="POST">';
                                 echo '<button class="btn-view text-white" name="room-view" value="'. $row["id"] .'">Xem</button>';
