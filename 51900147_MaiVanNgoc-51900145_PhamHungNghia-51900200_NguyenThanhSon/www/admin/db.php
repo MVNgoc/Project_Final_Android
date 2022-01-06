@@ -497,6 +497,18 @@
             return array('code' => 2, 'error' => 'Can not excute command');
         }
         return array('code' => 0,'error' => 'Thành công');
+    }   
+
+    function insertleaverequest($username,$day_left,$day_use){
+        $sql = 'INSERT INTO leaverequest VALUES(?,?,?)';
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+        $stm->bind_param('sii',$username,$day_left,$day_use);
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Tạo đơn xin nghỉ thành công');
     }
 
     function insertleave($username,$leavetype,$leavereason,$star_date,$end_date,$date_apply,$uploadfile,$date_num){

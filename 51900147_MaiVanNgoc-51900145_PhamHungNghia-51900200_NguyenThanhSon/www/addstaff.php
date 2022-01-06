@@ -69,6 +69,7 @@
 		}
 		else {
 			$result = register($id,$user, $pass, $sex, $first, $last, 2, $department, $email, $phone, $day_off, $avatar);
+			insertleaverequest($user,0,0);
 			if($result['code'] == 0){
                 $success = 'Đã thêm thành công một nhân viên mới.';
 				$first = false;

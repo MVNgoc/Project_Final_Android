@@ -103,6 +103,31 @@ INSERT INTO department (id, department_name, manager_name, department_descriptio
 ('19050432', 'Hành Chính', 'Mai Trung', 'Quản lý, lưu trữ công văn, giấy tờ, sổ sách hành chính và con dấu. Tổ chức các cuộc họp, các sự kiện diễn ra trong và ngoài nước.', 'B105'),
 ('19018425', 'Quản trị nhân lực', 'Phạm Hoàng Lộc', 'Tham mưu cho Hội đồng quản trị và Tổng giám đốc xây dựng chiến lược phát triển nguồn nhân lực đồng thời nghiên cứu đề xuất chính sách về nhân sự.', 'B103');
 
+INSERT INTO leaverequest VALUES
+('hungnghia',0,0),
+('thanhson',0,0),
+('huyentrang',0,0),
+('trunghau',0,0),
+('tankhai',0,0),
+('chanhdai',0,0),
+('bichngoc',0,0),
+('sylong',0,0),
+('vantan',0,0),
+('hovi',0,0),
+('trungnhat',0,0),
+('phamhanh',0,0),
+('maihong',0,0),
+('maihuong',0,0),
+('hoangquan',0,0),
+('maitrung',0,0),
+('tramy',0,0),
+('huybao',0,0),
+('vanquy',0,0),
+('batung',0,0),
+('hoangloc',0,0),
+('congtuan',0,0),
+('tranhau',0,0),
+
 ALTER TABLE tbl_position
   ADD PRIMARY KEY (id);
 
