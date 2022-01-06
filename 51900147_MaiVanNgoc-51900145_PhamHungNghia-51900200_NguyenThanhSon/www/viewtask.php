@@ -154,6 +154,7 @@
         updateStatus($task_status, $id_task);
     }
 
+    // Kiểm tra xem submit trước deadline hay không
     $dl = $deadline;
     $ts = $time_submit;
 ?>
