@@ -545,7 +545,7 @@
                     echo "<td>". $row["date_num"] ."</td>";
 					echo "<td>". $row["leave_status"] ."</td>";
 					echo '<td class="list-btn">';
-                        echo '<form action="duyetdon.php" method="POST">';
+                        echo '<form action="view_leave.php" method="POST">';
                             echo '<button class="btn-view text-white" name="leave-view" value="'. $row["username"] .'">Xem</button>';
                         echo '</form>';
 					echo '</td>';
@@ -553,6 +553,35 @@
                 $stt++;
             }
         }
+        $conn->close();
+
+    }
+
+    function displayduyetdon($department_name){
+        $sql = 'SELECT leaveform.*,account.* FROM leaveform,account WHERE leaveform.username = account.username AND leaveform.leave_status = "Đang đợi" AND account.department_name = '.$department_name;
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+        $result = $stm->get_result();
+        $row = $result->fetch_assoc();
+        extract($row);
+        $stt = 1;
+            while($row) {
+                echo "<tr>";
+					echo "<td>" . $stt . "</td>";
+					echo "<td>". $row["firstname"].$row["lastname"] ."</td>";
+                    echo "<td>". $row["leavetype"] ."</td>";
+					echo "<td>". $row["date_applied"] ."</td>";
+                    echo "<td>". $row["date_num"] ."</td>";
+					echo "<td>". $row["leave_status"] ."</td>";
+					echo '<td class="list-btn">';
+                        echo '<form action="view_leave.php" method="POST">';
+                            echo '<button class="btn-view text-white" name="leave-view" value="'. $row["username"] .'">Xem</button>';
+                        echo '</form>';
+					echo '</td>';
+				echo '</tr>';
+                $stt++;
+            }
         $conn->close();
 
     }
