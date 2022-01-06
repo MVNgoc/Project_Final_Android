@@ -371,14 +371,14 @@
         return false;
     }
 
-    function inserttask($task_title, $task_description, $start_time, $deadline, $staff_assign, $task_status, $message_task, $time_submit, $task_deliver) {
-        $sql = 'INSERT INTO task (task_title, task_description, start_time, deadline, staff_assign, task_status, message_task, time_submit, task_deliver) values(?,?,?,?,?,?,?,?,?)';
+    function inserttask($task_title, $task_description, $start_time, $deadline, $staff_assign, $task_status, $message_task, $time_submit,$completion_level, $completion_schedule, $task_deliver) {
+        $sql = 'INSERT INTO task (task_title, task_description, start_time, deadline, staff_assign, task_status, message_task, time_submit,completion_level,completion_schedule, task_deliver) values(?,?,?,?,?,?,?,?,?,?,?)';
 
         $conn = open_database();
 
         $stm = $conn->prepare($sql);
 
-        $stm->bind_param('sssssssss',$task_title, $task_description, $start_time, $deadline, $staff_assign, $task_status,$message_task,$time_submit ,$task_deliver);
+        $stm->bind_param('sssssssssss',$task_title, $task_description, $start_time, $deadline, $staff_assign, $task_status,$message_task,$time_submit ,$completion_level, $completion_schedule,$task_deliver);
 
         if(!$stm->execute()){
             return array('code' => 2, 'error' => 'Can not excute command');

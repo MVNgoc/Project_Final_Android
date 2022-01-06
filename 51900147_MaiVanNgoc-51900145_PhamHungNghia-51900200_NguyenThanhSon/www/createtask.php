@@ -95,8 +95,10 @@
                             $taskstatus = 'New';
                             $message_task = '';
                             $time_submit = null;
+                            $completion_level = '';
+                            $completion_schedule = '';
                             $task_deliver = $_SESSION['username'];
-                            $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit ,$task_deliver);
+                            $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$completion_level,$completion_schedule ,$task_deliver);
                             if($data['code'] == 0) {
                             $success = 'Task được tạo thành công.';
                             $tasktitle = false;
@@ -129,9 +131,11 @@
                             if((($deadlinetimecheck2[0] - $starttimecheck2[0]) + $daycheck) > 0) {
                                 $taskstatus = 'New';
                                 $message_task = '';
+                                $completion_level = '';
+                                $completion_schedule = '';
                                 $time_submit = null;
                                 $task_deliver = $_SESSION['username'];
-                                $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$task_deliver);
+                                $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$completion_level,$completion_schedule,$task_deliver);
                                 if($data['code'] == 0) {
                                 $success = 'Task được tạo thành công.';
                                 $tasktitle = false;
@@ -155,9 +159,11 @@
                         else {
                             $taskstatus = 'New';
                             $message_task = '';
+                            $completion_level = '';
+                            $completion_schedule = '';
                             $time_submit = null;
                             $task_deliver = $_SESSION['username'];
-                            $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus,$message_task,$time_submit,$task_deliver);
+                            $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus,$message_task,$time_submit,$completion_level,$completion_schedule,$task_deliver);
                             if($data['code'] == 0) {
                             $success = 'Task được tạo thành công.';
                             $tasktitle = false;
@@ -186,8 +192,10 @@
                     $taskstatus = 'New';
                     $task_deliver = $_SESSION['username'];
                     $message_task = '';
+                    $completion_level = '';
+                    $completion_schedule = '';
                     $time_submit = null;
-                    $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus,$message_task,$time_submit,$task_deliver);
+                    $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus,$message_task,$time_submit,$completion_level,$completion_schedule,$task_deliver);
                     if($data['code'] == 0) {
                     $success = 'Task được tạo thành công.';
                     $tasktitle = false;
@@ -211,9 +219,11 @@
             else {
                 $taskstatus = 'New';
                 $message_task = '';
+                $completion_level = '';
+                $completion_schedule = '';
                 $time_submit = null;
                 $task_deliver = $_SESSION['username'];
-                $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus,$message_task,$time_submit,$task_deliver);
+                $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus,$message_task,$time_submit,$completion_level,$completion_schedule,$task_deliver);
                 if($data['code'] == 0) {
                 $success = 'Task được tạo thành công.';
                 $tasktitle = false;
