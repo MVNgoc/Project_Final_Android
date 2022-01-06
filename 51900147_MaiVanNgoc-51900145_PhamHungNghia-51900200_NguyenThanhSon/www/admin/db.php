@@ -371,14 +371,14 @@
         return false;
     }
 
-    function inserttask($task_title, $task_description, $start_time, $deadline, $staff_assign, $task_status, $task_deliver, $message_task) {
-        $sql = 'INSERT INTO task (task_title, task_description, start_time, deadline, staff_assign, task_status, message_task, task_deliver) values(?,?,?,?,?,?,?,?)';
+    function inserttask($task_title, $task_description, $start_time, $deadline, $staff_assign, $task_status, $message_task, $time_submit, $task_deliver) {
+        $sql = 'INSERT INTO task (task_title, task_description, start_time, deadline, staff_assign, task_status, message_task, time_submit, task_deliver) values(?,?,?,?,?,?,?,?,?)';
 
         $conn = open_database();
 
         $stm = $conn->prepare($sql);
 
-        $stm->bind_param('ssssssss',$task_title, $task_description, $start_time, $deadline, $staff_assign, $task_status, $task_deliver,$message_task);
+        $stm->bind_param('sssssssss',$task_title, $task_description, $start_time, $deadline, $staff_assign, $task_status,$message_task,$time_submit ,$task_deliver);
 
         if(!$stm->execute()){
             return array('code' => 2, 'error' => 'Can not excute command');
@@ -422,13 +422,21 @@
 					echo "<td>". $row["task_status"] ."</td>";
 					echo '<td class="list-btn">';
                         if($row["task_status"] != "Canceled") {
-                            echo '<form action="viewtask.php" method="POST">';
-                            echo '<button class="btn-view text-white" name="task-view" value="'. $row["id"] .'">Xem</button>';
-                            echo '</form>';
-                            if($row["task_status"] == "New" || $row["task_status"] == "Waiting") {
+                            if($row["task_status"] == "Waiting") {
+                                echo '<form action="viewtask.php" method="POST">';
+                                echo '<button class="btn-view text-white" name="task-view" value="'. $row["id"] .'">Kiểm tra</button>';
+                                echo '</form>';
+                            }
+                            else {
+                                echo '<form action="viewtask.php" method="POST">';
+                                echo '<button class="btn-view text-white" name="task-view" value="'. $row["id"] .'">Xem</button>';
+                                echo '</form>';
+                            }
+                            if($row["task_status"] == "New") {
                                 echo '<form action="updatetask.php" method="POST">';
                                     echo '<button type="submit" name="task-edit" class="btn-edit text-white deletebtn" value="'. $row["id"] .'">Tùy chỉnh</button>';
                                 echo '</form>';
+                                
                                 echo '<form action="" method="POST">';
                                     echo '<button type="submit" name="task-delete" class="btn-delete text-white deletebtn" value="'. $row["id"] .'">Hủy bỏ</button>';
                                 echo '</form>';
@@ -463,7 +471,9 @@
 					echo "<td>". $row["task_status"] ."</td>";
 					echo '<td class="list-btn">';
                         echo '<form action="viewtask.php" method="POST">';
-                            echo '<button class="btn-view text-white" name="task-view" value="'. $row["id"] .'">Xem</button>';
+                            if($row["task_status"] != 'Waiting') {
+                                echo '<button class="btn-view text-white" name="task-view" value="'. $row["id"] .'">Xem</button>';
+                            }
                         echo '</form>';
 					echo '</td>';
 				echo '</tr>';
@@ -593,7 +603,32 @@
         }
 
         $conn->close();
+    }
 
+    function updateMessageTask($message_task, $time_submit, $id) {
+        $sql = 'UPDATE task SET message_task = ?,time_submit = ? WHERE id = ?';
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+
+        $stm->bind_param('sss',$message_task, $time_submit, $id);
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Submit Task thành công');
+    }
+
+    function updateRejectedTask($message_task, $deadline, $id) {
+        $sql = 'UPDATE task SET message_task = ?, deadline = ? WHERE id = ?';
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+
+        $stm->bind_param('sss',$message_task, $deadline, $id);
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Rejected Task thành công');
     }
 
 ?>

@@ -94,8 +94,9 @@
                         if((($deadlinetimecheck2[0] - $starttimecheck2[0]) + $daycheck) > 0) {
                             $taskstatus = 'New';
                             $message_task = '';
+                            $time_submit = null;
                             $task_deliver = $_SESSION['username'];
-                            $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus,$message_task, $task_deliver);
+                            $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit ,$task_deliver);
                             if($data['code'] == 0) {
                             $success = 'Task được tạo thành công.';
                             $tasktitle = false;
@@ -128,8 +129,9 @@
                             if((($deadlinetimecheck2[0] - $starttimecheck2[0]) + $daycheck) > 0) {
                                 $taskstatus = 'New';
                                 $message_task = '';
+                                $time_submit = null;
                                 $task_deliver = $_SESSION['username'];
-                                $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task, $task_deliver);
+                                $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$task_deliver);
                                 if($data['code'] == 0) {
                                 $success = 'Task được tạo thành công.';
                                 $tasktitle = false;
@@ -153,8 +155,9 @@
                         else {
                             $taskstatus = 'New';
                             $message_task = '';
+                            $time_submit = null;
                             $task_deliver = $_SESSION['username'];
-                            $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus,$message_task, $task_deliver);
+                            $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus,$message_task,$time_submit,$task_deliver);
                             if($data['code'] == 0) {
                             $success = 'Task được tạo thành công.';
                             $tasktitle = false;
@@ -182,7 +185,9 @@
                 if((($deadlinetimecheck2[0] - $starttimecheck2[0]) + $daycheck) > 0) {
                     $taskstatus = 'New';
                     $task_deliver = $_SESSION['username'];
-                    $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus,$message_task, $task_deliver);
+                    $message_task = '';
+                    $time_submit = null;
+                    $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus,$message_task,$time_submit,$task_deliver);
                     if($data['code'] == 0) {
                     $success = 'Task được tạo thành công.';
                     $tasktitle = false;
@@ -206,8 +211,9 @@
             else {
                 $taskstatus = 'New';
                 $message_task = '';
+                $time_submit = null;
                 $task_deliver = $_SESSION['username'];
-                $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus,$message_task, $task_deliver);
+                $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus,$message_task,$time_submit,$task_deliver);
                 if($data['code'] == 0) {
                 $success = 'Task được tạo thành công.';
                 $tasktitle = false;
@@ -223,6 +229,8 @@
             }
         }
     }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -303,7 +311,7 @@
         <div class="row justify-content-center ">
             <div class="col-xl-5 col-lg-6 col-md-8 border my-5 p-4 rounded mx-3 addstaffform">
                 <h3 class="text-center text-secondary mt-2 mb-3 mb-3">Tạo Task Mới</h3>
-                <form method="post" action="" novalidate>
+                <form method="post" action="" novalidate enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="tasktitle">Tiêu đề Task</label>
                         <input value="<?= $tasktitle ?>" name="tasktitle" required class="form-control" type="text" placeholder="Tiêu đề Task" id="tasktitle">         
@@ -345,7 +353,7 @@
 
                     <div class="form-group">
                         <label for="attachfile">File đính kèm</label>
-                        <input value="" name="attachfile" required type="file"id="attachfile" style="display: block">
+                        <input value="" name="attachfile" required type="file" id="attachfile" style="display: block">
                     </div>
 
                     <div class="form-group">

@@ -23,7 +23,7 @@
         $id_task = $_POST['task-view'];
         $_SESSION['id_task'] = $id_task;
         
-        $sql = "SELECT task_title, task_description, staff_assign, task_status FROM task WHERE id = '$id_task' ";
+        $sql = "SELECT task_title, task_description, staff_assign, task_status, message_task FROM task WHERE id = '$id_task' ";
         $conn = open_database();
 		$stm = $conn -> prepare($sql);
 		$result = $conn-> query($sql);
@@ -33,6 +33,7 @@
         $task_description = $row['task_description'];
         $staff_assign = $row['staff_assign'];
         $task_status = $row['task_status'];
+        $message_task = $row['message_task'];
 
         $sql = "SELECT DATE_FORMAT(start_time, '%d/%m/%Y %h:%i:%s') AS start_time FROM task WHERE id = '$id_task'" ;
         $conn = open_database();
@@ -48,10 +49,17 @@
 		$row = $result->fetch_assoc();
         $deadline = $row['deadline'];
 
+        $sql = "SELECT DATE_FORMAT(deadline, '%Y-%m-%dT%h:%i') AS deadline FROM task WHERE id = '$id_task'";
+        $conn = open_database();
+        $stm = $conn -> prepare($sql);
+        $result = $conn-> query($sql);
+        $row = $result->fetch_assoc();
+        $extend_deadline = $row["deadline"];
+
     }
     else {
         $id_task = $_SESSION['id_task'];
-        $sql = "SELECT task_title, task_description, staff_assign, task_status FROM task WHERE id = '$id_task' ";
+        $sql = "SELECT task_title, task_description, staff_assign, task_status, message_task FROM task WHERE id = '$id_task' ";
         $conn = open_database();
 		$stm = $conn -> prepare($sql);
 		$result = $conn-> query($sql);
@@ -61,6 +69,7 @@
         $task_description = $row['task_description'];
         $staff_assign = $row['staff_assign'];
         $task_status = $row['task_status'];
+        $message_task = $row['message_task'];
 
         $sql = "SELECT DATE_FORMAT(start_time, '%d/%m/%Y %h:%i:%s') AS start_time FROM task WHERE id = '$id_task'";
         $conn = open_database();
@@ -75,10 +84,70 @@
 		$result = $conn-> query($sql);
 		$row = $result->fetch_assoc();
         $deadline = $row['deadline'];
+
+        $sql = "SELECT DATE_FORMAT(deadline, '%Y-%m-%dT%h:%i') AS deadline FROM task WHERE id = '$id_task'";
+        $conn = open_database();
+        $stm = $conn -> prepare($sql);
+        $result = $conn-> query($sql);
+        $row = $result->fetch_assoc();
+        $extend_deadline = $row["deadline"];
     }
 
     if(isset($_POST['btnstarttask'])) {
         $task_status = 'In progress';
+        updateStatus($task_status, $id_task);
+    }
+
+    $error = '';
+    $success = '';
+    if(isset($_POST['meesagetask'])) {
+        $d = new DateTime('', new DateTimeZone('Asia/Ho_Chi_Minh')); 
+        $a = $d->format('Y-m-d h:i');
+        $h_m = explode(':', $a); //Tách giờ phút hiện tại
+        $time_submit = $a;
+        $message_task = $_POST['meesagetask'];
+        if(empty($message_task)) {
+            $error = 'Vui lòng nhập nội dung trước khi submit task';
+        }
+        else {
+            $data = updateMessageTask($message_task, $time_submit, $id_task);
+            if($data['code'] == 0) {
+                $task_status = 'Waiting';
+                updateStatus($task_status, $id_task);
+                $success = $data['error'];
+            }
+            else {
+                $error = $time_submit;
+            }
+        }
+    }
+
+    if(isset($_POST['btnrejectedtask'])) {
+        $error = 'Hãy nhập ghi chú trước khi Rejected Task và gia hạn Deadline nếu muốn';    
+    }
+
+    if(isset($_POST['notetask']) && isset($_POST['deadline'])) {
+          $notetask = $_POST['notetask'];
+          $deadline = $_POST['deadline'];
+          if(empty($notetask)) {
+            $error = 'Vui lòng nhập ghi chú trước khi Rejected Task';
+          }
+          else {
+            $task_status = 'Rejected';
+            $data = updateRejectedTask($notetask, $deadline, $id_task);
+            updateStatus($task_status, $id_task);
+            if($data['code'] == 0) {
+                $success = $data['error'];
+                $error = '';
+            }
+            else {
+            $error = 'Có lỗi xảy ra vui lòng thử lại';
+            }
+          }
+    }
+
+    if(isset($_POST['btncompletetask'])) {
+        $task_status = 'Completed';
         updateStatus($task_status, $id_task);
     }
 ?>
@@ -156,7 +225,7 @@
 	</header>
 	
 	<div class="container profileform">
-        <div class="row gutters">
+        <div class="row gutters">   
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                 <div class="card-user h-100">
                     <div class="card-body">
@@ -167,6 +236,12 @@
                                         
                                 <h5 class="font-weight-bold">Mô tả</h5>
                                 <p class="font-size-m"><?= $task_description ?></p>
+
+                                <?php
+                                    if (!empty($error)) {
+                                        echo "<div class='alert alert-danger'>$error</div>";
+                                    }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -174,63 +249,149 @@
             </div>
             <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                 <div class="card-user h-100">
-                    <div class="card-body">
-                        <div class="row gutters">
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mb-2 text-primary font-weight-bold"></h6>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label class="font-weight-bold">Người giao task:</label> 
-                                    <p class="font-size-s"> <?= $taskdeliver ?>  </p>
+                    <form action="" method="POST">
+                        <div class="card-body">
+                            <div class="row gutters">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <h6 class="mb-2 text-primary font-weight-bold"></h6>
                                 </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label class="font-weight-bold">Người nhận task:</label> 
-                                    <p class="font-size-s"> <?= $staff_assign ?>  </p>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Người giao task:</label> 
+                                        <p class="font-size-s"> <?= $taskdeliver ?>  </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label class="font-weight-bold">Thời gian tạo task:</label> 
-                                    <p class="font-size-s"> <?= $start_time ?> </p>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Người nhận task:</label> 
+                                        <p class="font-size-s"> <?= $staff_assign ?>  </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label class="font-weight-bold">Deadline:</label>   
-                                    <p class="font-size-s"> <?= $deadline ?> </p>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Thời gian tạo task:</label> 
+                                        <p class="font-size-s"> <?= $start_time ?> </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label class="font-weight-bold">Trạng thái:</label> 
-                                    <p class="font-size-s"> <?= $task_status ?> </p>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Deadline:</label>   
+                                        <p class="font-size-s"> <?= $deadline ?> </p>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Trạng thái:</label> 
+                                        <p class="font-size-s"> <?= $task_status ?> </p>
+                                    </div>
+                                </div>
 
-                        <?php 
-                            if($_SESSION['positionid'] == 2) {
-                                echo '<div class="row gutters btn-start-form">
-                                        <form action="" method="post">
-                                            <button type="submit" name="btnstarttask" class="btn btn-start-task btn-success px-5 mt-3 mr-2">Start</button>
+                                <?php 
+                                    if($_SESSION['positionid'] == 2) {
+                                        
+                                        if($task_status == 'Rejected') {
+                                            echo '<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold">Ghi chú của trưởng phòng:</label> 
+                                                        <p class="font-size-s">'. $message_task. '</p>
+                                                    </div>
+                                                </div>';
+                                        }
+                                    }
+                                ?>
+
+                                <?php 
+                                    if($_SESSION['positionid'] == 1) {
+                                        
+                                        if($task_status == 'Waiting') {
+                                            echo '<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold">Nội dung tin nhắn:</label> 
+                                                        <p class="font-size-s">' . $message_task . '</p>
+                                                    </div>
+                                                </div>';
+                                        }
+                                    }
+                                ?>
+                                
+                                <?php
+                                    if(isset($_POST['btnrejectedtask'])) {
+                                        if($task_status == 'Waiting') {
+                                            echo '<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="form-group">
+                                                        <div class="form-group">
+                                                            <label class="font-weight-bold">Ghi chú:</label> 
+                                                            <input value="" name="notetask" required class="meesagetask form-control" type="text" placeholder="Ghi chú" id="starttime">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="deadline">Gia hạn deadline:</label>
+                                                        <input value="'.  $extend_deadline .'" name="deadline" required class="form-control" type="datetime-local" placeholder="Thời gian kết thúc" id="deadline">
+                                                    </div>
+                                                </div> ';
+                                        }
+                                    }
+                                ?>
+                                                      
+                                <?php 
+                                    if($_SESSION['positionid'] == 2) {
+                                        
+                                        if($task_status == 'In progress' || $task_status == 'Rejected') {
+                                            echo '<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold">Nội dung:</label> 
+                                                        <input value="" name="meesagetask" required class="meesagetask form-control" type="text" placeholder="Nội dung" id="starttime">
+                                                    </div>
+                                                </div>';
+                                        }
+                                    }
+                                ?>
+                            </div>
+    
+                            <?php 
+                                if($_SESSION['positionid'] == 2) {
+                                    echo '<div class="row gutters btn-start-form">
                                             '?> <?php 
-                                            if($task_status != 'New') {
-                                                echo '<button type="submit" name="btnsubmittask" class="btn btn-submit-task btn-success px-5 mt-3 mr-2">Submit</button>';
+                                            if($task_status == 'New') {
+                                                echo '<button type="submit" name="btnstarttask" class="btn btn-start-task btn-success px-5 mt-3 mr-2">Start</button>';
                                             }
                                             ?> <?php
                                             '
-                                        </form>
-                                    </div>';
-                            }
-                        ?>
-                    </div>                   
+                                            '?> <?php 
+                                            if($task_status == 'In progress' || $task_status == 'Rejected') {
+                                                echo '<button type="submit" name="btnsubmittask" class="btn-register-js btn btn-submit-task btn-success px-5 mt-3 mr-2">Submit</button>';
+                                            }
+                                            ?> <?php
+                                            '
+                                        </div>';
+                                }
+                                if($_SESSION['positionid'] == 1) {
+                                        
+                                    if($task_status == 'Waiting') {
+                                        echo '<div class="row gutters btn-start-form">';
+                                        echo '<button type="submit" name="btncompletetask" class="btn btn-start-task btn-success px-5 mt-3 mr-2">Duyệt Task</button>';
+                                        echo '<button type="submit" name="btnrejectedtask" class="btn-register-js btn btn-submit-task btn-success px-5 mt-3 mr-2">Gửi trả Task</button>';
+                                        echo '</div>';
+                                    }
+                                }
+                            ?>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <?php
+        if (!empty($success)) {
+            echo "<div class='notification'>
+                    <div class='notification_success'>$success</div>
+                </div>";
+        }
+    ?>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
