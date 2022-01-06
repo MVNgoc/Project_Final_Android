@@ -558,19 +558,27 @@
     }
 
     function displayduyetdon($department_name){
-        $sql = 'SELECT leaveform.*,account.* FROM leaveform,account WHERE leaveform.username = account.username AND leaveform.leave_status = "Đang đợi" AND account.department_name = '.$department_name;
+        $sql = 'SELECT *
+        FROM leaveform JOIN account on leaveform.username = account.username 
+        WHERE account.department_name = ? AND leaveform.leave_status = "Đang đợi"';
+
         $conn = open_database();
 
         $stm = $conn->prepare($sql);
+        $stm->bind_param('s',$department_name);
+        if(!$stm->execute()){
+            die('Query error: ' . $stm->error);
+        }
+
         $result = $stm->get_result();
-        $row = $result->fetch_assoc();
-        extract($row);
         $stt = 1;
-            while($row) {
+        
+        if($result->num_rows > 0){
+            foreach($result as $row){
                 echo "<tr>";
 					echo "<td>" . $stt . "</td>";
-					echo "<td>". $row["firstname"].$row["lastname"] ."</td>";
-                    echo "<td>". $row["leavetype"] ."</td>";
+                    echo "<td>" . $row["firstname"].$row["lastname"] . "</td>";
+					echo "<td>". $row["leavetype"] . "</td>";
 					echo "<td>". $row["date_applied"] ."</td>";
                     echo "<td>". $row["date_num"] ."</td>";
 					echo "<td>". $row["leave_status"] ."</td>";
@@ -582,6 +590,8 @@
 				echo '</tr>';
                 $stt++;
             }
+        }
+
         $conn->close();
 
     }
