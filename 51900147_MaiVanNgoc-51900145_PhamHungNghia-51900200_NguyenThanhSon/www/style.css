@@ -343,7 +343,13 @@ input:focus{
         display: none;
     }
 
-    .navbar-nav .nav-item:hover .nav-link {
+    .nav-item .day-off-tag {
+        position: absolute;  
+        left: -180px;
+        top: -65px;
+    }
+
+    .navbar-nav .nav-item:hover > .nav-link {
         background-color: #fff;
         color: #000;
     }

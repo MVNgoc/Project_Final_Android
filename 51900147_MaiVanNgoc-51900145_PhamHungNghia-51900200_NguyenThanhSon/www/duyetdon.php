@@ -68,9 +68,9 @@
 								</li>
 								<li class="nav-item day-off-header">
 									<a class="nav-link" href="#">Nghỉ phép</a>
-									<ul class="navbar-nav day-off-tag">
+									<ul class="navbar-nav day-off-tag" style = "top:0px">
 										<li class="nav-item">
-										<a class="nav-link" href="#">Duyệt đơn nghỉ phép</a>
+											<a class="nav-link" href="#">Duyệt đơn nghỉ phép</a>
 										</li>
 									</ul>
 								</li>';	
@@ -95,7 +95,7 @@
                             else {
 								echo '<li class="nav-item day-off-header">
                                         <a class="nav-link" href="#">Nghỉ phép</a>
-                                        <ul class="navbar-nav day-off-tag">
+                                        <ul class="navbar-nav day-off-tag ">
 											<li class="nav-item">
                                             	<a class="nav-link" href="dayoffform.php">Tạo đơn xin nghỉ phép</a>
                                             </li>
