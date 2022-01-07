@@ -629,4 +629,109 @@
         return array('code' => 0,'error' => 'Rejected Task thành công');
     }
 
+    function checkDeadline($deadline, $id_task) {
+        $time_complete = '';
+        $check_deadline = explode("/", $deadline); // day/month/ year time
+        $check_deadline1 = explode(" ", $check_deadline[2]); // year/ time
+        $check_deadline2 = explode(":", $check_deadline1[1]); // hour/minute
+
+        $sql = "SELECT time_submit FROM task WHERE id = '$id_task'";
+        $conn = open_database();
+		$result = $conn-> query($sql);
+		$row = $result->fetch_assoc();
+
+        $time_submit = $row['time_submit'];
+
+        $check_time_submit = explode("-", $time_submit); // year/month/day time
+        $check_time_submit1 = explode(" ", $check_time_submit[2]); // day/time
+        $check_time_submit2 = explode(":", $check_time_submit1[1]); // hour/minute
+
+        if($check_deadline1[0] < $check_time_submit[0]) {
+            $time_complete = 'Trễ hạn deadline';
+        }
+        else if($check_deadline[1] < $check_time_submit[1]) {
+            $time_complete = 'Trễ hạn deadline';
+        }
+        else if($check_deadline[0] < $check_time_submit1[0]) {
+            $check_month = $check_deadline[1] - $check_time_submit[1];
+            $check_day = $check_deadline[0] - $check_time_submit1[0] + ($check_month*30);
+            if($check_day < 0) {
+                $time_complete = 'Trễ hạn deadline';
+            }
+            else {
+                if($check_deadline2[0] < $check_time_submit2[0]){
+                    $time_complete = 'Trễ hạn deadline';
+                }
+                else if($check_deadline2[1] < $check_time_submit2[1]) {
+                    $check_hour = $check_deadline2[0] - $check_time_submit2[0];
+                    $check_minute = ($check_deadline2[1] - $check_time_submit2[1]) + $check_hour*60;
+                    if($check_minute < 0) {
+                        $time_complete = 'Trễ hạn deadline';
+                    }
+                    else {
+                        $time_complete = 'Đúng hạn deadline';
+                    }
+                }
+                else {
+                    $time_complete = 'Đúng hạn deadline';
+                }
+            }
+        }
+        else if($check_deadline[0] == $check_time_submit1[0]) {
+            if($check_deadline2[0] < $check_time_submit2[0]){
+                $time_complete = 'Trễ hạn deadline';
+            }
+            else if($check_deadline2[1] < $check_time_submit2[1]) {
+                $check_hour = $check_deadline2[0] - $check_time_submit2[0];
+                $check_minute = ($check_deadline2[1] - $check_time_submit2[1]) + $check_hour*60;
+                if($check_minute < 0) {
+                    $time_complete = 'Trễ hạn deadline';
+                }
+                else {
+                    $time_complete = 'Đúng hạn deadline';
+                }
+            }
+            else {
+                $time_complete = 'Đúng hạn deadline';
+            }
+        }
+        else {
+            $time_complete = 'Đúng hạn deadline';
+        }
+        $_SESSION['time_complete'] = $time_complete;
+        echo '<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                    <label class="font-weight-bold">Đánh giá mức độ hoàn thành:</label> 
+                    <select class="form-control" name="level_complete" id="level_complete">';
+                    
+                        if($time_complete == 'Đúng hạn deadline') {
+                            echo '<option value="Good">Good</option>';
+                        }
+                        
+                    echo'<option value="OK">OK</option>
+                        <option value="Bad">Bad</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                    <label class="font-weight-bold">Tiến độ hoàn thành:</label>
+                    <p class="font-size-s" name="time_complete">' . $time_complete . '</p>         
+                </div>
+            </div>';    
+    }
+
+    function updateCompleteLevel($completion_level, $time_complete, $id_task) {
+        $sql = 'UPDATE task SET completion_level = ?, message_task = ? WHERE id = ?';
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+
+        $stm->bind_param('sss',$completion_level, $time_complete, $id_task);
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Duyệt Task thành công');
+    }
 ?>
