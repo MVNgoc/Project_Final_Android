@@ -57,13 +57,13 @@
                                         <a class="nav-link" href="#">Nghỉ phép</a>
                                         <ul class="navbar-nav day-off-tag">
 											<li class="nav-item">
-                                            	<a class="nav-link" href="#">Tạo đơn xin nghỉ phép</a>
+                                            	<a class="nav-link" href="dayoffform.php">Tạo đơn xin nghỉ phép</a>
                                             </li>
                                             <li class="nav-item">
                                             	<a class="nav-link" href="duyetdon.php">Duyệt đơn nghỉ phép</a>
                                             </li>
                                             <li class="nav-item">
-                                            	<a class="nav-link" href="#">Lịch sử nghỉ phép</a>
+                                            	<a class="nav-link" href="dayoffhistory.php">Lịch sử nghỉ phép</a>
                                             </li>
                                         </ul>
                                     </li>';
@@ -111,7 +111,8 @@
 					</tr>
 				</thead>
 			<tbody> 
-				<?php displayleaveofUser($_SESSION["username"]); ?>			
+				<?php displayleaveofUser($_SESSION["username"]); ?>	
+
 			</tbody>
 			</table>
 		</div>

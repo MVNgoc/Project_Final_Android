@@ -41,7 +41,7 @@
 	}
 	else {
 		$name = $_SESSION['user-name'];
-		$sql = "SELECT * FROM account WHERE username = '$name' ";
+		$sql = "SELECT * FROM account WHERE username = '$name'";
 		$conn = open_database();
 		$stm = $conn -> prepare($sql);
 		$result = $conn-> query($sql);

@@ -553,7 +553,7 @@
                     echo "<td>". $row["date_num"] ."</td>";
 					echo "<td>". $row["leave_status"] ."</td>";
 					echo '<td class="list-btn">';
-                        echo '<form action="view_leave.php" method="POST">';
+                        echo '<form action="view_leavetruongphong.php" method="POST">';
                             echo '<button class="btn-view text-white" name="leave-view" value="'. $row["username"] .'">Xem</button>';
                         echo '</form>';
 					echo '</td>';
@@ -565,10 +565,11 @@
 
     }
 
+
     function displayduyetdon($department_name){
         $sql = 'SELECT *
         FROM leaveform JOIN account on leaveform.username = account.username 
-        WHERE account.department_name = ? AND leaveform.leave_status = "Đang đợi"';
+        WHERE account.department_name = ? AND leaveform.leave_status = "Đang đợi" AND account.positionid = "2" ';
 
         $conn = open_database();
 
@@ -592,6 +593,44 @@
 					echo "<td>". $row["leave_status"] ."</td>";
 					echo '<td class="list-btn">';
                         echo '<form action="view_leave.php" method="POST">';
+                            echo '<button class="btn-view text-white" name="leave-view" value="'. $row["username"] .'">Xem</button>';
+                        echo '</form>';
+					echo '</td>';
+				echo '</tr>';
+                $stt++;
+            }
+        }
+
+        $conn->close();
+    }
+
+    function displayduyetdonforadmin(){
+        $sql = 'SELECT *
+        FROM leaveform JOIN account on leaveform.username = account.username 
+        WHERE leaveform.leave_status = "Đang đợi" AND account.positionid = "1" ';
+
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+        if(!$stm->execute()){
+            die('Query error: ' . $stm->error);
+        }
+
+        $result = $stm->get_result();
+        $stt = 1;
+        
+        if($result->num_rows > 0){
+            foreach($result as $row){
+                echo "<tr>";
+					echo "<td>" . $stt . "</td>";
+                    echo "<td>" . $row["firstname"].$row["lastname"] . "</td>";
+					echo "<td>". $row["leavetype"] . "</td>";
+					echo "<td>". $row["date_applied"] ."</td>";
+                    echo "<td>". $row["date_num"] ."</td>";
+                    echo "<td>". $row["department_name"] ."</td>";
+					echo "<td>". $row["leave_status"] ."</td>";
+					echo '<td class="list-btn">';
+                        echo '<form action="view_leavetruongphong.php" method="POST">';
                             echo '<button class="btn-view text-white" name="leave-view" value="'. $row["username"] .'">Xem</button>';
                         echo '</form>';
 					echo '</td>';
@@ -629,6 +668,7 @@
         return array('code' => 0,'error' => 'Rejected Task thành công');
     }
 
+<<<<<<< Updated upstream
     function checkDeadline($deadline, $id_task) {
         $time_complete = '';
         $check_deadline = explode("/", $deadline); // day/month/ year time
@@ -724,14 +764,28 @@
 
     function updateCompleteLevel($completion_level, $time_complete, $id_task) {
         $sql = 'UPDATE task SET completion_level = ?, message_task = ? WHERE id = ?';
+=======
+    function updateleaveform($status,$username,$leavetype){
+        $sql = 'UPDATE leaveform SET leave_status = ? WHERE username = ? AND leavetype = ?';
+>>>>>>> Stashed changes
         $conn = open_database();
 
         $stm = $conn->prepare($sql);
 
+<<<<<<< Updated upstream
         $stm->bind_param('sss',$completion_level, $time_complete, $id_task);
         if(!$stm->execute()){
             return array('code' => 2, 'error' => 'Can not excute command');
         }
         return array('code' => 0,'error' => 'Duyệt Task thành công');
     }
+=======
+        $stm->bind_param('sss',$status, $username, $leavetype);
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Rejected Task thành công');
+    }
+
+>>>>>>> Stashed changes
 ?>

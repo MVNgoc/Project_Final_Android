@@ -54,7 +54,7 @@
 									<a class="nav-link" href="#">Nghỉ phép</a>
 									<ul class="navbar-nav day-off-tag" style = "top:0px">
 										<li class="nav-item">
-											<a class="nav-link" href="#">Duyệt đơn nghỉ phép</a>
+											<a class="nav-link" href="duyetdon.php">Duyệt đơn nghỉ phép</a>
 										</li>
 									</ul>
 								</li>';	
@@ -116,11 +116,23 @@
 						<th  class="text-center">Ngày tạo</th>
 						<th  class="text-center">Số ngày nghỉ</th>
 						<th  class="text-center">Trạng thái</th>
+						<?php
+							if($_SESSION['positionid'] == 3){
+								echo '<th  class="text-center">Phòng ban</th>';
+							}
+
+						?>
 						<th  class="text-center">Hoạt động</th>
 					</tr>
 				</thead>
 			<tbody> 
-				<?php displayduyetdon($_SESSION["department_name"]) ?>
+				<?php 
+					if($_SESSION['positionid'] == 1){
+						displayduyetdon($_SESSION["department_name"]) ;
+					}else{
+						displayduyetdonforadmin();
+					}
+				?>
 			</tbody>
 			</table>
 		</div>
