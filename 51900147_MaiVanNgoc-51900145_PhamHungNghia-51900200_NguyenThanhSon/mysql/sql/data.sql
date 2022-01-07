@@ -166,4 +166,7 @@ ALTER TABLE taskfile
 
 ALTER TABLE leaverequest
   ADD PRIMARY KEY (username);
+
+ALTER TABLE leaveform
+  ADD PRIMARY KEY (star_date);
 COMMIT;

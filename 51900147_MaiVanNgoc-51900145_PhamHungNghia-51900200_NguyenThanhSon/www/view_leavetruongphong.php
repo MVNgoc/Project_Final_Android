@@ -95,7 +95,7 @@
 									<a class="nav-link" href="#">Nghỉ phép</a>
 									<ul class="navbar-nav day-off-tag" style = "top:0px">
 										<li class="nav-item">
-											<a class="nav-link" href="#">Duyệt đơn nghỉ phép</a>
+											<a class="nav-link" href="duyetdon.php">Duyệt đơn nghỉ phép</a>
 										</li>
 									</ul>
 								</li>';	
@@ -176,12 +176,12 @@
 
 
 						<?php
-							if($_SESSION["positionid"] == 2){
+							if($_SESSION["positionid"] == 1){
 								echo '<div class="form-group">
 									<label for="leave-status">Trạng thái</label>
 									<input value="'. $leavestatus .'" name="leave-status" required class="form-control" type="text" id="leave-status" readonly>
 								</div>';
-							}else if($_SESSION["positionid"] == 1 || $_SESSION["positionid"] == 3){
+                            }else if($_SESSION["positionid"] == 3){
 								
 								echo'	<div class="form-group">
 											<label for="leave-status">Trạng thái</label>
@@ -197,10 +197,7 @@
 											</div>
 										</div>';
 							}
-							
-						?>
-						
-
+                        ?>
 						
 					</form>
 
