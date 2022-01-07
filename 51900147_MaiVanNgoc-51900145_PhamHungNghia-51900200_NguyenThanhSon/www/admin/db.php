@@ -773,4 +773,18 @@
         }
         return array('code' => 0,'error' => 'Duyệt Task thành công');
     }
+
+    function updateleaveform($status,$username,$leavetype){
+        $sql = 'UPDATE leaveform SET leave_status = ? WHERE username = ? AND leavetype = ?';
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+
+        $stm->bind_param('sss',$status, $username, $leavetype);
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Duyệt Form thành công');
+    }
+
 ?>

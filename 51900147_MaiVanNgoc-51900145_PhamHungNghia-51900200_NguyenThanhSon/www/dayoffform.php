@@ -170,12 +170,12 @@
 
 						<div class="form-group">
 							<label for="star_date">Thời gian bắt đầu</label>
-							<input value="<?= $star_date ?>" name="star_date" required class="form-control" type="date"  id="star_date">
+							<input value="<?= $star_date ?>" name="star_date" required class="form-control" type="date" onchange="total_days()"  id="star_date">
 						</div>
 
 						<div class="form-group">
 							<label for="end_date">Thời gian kết thúc</label>
-							<input value="<?= $end_date ?>" name="end_date" required class="form-control" type="date" id="end_date">
+							<input value="<?= $end_date ?>" name="end_date" required class="form-control" onchange="total_days()" type="date" id="end_date">
 						</div>
 
 						<div class="form-group">
