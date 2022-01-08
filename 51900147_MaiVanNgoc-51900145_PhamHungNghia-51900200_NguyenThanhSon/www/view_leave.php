@@ -51,6 +51,15 @@
 		$status = $_POST["leave-status"];
 		$success = '';
 		$result = updateleaveform($status,$username,$leavetype);
+		if($status == "Chấp nhận"){
+			$day = $date_number;
+			$sql = "UPDATE leaverequest SET day_use = $day WHERE username = $username";
+			$conn = open_database();
+			$stm = $conn->prepare($sql);
+			$stm->execute();
+		}else{
+
+		}
 		if($result['code'] == 0){
 			$success = 'Cập nhật thành công .';
 		}

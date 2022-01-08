@@ -787,4 +787,30 @@
         return array('code' => 0,'error' => 'Duyệt Form thành công');
     }
 
+    function displaydayleftuse($username){
+        $sql = 'SELECT * FROM leaverequest WHERE username = ? ';
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+
+        $stm->bind_param('s',$username);
+
+        if(!$stm->execute()){
+            die('Query error: ' . $stm->error);
+        }
+        $result = $stm->get_result();
+		if($result->num_rows > 0){
+			foreach($result as $row){
+				echo '
+                    <div class="col-md-6">
+						<label for="day_left">Số ngày còn:'.$row['day_left'].'</label>
+					</div>
+					<div class="col-md-6">
+						<label for="day_use">Số ngày đã sử dụng: '.$row['day_use'].' </label>
+					</div>';
+			}
+		}
+
+    }
+
 ?>

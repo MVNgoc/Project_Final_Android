@@ -163,6 +163,14 @@
 				<div class="col-xl-5 col-lg-6 col-md-8 border my-5 p-4 rounded mx-3 addstaffform">
 					<h3 class="text-center text-secondary mt-2 mb-3 mb-3">Đơn xin nghỉ phép</h3>
 					<form method="post" action="" novalidate>
+						<div class = "form-group">
+							<label for="leavetype">Số ngày nghỉ có: <?= $_SESSION["day_off"] ?></label>
+						</div>
+
+						<div class = "form-row">
+							<?= displaydayleftuse($_SESSION["username"]) ?>
+						</div>
+
 						<div class="form-group">
 							<label for="leavetype">Tiêu đề</label>
 							<input value="<?= $leavetype ?>" name="leavetype" required class="form-control" type="leavetype" placeholder="Nhập tiêu đề" id="leavetype">
@@ -170,17 +178,17 @@
 
 						<div class="form-group">
 							<label for="star_date">Thời gian bắt đầu</label>
-							<input value="<?= $star_date ?>" name="star_date" required class="form-control" type="date" onchange="total_days()"  id="star_date">
+							<input value="<?= $star_date ?>" name="star_date" required class="form-control" type="date" id="star_date">
 						</div>
 
 						<div class="form-group">
 							<label for="end_date">Thời gian kết thúc</label>
-							<input value="<?= $end_date ?>" name="end_date" required class="form-control" onchange="total_days()" type="date" id="end_date">
+							<input value="<?= $end_date ?>" name="end_date" required class="form-control" type="date" id="end_date">
 						</div>
 
 						<div class="form-group">
-							<label for="date_number">Số ngày nghỉ</label>
-							<input value="<?= $date_number ?>" name="date_number" required class="form-control" type="text" id="date_number" readonly>
+							<label for="date_number" hidden="hidden">Số ngày nghỉ</label>
+							<input value="<?= $date_number ?>" name="date_number" required class="form-control" type="hidden" id="date_number" readonly>
 						</div>
 
 						<div class="form-group">
