@@ -54,6 +54,8 @@ $(document).ready(() => {
 		event.stopPropagation();
 	})
 
+	
+
 })
 
 // function triggerClick() {
@@ -71,3 +73,6 @@ function displayImage(e) {
 	}
 }
 
+function onSubmit(){
+	$('.btn_submit').attr('disabled',true);
+}
