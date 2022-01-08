@@ -17,6 +17,7 @@
         exit();
     }
 
+
 	require_once('./admin/db.php');
 
 	$error = '';
@@ -46,6 +47,17 @@
 		}else if(empty($leavereason)){
 			$error = "Hãy nhập lí do nghỉ";
 		}else if(!empty($star_date) && !empty($end_date)){
+
+			$username = $_SESSION["username"];
+
+			$sql = "SELECT * FROM leaverequest WHERE username = '$username'";
+			$conn = open_database();
+			$stm = $conn->prepare($sql);
+			$result = $conn->query($sql);
+			$row = $result->fetch_assoc();
+			$datecheckold = $row['day_left']; 
+
+
 			$currenttime = date('Y-m-d');
 			$start = strtotime($star_date);
 			$end = strtotime($end_date);
@@ -61,7 +73,7 @@
 			else if($date_number <= 0){
 				$error = 'Thời gian kết thúc không hợp lệ';
 			}
-            else if($date_number > $_SESSION['day_off']){
+            else if($date_number > $datecheckold){
 				$error = 'Số ngày nghỉ không hợp lệ';
 			}
 			else{

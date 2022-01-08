@@ -51,8 +51,21 @@
 		$status = $_POST["leave-status"];
 		$success = '';
 		$result = updateleaveform($status,$username,$leavetype);
-		if($result['code'] == 0){
-			$success = 'Cập nhật thành công .';
+		if($status == "Chấp nhận"){
+			$sql = "SELECT * FROM leaverequest WHERE username = '$username'";
+			$conn = open_database();
+			$stm = $conn->prepare($sql);
+			$result = $conn->query($sql);
+			$row = $result->fetch_assoc();
+			$date_old = $row['day_use']; 
+
+			$sql = "SELECT account.day_off FROM leaverequest JOIN account ON leaverequest.username = account.username WHERE leaverequest.username = '$username'";
+			$conn = open_database();
+			$stm = $conn -> prepare($sql);
+			$result = $conn-> query($sql);
+			$row = $result->fetch_assoc();
+			updatefordayuse($row['day_off']-$date_number-$date_old,$date_number+$date_old,$username);
+			$success = 'Cập nhật thành công';
 		}
 	}
 ?>

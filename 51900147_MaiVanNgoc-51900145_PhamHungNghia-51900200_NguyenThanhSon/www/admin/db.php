@@ -815,8 +815,16 @@
 
     }
 
-    function updatefordayuse($day_left,$day_use){
 
+    function updatefordayuse($day_left,$day_use,$username){
+        $sql = "UPDATE leaverequest SET day_left = ? ,day_use = ? WHERE username = ?";
+        $conn = open_database();
+        $stm = $conn->prepare($sql);
+        $stm->bind_param('iis',$day_left,$day_use,$username);
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Update use,left thành công');     
     }
 
 ?>
