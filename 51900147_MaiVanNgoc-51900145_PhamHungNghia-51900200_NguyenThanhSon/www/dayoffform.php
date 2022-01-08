@@ -81,7 +81,6 @@
 				$data = insertleave($username,$leavetype,$leavereason,$star_date,$end_date,$currenttime,$upload,$date_number);
 				if($data['code']==0){
 					$success = 'Tạo đơn xin nghỉ thành công';
-					
 					$leavetype = false;
 					$leavereason = false;
 					$star_date = false;
@@ -175,8 +174,8 @@
 			<div class="row justify-content-center ">
 				<div class="col-xl-5 col-lg-6 col-md-8 border my-5 p-4 rounded mx-3 addstaffform">
 					<h3 class="text-center text-secondary mt-2 mb-3 mb-3">Đơn xin nghỉ phép</h3>
-					<form method="post" action="" novalidate>
-						<div class = "form-group" onsubmit="">
+					<form method="post" id="formofme" action="" novalidate>
+						<div class = "form-group"">
 							<label for="leavetype">Số ngày nghỉ có: <?= $_SESSION["day_off"] ?></label>
 						</div>
 
@@ -215,7 +214,7 @@
 									echo "<div class='alert alert-danger'>$error</div>";
 								}
 							?>
-							<button type="submit" name="myform" class="btn btn-register-js btn-success px-5 mt-3 mr-2 btn_submit">Nộp form</button>
+							<button type="submit" id="myform" class="btn btn-register-js btn-success px-5 mt-3 mr-2 btn_submit">Nộp form</button>
 							<button type="reset" class="btn btn-success px-5 mt-3 mr-2">Reset</button>
 						</div>
 					</form>
