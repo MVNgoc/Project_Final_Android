@@ -16,9 +16,9 @@
 
 	if(isset($_POST["leave-view"])){
 		$username = $_POST["leave-view"];
+		$date = $_POST["star_date"];
 		$_SESSION['leave-view'] = $username;
-
-		$sql = "SELECT * FROM leaveform WHERE username = '$username' AND leave_status = 'Đang đợi' ";
+		$sql = "SELECT * FROM leaveform WHERE username = '$username' AND star_date = '$date' ";
 		$conn = open_database();
 		$stm = $conn -> prepare($sql);
 		$result = $conn-> query($sql);
@@ -32,8 +32,8 @@
 		$leavestatus = $row["leave_status"];
 	}else{
 		$username = $_SESSION["leave-view"];
-
-		$sql = "SELECT * FROM leaveform WHERE username = '$username' AND leave_status = 'Đang đợi' ";
+		$date = $_POST["star_date"];
+		$sql = "SELECT * FROM leaveform WHERE username = '$username' AND star_date = '$date' ";
 		$conn = open_database();
 		$stm = $conn -> prepare($sql);
 		$result = $conn-> query($sql);

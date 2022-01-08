@@ -533,7 +533,7 @@
     }
 
     function displayleaveofUser($username){
-        $sql = 'SELECT * FROM leaveform WHERE username = ?';
+        $sql = 'SELECT * FROM leaveform WHERE username = ? ORDER BY leave_status DESC';
         $conn = open_database();
 
         $stm = $conn->prepare($sql);
@@ -553,8 +553,9 @@
                     echo "<td>". $row["date_num"] ."</td>";
 					echo "<td>". $row["leave_status"] ."</td>";
 					echo '<td class="list-btn">';
-                        echo '<form action="view_leavetruongphong.php" method="POST">';
+                        echo '<form action="view_leave.php" method="POST">';
                             echo '<button class="btn-view text-white" name="leave-view" value="'. $row["username"] .'">Xem</button>';
+                            echo '<input type="hidden" name="star_date" value="'. $row["star_date"] .'"></input>';
                         echo '</form>';
 					echo '</td>';
 				echo '</tr>';
@@ -594,6 +595,7 @@
 					echo '<td class="list-btn">';
                         echo '<form action="view_leave.php" method="POST">';
                             echo '<button class="btn-view text-white" name="leave-view" value="'. $row["username"] .'">Xem</button>';
+                            echo '<input type="hidden" name="star_date" value="'. $row["star_date"] .'"></input>';
                         echo '</form>';
 					echo '</td>';
 				echo '</tr>';
@@ -810,6 +812,10 @@
 					</div>';
 			}
 		}
+
+    }
+
+    function updatefordayuse($day_left,$day_use){
 
     }
 
