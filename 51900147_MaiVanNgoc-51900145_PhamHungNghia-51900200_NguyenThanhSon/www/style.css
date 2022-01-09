@@ -501,19 +501,6 @@ input:focus{
     display: flex;
 }
 
-.notification_chooseManager .chooseManager_form {
-    position: relative;
-    background-color: rgb(255, 255, 255);
-    min-width: 600px;
-    height: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-    /* text-align: center; */
-    padding: 50px 0 16px 0;
-    border-radius: 4px;
-    font-size: 17px;
-    animation: modalSlipDown linear 0.3s;
-}
 
 .notification_chooseManager .notification_exit {
     position: absolute;
@@ -596,3 +583,5 @@ input:focus{
 }
 /* End viewtask.php */
 /* End department_edit.php */
+
+

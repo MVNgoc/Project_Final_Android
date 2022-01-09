@@ -98,9 +98,30 @@
 			<div class="btn-showlist">
 				<button class="btn-list-item"></button>
 			</div>
-
+			
 		</header>
+		<button id="myBtn">Open Modal</button>
 
+		<div id="myModal" class="modal_ofme">
+
+			<!-- Modal content -->
+			<div class="modal-content_ofme">
+				<div class="modal-header">
+				<span class="close_ofme">&times;</span>
+				<h2>Modal Header</h2>
+				</div>
+				<div class="modal-body">
+				<p>Some text in the Modal Body</p>
+				<p>Some other text...</p>
+				</div>
+				<div class="modal-footer">
+				<h3>Modal Footer</h3>
+				</div>
+			</div>
+
+		</div>
+
+</div>
 
 
 
@@ -109,5 +130,4 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script src="/main.js"></script> <!-- Sử dụng link tuyệt đối tính từ root, vì vậy có dấu / đầu tiên -->
 </body>
-
 </html>

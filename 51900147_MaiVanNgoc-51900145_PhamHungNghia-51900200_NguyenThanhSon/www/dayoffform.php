@@ -140,7 +140,7 @@
                                         <a class="nav-link" href="#">Nghỉ phép</a>
                                         <ul class="navbar-nav day-off-tag">
 											<li class="nav-item">
-												<a class="nav-link " href="view_dayoff.php">Xem ngày nghỉ phép</a>
+												<a class="nav-link" href="view_dayoff.php">Xem ngày nghỉ phép</a>
 											</li>
 											<li class="nav-item">
                                             	<a class="nav-link" href="dayoffform.php">Tạo đơn xin nghỉ phép</a>
@@ -226,6 +226,7 @@
 					</form>
 
 				</div>
+				
 			</div>
 			<?php
 				if (!empty($success)) {
@@ -235,7 +236,6 @@
 				}
 			?>
     	</div>
-
 
 		<footer class="footer">	
 		</footer>

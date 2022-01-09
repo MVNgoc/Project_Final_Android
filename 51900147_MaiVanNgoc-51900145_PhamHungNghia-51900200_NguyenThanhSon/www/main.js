@@ -54,6 +54,7 @@ $(document).ready(() => {
 		event.stopPropagation();
 	})
 
+	
 })
 
 // function triggerClick() {
