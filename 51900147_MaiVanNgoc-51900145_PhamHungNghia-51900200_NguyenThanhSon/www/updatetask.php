@@ -184,6 +184,9 @@
                                 echo '<li class="nav-item day-off-header">
                                         <a class="nav-link" href="#">Nghỉ phép</a>
                                         <ul class="navbar-nav day-off-tag">
+                                            <li class="nav-item">
+												<a class="nav-link" href="view_dayoff.php">Xem ngày nghỉ phép</a>
+											</li>
 											<li class="nav-item">
                                             	<a class="nav-link" href="dayoffform.php">Tạo đơn xin nghỉ phép</a>
                                             </li>
@@ -200,6 +203,9 @@
 								echo '<li class="nav-item day-off-header">
                                         <a class="nav-link" href="#">Nghỉ phép</a>
                                         <ul class="navbar-nav day-off-tag">
+                                            <li class="nav-item">
+												<a class="nav-link" href="view_dayoff.php">Xem ngày nghỉ phép</a>
+											</li>
 											<li class="nav-item">
                                             	<a class="nav-link" href="dayoffform.php">Tạo đơn xin nghỉ phép</a>
                                             </li>

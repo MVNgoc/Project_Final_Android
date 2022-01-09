@@ -84,9 +84,20 @@
 				<li class="nav-item">
 					<a class="nav-link" href="profile.php">Hồ sơ</a>
 				</li>
+				
 				<li class="nav-item">
 					<a class="nav-link" href="phongban.php">Quản lý phòng ban</a>
 				</li>
+
+				<li class="nav-item day-off-header">
+					<a class="nav-link" href="#">Nghỉ phép</a>
+					<ul class="navbar-nav">
+						<li class="nav-item day-off-tag">
+							<a class="nav-link" href="duyetdon.php">Duyệt đơn nghỉ phép</a>
+						</li>
+					</ul>
+				</li>
+
 				<li class="nav-item">
 					<a class="nav-link" href="logout.php">Đăng xuất</a>
 				</li>		
