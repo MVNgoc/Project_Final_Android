@@ -54,12 +54,6 @@ $(document).ready(() => {
 		event.stopPropagation();
 	})
 
-	$('form#formofme').submit(function(e){
-		$(this).children('button[type=submit]').attr('disabled', 'disabled');
-		e.preventDefault(); 
-    	return false;
-	});
-
 })
 
 // function triggerClick() {

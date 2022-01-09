@@ -29,12 +29,11 @@
 	$leavereason = '';
 	$upload ='';
 
-	if(isset($_POST['leavetype']) && isset($_POST['star_date']) && isset($_POST['end_date']) &&
+	if(isset($_POST['leavetype']) && isset($_POST['star_date']) &&
 	isset($_POST['date_number']) &&isset($_POST['leavereson'])){
 
 		$leavetype = $_POST['leavetype'];
 		$star_date = $_POST['star_date'];
-		$end_date = $_POST['end_date'];
 		$date_number = $_POST['date_number'];
 		$leavereason = $_POST['leavereson'];
 
@@ -42,11 +41,9 @@
 			$error = "Hãy nhập tiêu đề";
 		}else if(empty($star_date)){
 			$error = "Hãy chọn ngày bắt đầu nghỉ";
-		}else if(empty($end_date)){
-			$error = "Hãy chọn ngày kết thúc nghỉ";
 		}else if(empty($leavereason)){
 			$error = "Hãy nhập lí do nghỉ";
-		}else if(!empty($star_date) && !empty($end_date)){
+		}else if(!empty($star_date)){
 
 			$username = $_SESSION["username"];
 
@@ -60,31 +57,24 @@
 
 			$currenttime = date('Y-m-d');
 			$start = strtotime($star_date);
-			$end = strtotime($end_date);
 			$now = strtotime($currenttime);
-			$interval = $end - $start;
 			$interval2 = $start - $now;
-			$date_number = floor($interval / (60*60*24));
 			$date_check = floor($interval2 / (60*60*24));
 
 			if($date_check <= 0){
 				$error = 'Thời gian bắt đầu không hợp lệ';
-			}
-			else if($date_number <= 0){
-				$error = 'Thời gian kết thúc không hợp lệ';
 			}
             else if($date_number > $datecheckold){
 				$error = 'Số ngày nghỉ không hợp lệ';
 			}
 			else{
 				$username = $_SESSION['username'];
-				$data = insertleave($username,$leavetype,$leavereason,$star_date,$end_date,$currenttime,$upload,$date_number);
+				$data = insertleave($username,$leavetype,$leavereason,$star_date,$currenttime,$upload,$date_number);
 				if($data['code']==0){
 					$success = 'Tạo đơn xin nghỉ thành công';
 					$leavetype = false;
 					$leavereason = false;
 					$star_date = false;
-					$end_date = false;
 					$date_number = false;
 				}else{
 					$error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
@@ -131,7 +121,10 @@
                                         <a class="nav-link" href="#">Nghỉ phép</a>
                                         <ul class="navbar-nav day-off-tag">
 											<li class="nav-item">
-                                            	<a class="nav-link" href="#">Tạo đơn xin nghỉ phép</a>
+												<a class="nav-link" href="">Xem ngày nghỉ phép</a>
+											</li>
+											<li class="nav-item">
+                                            	<a class="nav-link" href="dayoffform.php">Tạo đơn xin nghỉ phép</a>
                                             </li>
                                             <li class="nav-item">
                                             	<a class="nav-link" href="duyetdon.php">Duyệt đơn nghỉ phép</a>
@@ -146,6 +139,9 @@
 								echo '<li class="nav-item day-off-header">
                                         <a class="nav-link" href="#">Nghỉ phép</a>
                                         <ul class="navbar-nav day-off-tag">
+											<li class="nav-item">
+												<a class="nav-link " href="#">Xem ngày nghỉ phép</a>
+											</li>
 											<li class="nav-item">
                                             	<a class="nav-link" href="dayoffform.php">Tạo đơn xin nghỉ phép</a>
                                             </li>
@@ -174,7 +170,7 @@
 			<div class="row justify-content-center ">
 				<div class="col-xl-5 col-lg-6 col-md-8 border my-5 p-4 rounded mx-3 addstaffform">
 					<h3 class="text-center text-secondary mt-2 mb-3 mb-3">Đơn xin nghỉ phép</h3>
-					<form method="post" id="formofme" action="" novalidate>
+					<form method="post" action="" novalidate>
 						<div class = "form-group"">
 							<label for="leavetype">Số ngày nghỉ có: <?= $_SESSION["day_off"] ?></label>
 						</div>
@@ -194,19 +190,29 @@
 						</div>
 
 						<div class="form-group">
-							<label for="end_date">Thời gian kết thúc</label>
-							<input value="<?= $end_date ?>" name="end_date" required class="form-control" type="date" id="end_date">
-						</div>
-
-						<div class="form-group">
-							<label for="date_number" hidden="hidden">Số ngày nghỉ</label>
-							<input value="<?= $date_number ?>" name="date_number" required class="form-control" type="hidden" id="date_number" readonly>
+							<label for="date_number">Số ngày nghỉ</label>
+							<?php 
+								$username = $_SESSION["username"];
+								$sql = "SELECT * FROM leaverequest WHERE username = '$username'";
+								$conn = open_database();
+								$result = $conn-> query($sql);
+								echo '<select required class="form-control" name="date_number">';
+									if($result->num_rows > 0){
+										while($row = $result->fetch_array()){
+											for($i = 1; $i <= $row["day_left"]; $i++){
+												echo '<option id="date_number" name="date_number" value="'.$i.'">'.$i.'</option>';										
+											}
+										}
+									}
+								echo '</select>';
+							?>
 						</div>
 
 						<div class="form-group">
 							<label for="leavereson">Lí do nghỉ phép</label>
 							<input value="<?= $leavereason ?>" name="leavereson" required class="form-control" type="text" placeholder="Nhập lí do nghỉ" id="leavereson">
 						</div>
+
 
 						<div class="form-group">
 							<?php

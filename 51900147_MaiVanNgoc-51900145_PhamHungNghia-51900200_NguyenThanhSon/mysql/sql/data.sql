@@ -59,7 +59,6 @@ CREATE TABLE leaveform (
   leavetype varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   leavereson varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   star_date date NOT NULL,
-  end_date date NOT NULL,
   date_applied date NOT NULL,
   leave_status varchar(30) NOT NULL DEFAULT 'Đang đợi', 
   uploadd_file varchar(255) COLLATE utf8_unicode_ci,

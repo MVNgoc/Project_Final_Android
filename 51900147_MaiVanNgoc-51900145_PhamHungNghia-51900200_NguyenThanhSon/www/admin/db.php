@@ -519,13 +519,13 @@
         return array('code' => 0,'error' => 'Tạo đơn xin nghỉ thành công');
     }
 
-    function insertleave($username,$leavetype,$leavereason,$star_date,$end_date,$date_apply,$uploadfile,$date_num){
-        $sql = 'INSERT INTO leaveform(username,leavetype,leavereson,star_date,end_date,date_applied,
-            uploadd_file,date_num) VALUES(?,?,?,?,?,?,?,?)';
+    function insertleave($username,$leavetype,$leavereason,$star_date,$date_apply,$uploadfile,$date_num){
+        $sql = 'INSERT INTO leaveform(username,leavetype,leavereson,star_date,date_applied,
+            uploadd_file,date_num) VALUES(?,?,?,?,?,?,?)';
         $conn = open_database();
 
         $stm = $conn->prepare($sql);
-        $stm->bind_param('sssssssi',$username,$leavetype,$leavereason,$star_date,$end_date,$date_apply,$uploadfile,$date_num);
+        $stm->bind_param('ssssssi',$username,$leavetype,$leavereason,$star_date,$date_apply,$uploadfile,$date_num);
         if(!$stm->execute()){
             return array('code' => 2, 'error' => 'Can not excute command');
         }
