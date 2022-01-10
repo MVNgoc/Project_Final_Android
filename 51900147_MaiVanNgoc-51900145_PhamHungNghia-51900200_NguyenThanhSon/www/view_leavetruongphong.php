@@ -218,8 +218,13 @@
     	</div>
 		<?php
 			if (!empty($success)) {
-				echo "<div class='notification'>
-						<div class='notification_success'>$success</div>
+				echo "<div class='notifiupdateform'>
+						<div class='update_success'>
+							$success
+							<div>
+								<button id='update' type='button' class='btn btn-primary'>Quay lại trang duyệt đơn</button>
+							</div>	
+						</div>
 					</div>";
 			}
 		?>

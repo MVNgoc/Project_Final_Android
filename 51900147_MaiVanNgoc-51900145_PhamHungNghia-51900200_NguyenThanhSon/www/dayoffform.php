@@ -54,7 +54,6 @@
 			$row = $result->fetch_assoc();
 			$datecheckold = $row['day_left']; 
 
-
 			$currenttime = date('Y-m-d');
 			$start = strtotime($star_date);
 			$now = strtotime($currenttime);
@@ -70,12 +69,16 @@
 			else{
 				$username = $_SESSION['username'];
 				$data = insertleave($username,$leavetype,$leavereason,$star_date,$currenttime,$upload,$date_number);
-				if($data['code']==0){
-					$success = 'Tạo đơn xin nghỉ thành công';
+				if($data['code']==3){
+					$error = 'Ngày bắt đầu nghỉ bị trùng';
+				}
+				else if($data['code']==0){
 					$leavetype = false;
 					$leavereason = false;
 					$star_date = false;
 					$date_number = false;
+					$success = 'Tạo đơn xin nghỉ thành công';
+					
 				}else{
 					$error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
 				}
@@ -212,8 +215,47 @@
 									echo "<div class='alert alert-danger'>$error</div>";
 								}
 							?>
-							<button type="submit" id="myform" class="btn btn-register-js btn-success px-5 mt-3 mr-2 btn_submit">Nộp form</button>
-							<button id="test" type="reset" class="btn btn-success px-5 mt-3 mr-2">Reset</button>
+
+							<?php
+								$sql = "SELECT * FROM leaveform WHERE username = '$username' ORDER BY date_applied ASC";
+								$conn = open_database();
+								$stm = $conn->prepare($sql);
+								if(!$stm->execute()){
+									die('Query error: ' . $stm->error);
+								}
+								$result = $stm->get_result();
+								if($result->num_rows > 0){
+									while($row = $result->fetch_assoc()){
+										$test = $row['date_applied']; 
+									}
+									$currenttime = date('Y-m-d');
+									$now = strtotime($currenttime);
+									$applied = strtotime($test);
+									$inter = $now - $applied;
+									$date_checkforbtn = floor($inter / (60*60*24));
+									if($date_checkforbtn<7){
+										$check_dayleftuse = 7 - $date_checkforbtn;
+										echo'
+											<div class="alert alert-danger">Còn '.$check_dayleftuse.' ngày nữa để thực hiện chức năng này tiếp</div>
+											<button type="submit" id="myform" class="btn btn-register-js btn-success px-5 mt-3 mr-2 btn_submit" disabled>Nộp form</button>
+											<button id="test" type="reset" class="btn btn-success px-5 mt-3 mr-2" disabled>Reset</button>
+										';
+									}else{
+										echo'
+										<button type="submit" id="myform" class="btn btn-register-js btn-success px-5 mt-3 mr-2 btn_submit">Nộp form</button>
+										<button id="test" type="reset" class="btn btn-success px-5 mt-3 mr-2">Reset</button>
+									
+									';
+									}
+								}else{
+									echo'
+										<button type="submit" id="myform" class="btn btn-register-js btn-success px-5 mt-3 mr-2 btn_submit">Nộp form</button>
+										<button id="test" type="reset" class="btn btn-success px-5 mt-3 mr-2">Reset</button>
+									
+									';
+								}
+								
+							?>
 						</div>
 					</form>
 
@@ -226,11 +268,15 @@
 							<div class='notification_success'>$success</div>
 						</div>";
 				}
+				
+				
 			?>
     	</div>
 		
 		<footer class="footer">	
 		</footer>
+
+
 		<!--This is modal show day -->	
 		<div id="myModal" class="modal fade" role="dialog">
 			<div class="modal-dialog">

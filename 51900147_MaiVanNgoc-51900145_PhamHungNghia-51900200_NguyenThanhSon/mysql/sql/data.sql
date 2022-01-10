@@ -55,6 +55,7 @@ CREATE TABLE taskfile (
 );
 
 CREATE TABLE leaveform (
+  id varchar(15) NOT NULL ,
   username varchar(64) NOT NULL,
   leavetype varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   leavereson varchar(64) COLLATE utf8_unicode_ci NOT NULL,
@@ -167,5 +168,9 @@ ALTER TABLE leaverequest
   ADD PRIMARY KEY (username);
 
 ALTER TABLE leaveform
-  ADD PRIMARY KEY (star_date);
+  ADD PRIMARY KEY (id);
+
+ALTER TABLE leaveform
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
 COMMIT;

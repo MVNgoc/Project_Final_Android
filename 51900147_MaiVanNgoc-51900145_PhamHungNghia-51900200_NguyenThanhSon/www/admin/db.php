@@ -519,7 +519,30 @@
         return array('code' => 0,'error' => 'Tạo đơn xin nghỉ thành công');
     }
 
+    function is_stardatevalid($username,$star_date){
+        $sql = "SELECT star_date from leaveform where username = ? AND star_date = ?";
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+        $stm->bind_param('ss',$username,$star_date);
+        if(!$stm->execute()){
+            die('Query error: ' . $stm->error);
+        }
+
+        $result = $stm->get_result();
+        if($result->num_rows > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     function insertleave($username,$leavetype,$leavereason,$star_date,$date_apply,$uploadfile,$date_num){
+
+        if(is_stardatevalid($username,$star_date)){
+            return array('code' => 3, 'error' => 'Ngày bắt đầu nghỉ bị trùng');
+        }
+
         $sql = 'INSERT INTO leaveform(username,leavetype,leavereson,star_date,date_applied,
             uploadd_file,date_num) VALUES(?,?,?,?,?,?,?)';
         $conn = open_database();
