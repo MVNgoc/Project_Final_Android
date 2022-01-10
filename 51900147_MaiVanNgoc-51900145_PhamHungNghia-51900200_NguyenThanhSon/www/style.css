@@ -583,5 +583,29 @@ input:focus{
 }
 /* End viewtask.php */
 /* End department_edit.php */
+.notifiupdateform {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.3);
+    justify-content: center;
+}
 
+.notifiupdateform .update_success {
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    width: 400px;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+    padding: 50px 0;
+    border-radius: 4px;
+    font-size: 17px;
+    font-weight: bold;
+    color: rgb(26, 221, 0);
+    animation: modalSlipDown linear 0.4s;
+}
 

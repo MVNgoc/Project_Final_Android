@@ -64,7 +64,9 @@
 			$result = $conn-> query($sql);
 			$row = $result->fetch_assoc();
 			updatefordayuse($row['day_off']-$date_number-$date_old,$date_number+$date_old,$username);
-			$success = 'Cập nhật thành công';
+			$success = 'Nộp đơn thành công';
+		}else{
+			$success = 'Nộp đơn thành công';
 		}
 	}
 ?>
@@ -222,8 +224,13 @@
     	</div>
 		<?php
 			if (!empty($success)) {
-				echo "<div class='notification'>
-						<div class='notification_success'>$success</div>
+				echo "<div class='notifiupdateform'>
+						<div class='update_success'>
+							$success
+							<div>
+								<button id='update' type='button' class='btn btn-primary'>Quay lại trang duyệt đơn</button>
+							</div>	
+						</div>
 					</div>";
 			}
 		?>
