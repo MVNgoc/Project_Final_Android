@@ -210,7 +210,7 @@
                                     <a class="nav-link" href="#">Nghỉ phép</a>
                                     <ul class="navbar-nav day-off-tag">
                                         <li class="nav-item">
-											<a class="nav-link" href="view_dayoff.php">Xem ngày nghỉ phép</a>
+											<a class="nav-link" id="showday" type="button">Xem ngày nghỉ phép</a>
 										</li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="dayoffform.php">Tạo đơn xin nghỉ phép</a>
@@ -229,7 +229,7 @@
                                     <a class="nav-link" href="#">Nghỉ phép</a>
                                     <ul class="navbar-nav day-off-tag">
                                         <li class="nav-item">
-											<a class="nav-link" href="view_dayoff.php">Xem ngày nghỉ phép</a>
+											<a class="nav-link" id="showday" type="button">Xem ngày nghỉ phép</a>
 										</li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="dayoffform.php">Tạo đơn xin nghỉ phép</a>
@@ -438,6 +438,25 @@
                 </div>
             </div>
         </div>
+        <div id="myModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content ">
+					<div class="modal-header text-center">
+						<h4 class="modal-title w-100">Xem ngày nghỉ</h4>
+					</div>
+					<div class="modal-body">
+						<h4>Số ngày nghỉ có: <?php echo $_SESSION["day_off"]; ?></h4>
+						<?php displaydayleftuse($_SESSION["username"]) ?>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+
+			</div>
+    	</div>	
     </div>
 
     <?php

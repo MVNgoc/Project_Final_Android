@@ -803,13 +803,10 @@
         $result = $stm->get_result();
 		if($result->num_rows > 0){
 			foreach($result as $row){
-				echo '
-                    <div class="col-md-6">
-						<label for="day_left">Số ngày còn:'.$row['day_left'].'</label>
-					</div>
-					<div class="col-md-6">
-						<label for="day_use">Số ngày đã sử dụng: '.$row['day_use'].' </label>
-					</div>';
+				echo' 
+                        <h4>Số ngày nghỉ còn: '.$row["day_left"].'</h4>
+						<h4>Số ngày nghỉ đã xài: '.$row["day_use"].'</h4>
+                        ';
 			}
 		}
 

@@ -56,7 +56,11 @@ $(document).ready(() => {
 		event.stopPropagation();
 	})
 
-	
+
+	var btn = document.getElementById("showday");
+	btn.onclick = function(){
+		$("#myModal").modal('show');
+	}
 })
 
 function displayImage(e) {
@@ -69,3 +73,4 @@ function displayImage(e) {
 		reader.readAsDataURL(e.files[0]);
 	}
 }
+
