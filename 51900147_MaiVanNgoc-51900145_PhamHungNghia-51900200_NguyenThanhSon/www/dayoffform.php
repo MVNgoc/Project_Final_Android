@@ -213,7 +213,7 @@
 								}
 							?>
 							<button type="submit" id="myform" class="btn btn-register-js btn-success px-5 mt-3 mr-2 btn_submit">Nộp form</button>
-							<button type="reset" class="btn btn-success px-5 mt-3 mr-2">Reset</button>
+							<button id="test" type="reset" class="btn btn-success px-5 mt-3 mr-2">Reset</button>
 						</div>
 					</form>
 

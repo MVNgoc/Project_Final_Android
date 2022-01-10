@@ -62,11 +62,17 @@ $(document).ready(() => {
 		$("#myModal").modal('show');
 	}
 
-	var test = document.getElementById("update");
-	test.onclick = function(){
+	const thisbtn = $("#update");
+	thisbtn.on("click", function(){
 		window.location.href = "http://localhost:8080/duyetdon.php";
-	}
+	})
+
+	const myform = $("#myform");
+
+
 })
+
+
 
 function displayImage(e) {
 	if(e.files[0]) {
