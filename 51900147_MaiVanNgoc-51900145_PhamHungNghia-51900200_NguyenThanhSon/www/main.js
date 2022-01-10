@@ -1,4 +1,6 @@
 $(document).ready(() => {
+
+
 	const btn_showlist = $(".btn-showlist");
 	const navbar_nav = $(".navbar-nav");
 
@@ -54,12 +56,46 @@ $(document).ready(() => {
 		event.stopPropagation();
 	})
 
+
+	const modal = $(".modal");
+	const btn = $(".btn");
+	const span = $(".close");
+	btn.click(function () {
+		modal.show();
+	  });
 	
+	  span.click(function () {
+		modal.hide();
+	  });
+	
+	  $(window).on('click', function (e) {
+		if ($(e.target).is('.modal')) {
+		  modal.hide();
+		}
+	  });
+
+
 })
 
-// function triggerClick() {
-// 	document.querySelector('.avatar').click();
-// }
+$(document).ready(function(){
+	var modal = $('.modal');
+  var btn = $('.btn');
+  var span = $('.close');
+
+  btn.click(function () {
+    modal.show();
+  });
+
+  span.click(function () {
+    modal.hide();
+  });
+
+  $(window).on('click', function (e) {
+    if ($(e.target).is('.modal')) {
+      modal.hide();
+    }
+  });
+});
 
 function displayImage(e) {
 	if(e.files[0]) {

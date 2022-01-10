@@ -31,6 +31,7 @@
 	<link rel="stylesheet" href="/style.css"> <!-- Sử dụng link tuyệt đối tính từ root, vì vậy có dấu / đầu tiên -->
 	<script src="main.js"></script>
 	<title>View Day</title>
+	
 </head>
 
 <body>
@@ -100,30 +101,18 @@
 			</div>
 			
 		</header>
-		<button id="myBtn">Open Modal</button>
 
-		<div id="myModal" class="modal_ofme">
 
-			<!-- Modal content -->
-			<div class="modal-content_ofme">
-				<div class="modal-header">
-				<span class="close_ofme">&times;</span>
-				<h2>Modal Header</h2>
-				</div>
-				<div class="modal-body">
-				<p>Some text in the Modal Body</p>
-				<p>Some other text...</p>
-				</div>
-				<div class="modal-footer">
-				<h3>Modal Footer</h3>
-				</div>
+		<h2>Modal Demo</h2>
+		<button class='btn'>Open Modal</button>
+		<div class="modal">
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<p>Modal Box</p>
 			</div>
-
 		</div>
 
 </div>
-
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
