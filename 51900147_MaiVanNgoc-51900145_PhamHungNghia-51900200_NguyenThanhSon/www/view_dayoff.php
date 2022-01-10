@@ -103,15 +103,6 @@
 		</header>
 
 
-		<h2>Modal Demo</h2>
-		<button class='btn'>Open Modal</button>
-		<div class="modal">
-			<div class="modal-content">
-				<span class="close">&times;</span>
-				<p>Modal Box</p>
-			</div>
-		</div>
-
 </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
