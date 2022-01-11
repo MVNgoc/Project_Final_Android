@@ -1,5 +1,7 @@
 $(document).ready(() => {
-
+	if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
 
 	const btn_showlist = $(".btn-showlist");
 	const navbar_nav = $(".navbar-nav");
