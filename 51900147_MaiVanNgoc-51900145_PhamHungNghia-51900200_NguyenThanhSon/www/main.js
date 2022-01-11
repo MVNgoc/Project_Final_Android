@@ -59,18 +59,17 @@ $(document).ready(() => {
 	})
 
 
-	var btn = document.getElementById("showday");
-	btn.onclick = function(){
+	const btn = $("#showday");
+	btn.on("click",function(){
 		$("#myModal").modal('show');
-	}
+	})
+
 
 	const thisbtn = $("#update");
 	thisbtn.on("click", function(){
 		window.location.href = "http://localhost:8080/duyetdon.php";
 	})
 
-	var staff = $("#staffview").val();
-	console.log(staff);
 
 })
 

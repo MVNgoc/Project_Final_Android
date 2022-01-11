@@ -68,11 +68,14 @@
 								</li>
 								<li class="nav-item day-off-header">
 									<a class="nav-link" href="#">Nghỉ phép</a>
-									<ul class="navbar-nav">
-										<li class="nav-item day-off-tag">
-										<a class="nav-link" href="duyetdon.php">Duyệt đơn nghỉ phép</a>
-										</li>
-									</ul>
+										<ul class="navbar-nav day-off-tag">
+											<li class="nav-item">
+											<a class="nav-link" href="duyetdon.php">Duyệt đơn nghỉ phép</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" id="showday" type="button" hidden>Xem ngày nghỉ phép</a>
+											</li>
+										</ul>
 								</li>';	
 						}
 						else if ($_SESSION['positionid'] == 1 || $_SESSION['positionid'] == 2) {
