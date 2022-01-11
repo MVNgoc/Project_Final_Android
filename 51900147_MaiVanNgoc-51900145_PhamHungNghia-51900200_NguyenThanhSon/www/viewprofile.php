@@ -247,10 +247,31 @@
                             </div>
                         </div>
                         <div class="row gutters form-btn-submit">   
-                            <form action=" " method="POST">
-                                <button type="submit" name="reset-pass" class="btn btn-placeholder-submit btn-success px-5 mt-3 mr-2">Reset Password</button>                                                                                                                                             
-                            </form>
+                                <button type="button" class="btn btn-success px-5 mt-3 mr-2" data-toggle="modal" data-target="#exampleModalCenter">Reset Password</button>
                         </div>
+
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalCenterTitle">Reset mật khẩu nhân viên </h5>
+                                        
+                                    </div>
+                                    <div class="modal-body">
+                                        Xác nhận reset mật khẩu của <?= $name ?>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form  method="POST">
+                                            <button type="button" class="btn  btn-secondary px-5 mt-3 mr-2" data-dismiss="modal">Đóng</button>
+                                            <button type="submit" name="reset-pass" class="btn btn-placeholder-submit btn-success px-5 mt-3 mr-2">Xác nhận</button>                                                                                                                                             
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
                     </div>                   
                 </div>
             </div>
