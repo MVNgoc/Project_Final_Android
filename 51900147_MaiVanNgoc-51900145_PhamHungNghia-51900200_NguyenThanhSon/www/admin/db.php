@@ -152,16 +152,36 @@
 					echo "<td>". $row["email"] ."</td>";
 					echo '<td class="list-btn">';
                         echo '<form action="viewprofile.php" method="POST">';
-                            echo '<button class="btn-view text-white" name="user-view" value="'. $row["username"] .'">Xem</button>';
+                            echo '<button id="staffview" class="btn-view text-white" name="user-view" value="'. $row["username"] .'">Xem</button>';
                         echo '</form>';
                         echo '<form action="updatestaff.php" method="POST">';
                             echo '<button type="submit" name="user-edit" class="btn-edit text-white" value="'. $row["username"] .'">Chỉnh sửa</button>';
                         echo '</form>';
-                        echo '<form action="" method="POST">';
-						    echo '<button type="submit" name="user-delete" class="btn-delete text-white deletebtn" value="'. $row["username"] .'">Xóa</button>';
-                        echo '</form>';
+						    echo '<button type="button" class="btn-delete text-white deletebtn" data-toggle="modal" data-target="#exampleModalCenter">Xóa</button>';                      
 					echo '</td>';
 				echo '</tr>';
+
+                echo'
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">Xóa nhân viên </h5>
+                                                    
+                                </div>
+                                <div class="modal-body">
+                                    Xác nhận xóa nhân viên '. $row["firstname"].' '.$row["lastname"] .'
+                                </div>
+                                <div class="modal-footer">
+                                    <form  method="POST">
+                                        <button type="button" class="btn  btn-secondary px-5 mt-3 mr-2" data-dismiss="modal">Đóng</button>
+                                        <button value="'.$row["username"].'" type="submit" name="user-delete" class="btn btn-placeholder-submit btn-success px-5 mt-3 mr-2">Xác nhận</button>                                                                                                                                             
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   ';
+
                 $stt++;
             }
         }
@@ -234,11 +254,30 @@
                             echo '<form action="department_edit.php" method="POST">';
                                 echo '<button type="submit" name="room-edit" class="btn-edit text-white" value="'. $row["id"] .'">Chỉnh sửa</button>';
                             echo '</form>';
-                            echo '<form action="" method="POST">';
-                                echo '<button type="submit" name="room-delete" class="btn-delete text-white deletebtn" value="'. $row["id"] .'">Xóa</button>';
-                            echo '</form>';
+                            echo '<button type="button" name="room-delete" class="btn-delete text-white deletebtn" data-toggle="modal" data-target="#exampleModalCenter">Xóa</button>';
                         echo '</td>';
                 echo '</tr>';
+
+                echo'
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">Xóa phòng ban </h5>
+                                                    
+                                </div>
+                                <div class="modal-body">
+                                    Xác nhận xóa phòng '.$row["department_name"].' 
+                                </div>
+                                <div class="modal-footer">
+                                    <form  method="POST">
+                                        <button type="button" class="btn  btn-secondary px-5 mt-3 mr-2" data-dismiss="modal">Đóng</button>
+                                        <button value="'.$row["id"].'" type="submit" name="user-delete" class="btn btn-placeholder-submit btn-success px-5 mt-3 mr-2">Xác nhận</button>                                                                                                                                             
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   ';
                 $stt++;
             }
         }
@@ -519,13 +558,36 @@
         return array('code' => 0,'error' => 'Tạo đơn xin nghỉ thành công');
     }
 
-    function insertleave($username,$leavetype,$leavereason,$star_date,$end_date,$date_apply,$uploadfile,$date_num){
-        $sql = 'INSERT INTO leaveform(username,leavetype,leavereson,star_date,end_date,date_applied,
-            uploadd_file,date_num) VALUES(?,?,?,?,?,?,?,?)';
+    function is_stardatevalid($username,$star_date){
+        $sql = "SELECT star_date from leaveform where username = ? AND star_date = ?";
         $conn = open_database();
 
         $stm = $conn->prepare($sql);
-        $stm->bind_param('sssssssi',$username,$leavetype,$leavereason,$star_date,$end_date,$date_apply,$uploadfile,$date_num);
+        $stm->bind_param('ss',$username,$star_date);
+        if(!$stm->execute()){
+            die('Query error: ' . $stm->error);
+        }
+
+        $result = $stm->get_result();
+        if($result->num_rows > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function insertleave($username,$leavetype,$leavereason,$star_date,$date_apply,$uploadfile,$date_num){
+
+        if(is_stardatevalid($username,$star_date)){
+            return array('code' => 3, 'error' => 'Ngày bắt đầu nghỉ bị trùng');
+        }
+
+        $sql = 'INSERT INTO leaveform(username,leavetype,leavereson,star_date,date_applied,
+            uploadd_file,date_num) VALUES(?,?,?,?,?,?,?)';
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+        $stm->bind_param('ssssssi',$username,$leavetype,$leavereason,$star_date,$date_apply,$uploadfile,$date_num);
         if(!$stm->execute()){
             return array('code' => 2, 'error' => 'Can not excute command');
         }
@@ -533,7 +595,7 @@
     }
 
     function displayleaveofUser($username){
-        $sql = 'SELECT * FROM leaveform WHERE username = ?';
+        $sql = 'SELECT * FROM leaveform WHERE username = ? ORDER BY leave_status DESC';
         $conn = open_database();
 
         $stm = $conn->prepare($sql);
@@ -553,8 +615,9 @@
                     echo "<td>". $row["date_num"] ."</td>";
 					echo "<td>". $row["leave_status"] ."</td>";
 					echo '<td class="list-btn">';
-                        echo '<form action="view_leavetruongphong.php" method="POST">';
+                        echo '<form action="view_leave.php" method="POST">';
                             echo '<button class="btn-view text-white" name="leave-view" value="'. $row["username"] .'">Xem</button>';
+                            echo '<input type="hidden" name="star_date" value="'. $row["star_date"] .'"></input>';
                         echo '</form>';
 					echo '</td>';
 				echo '</tr>';
@@ -594,6 +657,7 @@
 					echo '<td class="list-btn">';
                         echo '<form action="view_leave.php" method="POST">';
                             echo '<button class="btn-view text-white" name="leave-view" value="'. $row["username"] .'">Xem</button>';
+                            echo '<input type="hidden" name="star_date" value="'. $row["star_date"] .'"></input>';
                         echo '</form>';
 					echo '</td>';
 				echo '</tr>';
@@ -785,6 +849,41 @@
             return array('code' => 2, 'error' => 'Can not excute command');
         }
         return array('code' => 0,'error' => 'Duyệt Form thành công');
+    }
+
+    function displaydayleftuse($username){
+        $sql = 'SELECT * FROM leaverequest WHERE username = ? ';
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+
+        $stm->bind_param('s',$username);
+
+        if(!$stm->execute()){
+            die('Query error: ' . $stm->error);
+        }
+        $result = $stm->get_result();
+		if($result->num_rows > 0){
+			foreach($result as $row){
+				echo' 
+                        <h4>Số ngày nghỉ còn: '.$row["day_left"].'</h4>
+						<h4>Số ngày nghỉ đã xài: '.$row["day_use"].'</h4>
+                        ';
+			}
+		}
+
+    }
+
+
+    function updatefordayuse($day_left,$day_use,$username){
+        $sql = "UPDATE leaverequest SET day_left = ? ,day_use = ? WHERE username = ?";
+        $conn = open_database();
+        $stm = $conn->prepare($sql);
+        $stm->bind_param('iis',$day_left,$day_use,$username);
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Update use,left thành công');     
     }
 
 ?>

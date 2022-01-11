@@ -26,7 +26,6 @@
 
 		$leavetype = $row["leavetype"];
 		$star_date = $row["star_date"];
-		$end_date = $row["end_date"];
 		$date_number = $row["date_num"];
 		$leavereason = $row["leavereson"];
 		$leavestatus = $row["leave_status"];
@@ -41,7 +40,6 @@
 
 		$leavetype = $row["leavetype"];
 		$star_date = $row["star_date"];
-		$end_date = $row["end_date"];
 		$date_number = $row["date_num"];
 		$leavereason = $row["leavereson"];
 		$leavestatus = $row["leave_status"];
@@ -51,8 +49,21 @@
 		$status = $_POST["leave-status"];
 		$success = '';
 		$result = updateleaveform($status,$username,$leavetype);
-		if($result['code'] == 0){
-			$success = 'Cập nhật thành công .';
+		if($status == "Chấp nhận"){
+			$sql = "SELECT * FROM leaverequest WHERE username = '$username'";
+			$conn = open_database();
+			$stm = $conn->prepare($sql);
+			$result = $conn->query($sql);
+			$row = $result->fetch_assoc();
+			$date_old = $row['day_use']; 
+
+			$sql = "SELECT account.day_off FROM leaverequest JOIN account ON leaverequest.username = account.username WHERE leaverequest.username = '$username'";
+			$conn = open_database();
+			$stm = $conn -> prepare($sql);
+			$result = $conn-> query($sql);
+			$row = $result->fetch_assoc();
+			updatefordayuse($row['day_off']-$date_number-$date_old,$date_number+$date_old,$username);
+			$success = 'Cập nhật thành công';
 		}
 	}
 ?>
@@ -106,6 +117,9 @@
                                         <a class="nav-link" href="#">Nghỉ phép</a>
                                         <ul class="navbar-nav day-off-tag">
 											<li class="nav-item">
+												<a class="nav-link" href="view_dayoff.php">Xem ngày nghỉ phép</a>
+											</li>
+											<li class="nav-item">
                                             	<a class="nav-link" href="dayoffform.php">Tạo đơn xin nghỉ phép</a>
                                             </li>
                                             <li class="nav-item">
@@ -121,6 +135,9 @@
 								echo '<li class="nav-item day-off-header">
                                         <a class="nav-link" href="#">Nghỉ phép</a>
                                         <ul class="navbar-nav day-off-tag ">
+											<li class="nav-item">
+												<a class="nav-link" href="view_dayoff.php">Xem ngày nghỉ phép</a>
+											</li>
 											<li class="nav-item">
                                             	<a class="nav-link" href="dayoffform.php">Tạo đơn xin nghỉ phép</a>
                                             </li>
@@ -157,11 +174,6 @@
 						<div class="form-group">
 							<label for="star_date">Thời gian bắt đầu</label>
 							<input value="<?= $star_date ?>" name="star_date" required class="form-control" type="date"  id="star_date" readonly>
-						</div>
-
-						<div class="form-group">
-							<label for="end_date">Thời gian kết thúc</label>
-							<input value="<?= $end_date ?>" name="end_date" required class="form-control" type="date" id="end_date" readonly>
 						</div>
 
 						<div class="form-group">
@@ -206,8 +218,13 @@
     	</div>
 		<?php
 			if (!empty($success)) {
-				echo "<div class='notification'>
-						<div class='notification_success'>$success</div>
+				echo "<div class='notifiupdateform'>
+						<div class='update_success'>
+							$success
+							<div>
+								<button id='update' type='button' class='btn btn-primary'>Quay lại trang duyệt đơn</button>
+							</div>	
+						</div>
 					</div>";
 			}
 		?>

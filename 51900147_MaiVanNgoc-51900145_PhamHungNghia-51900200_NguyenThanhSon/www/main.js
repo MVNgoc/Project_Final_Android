@@ -1,4 +1,8 @@
 $(document).ready(() => {
+	if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+
 	const btn_showlist = $(".btn-showlist");
 	const navbar_nav = $(".navbar-nav");
 
@@ -54,11 +58,22 @@ $(document).ready(() => {
 		event.stopPropagation();
 	})
 
+
+	const btn = $("#showday");
+	btn.on("click",function(){
+		$("#myModal").modal('show');
+	})
+
+
+	const thisbtn = $("#update");
+	thisbtn.on("click", function(){
+		window.location.href = "http://localhost:8080/duyetdon.php";
+	})
+
+
 })
 
-// function triggerClick() {
-// 	document.querySelector('.avatar').click();
-// }
+
 
 function displayImage(e) {
 	if(e.files[0]) {
@@ -71,20 +86,3 @@ function displayImage(e) {
 	}
 }
 
-function totalday(){
-	var start_date = document.getElementById("star_date");
-	var end_date = document.getElementById("end_date");
-	var start_day = new Date(start_date.value);
-	var end_day = new Date(end_date.value);
-
-	var milliseconds_per_day = 1000 * 60 * 60 * 24;
-
-	var millis_between = end_day.getTime() - start_day.getTime();
-	var days = millis_between / milliseconds_per_day;
-
-	var total_days = (Math.floor(days)) + 1;
-	var combined = total_days;
-
-	var date_number = document.getElementById('date_number');
-	date_number.value = combined;
-}

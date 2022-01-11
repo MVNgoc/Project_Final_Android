@@ -16,9 +16,9 @@
 
 	if(isset($_POST["leave-view"])){
 		$username = $_POST["leave-view"];
+		$date = $_POST["star_date"];
 		$_SESSION['leave-view'] = $username;
-
-		$sql = "SELECT * FROM leaveform WHERE username = '$username' AND leave_status = 'Đang đợi' ";
+		$sql = "SELECT * FROM leaveform WHERE username = '$username' AND star_date = '$date' ";
 		$conn = open_database();
 		$stm = $conn -> prepare($sql);
 		$result = $conn-> query($sql);
@@ -26,14 +26,13 @@
 
 		$leavetype = $row["leavetype"];
 		$star_date = $row["star_date"];
-		$end_date = $row["end_date"];
 		$date_number = $row["date_num"];
 		$leavereason = $row["leavereson"];
 		$leavestatus = $row["leave_status"];
 	}else{
 		$username = $_SESSION["leave-view"];
-
-		$sql = "SELECT * FROM leaveform WHERE username = '$username' AND leave_status = 'Đang đợi' ";
+		$date = $_POST["star_date"];
+		$sql = "SELECT * FROM leaveform WHERE username = '$username' AND star_date = '$date' ";
 		$conn = open_database();
 		$stm = $conn -> prepare($sql);
 		$result = $conn-> query($sql);
@@ -41,7 +40,6 @@
 
 		$leavetype = $row["leavetype"];
 		$star_date = $row["star_date"];
-		$end_date = $row["end_date"];
 		$date_number = $row["date_num"];
 		$leavereason = $row["leavereson"];
 		$leavestatus = $row["leave_status"];
@@ -49,10 +47,26 @@
 
 	if(isset($_POST["leave-status"])){
 		$status = $_POST["leave-status"];
+		$username = $_SESSION["leave-view"];
 		$success = '';
 		$result = updateleaveform($status,$username,$leavetype);
-		if($result['code'] == 0){
-			$success = 'Cập nhật thành công .';
+		if($status == "Chấp nhận"){
+			$sql = "SELECT * FROM leaverequest WHERE username = '$username'";
+			$conn = open_database();
+			$stm = $conn->prepare($sql);
+			$result = $conn->query($sql);
+			$row = $result->fetch_assoc();
+			$date_old = $row['day_use']; 
+
+			$sql = "SELECT account.day_off FROM leaverequest JOIN account ON leaverequest.username = account.username WHERE leaverequest.username = '$username'";
+			$conn = open_database();
+			$stm = $conn -> prepare($sql);
+			$result = $conn-> query($sql);
+			$row = $result->fetch_assoc();
+			updatefordayuse($row['day_off']-$date_number-$date_old,$date_number+$date_old,$username);
+			$success = 'Nộp đơn thành công';
+		}else{
+			$success = 'Nộp đơn thành công';
 		}
 	}
 ?>
@@ -106,6 +120,9 @@
                                         <a class="nav-link" href="#">Nghỉ phép</a>
                                         <ul class="navbar-nav day-off-tag">
 											<li class="nav-item">
+												<a class="nav-link" id="showday" type="button">Xem ngày nghỉ phép</a>
+											</li>
+											<li class="nav-item">
                                             	<a class="nav-link" href="dayoffform.php">Tạo đơn xin nghỉ phép</a>
                                             </li>
                                             <li class="nav-item">
@@ -121,6 +138,9 @@
 								echo '<li class="nav-item day-off-header">
                                         <a class="nav-link" href="#">Nghỉ phép</a>
                                         <ul class="navbar-nav day-off-tag ">
+											<li class="nav-item">
+												<a class="nav-link" id="showday" type="button">Xem ngày nghỉ phép</a>
+											</li>
 											<li class="nav-item">
                                             	<a class="nav-link" href="dayoffform.php">Tạo đơn xin nghỉ phép</a>
                                             </li>
@@ -157,11 +177,6 @@
 						<div class="form-group">
 							<label for="star_date">Thời gian bắt đầu</label>
 							<input value="<?= $star_date ?>" name="star_date" required class="form-control" type="date"  id="star_date" readonly>
-						</div>
-
-						<div class="form-group">
-							<label for="end_date">Thời gian kết thúc</label>
-							<input value="<?= $end_date ?>" name="end_date" required class="form-control" type="date" id="end_date" readonly>
 						</div>
 
 						<div class="form-group">
@@ -209,8 +224,13 @@
     	</div>
 		<?php
 			if (!empty($success)) {
-				echo "<div class='notification'>
-						<div class='notification_success'>$success</div>
+				echo "<div class='notifiupdateform'>
+						<div class='update_success'>
+							$success
+							<div>
+								<button id='update' type='button' class='btn btn-primary'>Quay lại trang duyệt đơn</button>
+							</div>	
+						</div>
 					</div>";
 			}
 		?>
@@ -220,6 +240,25 @@
 		<footer class="footer">
 			
 		</footer>
+		<div id="myModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content ">
+					<div class="modal-header text-center">
+						<h4 class="modal-title w-100">Xem ngày nghỉ</h4>
+					</div>
+					<div class="modal-body">
+						<h4>Số ngày nghỉ có: <?php echo $_SESSION["day_off"]; ?></h4>
+						<?php displaydayleftuse($_SESSION["username"]) ?>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+
+			</div>
+    	</div>	
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

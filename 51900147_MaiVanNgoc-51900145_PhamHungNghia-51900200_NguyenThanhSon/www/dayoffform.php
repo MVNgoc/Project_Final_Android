@@ -17,6 +17,7 @@
         exit();
     }
 
+
 	require_once('./admin/db.php');
 
 	$error = '';
@@ -28,12 +29,11 @@
 	$leavereason = '';
 	$upload ='';
 
-	if(isset($_POST['leavetype']) && isset($_POST['star_date']) && isset($_POST['end_date']) &&
+	if(isset($_POST['leavetype']) && isset($_POST['star_date']) &&
 	isset($_POST['date_number']) &&isset($_POST['leavereson'])){
 
 		$leavetype = $_POST['leavetype'];
 		$star_date = $_POST['star_date'];
-		$end_date = $_POST['end_date'];
 		$date_number = $_POST['date_number'];
 		$leavereason = $_POST['leavereson'];
 
@@ -41,39 +41,44 @@
 			$error = "Hãy nhập tiêu đề";
 		}else if(empty($star_date)){
 			$error = "Hãy chọn ngày bắt đầu nghỉ";
-		}else if(empty($end_date)){
-			$error = "Hãy chọn ngày kết thúc nghỉ";
 		}else if(empty($leavereason)){
 			$error = "Hãy nhập lí do nghỉ";
-		}else if(!empty($star_date) && !empty($end_date)){
+		}else if(!empty($star_date)){
+
+			$username = $_SESSION["username"];
+
+			$sql = "SELECT * FROM leaverequest WHERE username = '$username'";
+			$conn = open_database();
+			$stm = $conn->prepare($sql);
+			$result = $conn->query($sql);
+			$row = $result->fetch_assoc();
+			$datecheckold = $row['day_left']; 
+
 			$currenttime = date('Y-m-d');
 			$start = strtotime($star_date);
-			$end = strtotime($end_date);
 			$now = strtotime($currenttime);
-			$interval = $end - $start;
 			$interval2 = $start - $now;
-			$date_number = floor($interval / (60*60*24));
 			$date_check = floor($interval2 / (60*60*24));
 
 			if($date_check <= 0){
 				$error = 'Thời gian bắt đầu không hợp lệ';
 			}
-			else if($date_number <= 0){
-				$error = 'Thời gian kết thúc không hợp lệ';
-			}
-            else if($date_number > $_SESSION['day_off']){
+            else if($date_number > $datecheckold){
 				$error = 'Số ngày nghỉ không hợp lệ';
 			}
 			else{
 				$username = $_SESSION['username'];
-				$data = insertleave($username,$leavetype,$leavereason,$star_date,$end_date,$currenttime,$upload,$date_number);
-				if($data['code']==0){
-					$success = 'Tạo đơn xin nghỉ thành công';
+				$data = insertleave($username,$leavetype,$leavereason,$star_date,$currenttime,$upload,$date_number);
+				if($data['code']==3){
+					$error = 'Ngày bắt đầu nghỉ bị trùng';
+				}
+				else if($data['code']==0){
 					$leavetype = false;
 					$leavereason = false;
 					$star_date = false;
-					$end_date = false;
 					$date_number = false;
+					$success = 'Tạo đơn xin nghỉ thành công';
+					
 				}else{
 					$error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
 				}
@@ -119,7 +124,10 @@
                                         <a class="nav-link" href="#">Nghỉ phép</a>
                                         <ul class="navbar-nav day-off-tag">
 											<li class="nav-item">
-                                            	<a class="nav-link" href="#">Tạo đơn xin nghỉ phép</a>
+												<a class="nav-link" id="showday" type="button"	>Xem ngày nghỉ phép</a>
+											</li>
+											<li class="nav-item">
+                                            	<a class="nav-link" href="dayoffform.php">Tạo đơn xin nghỉ phép</a>
                                             </li>
                                             <li class="nav-item">
                                             	<a class="nav-link" href="duyetdon.php">Duyệt đơn nghỉ phép</a>
@@ -134,6 +142,9 @@
 								echo '<li class="nav-item day-off-header">
                                         <a class="nav-link" href="#">Nghỉ phép</a>
                                         <ul class="navbar-nav day-off-tag">
+											<li class="nav-item">
+												<a class="nav-link" id="showday" type="button">Xem ngày nghỉ phép</a>
+											</li>
 											<li class="nav-item">
                                             	<a class="nav-link" href="dayoffform.php">Tạo đơn xin nghỉ phép</a>
                                             </li>
@@ -170,17 +181,26 @@
 
 						<div class="form-group">
 							<label for="star_date">Thời gian bắt đầu</label>
-							<input value="<?= $star_date ?>" name="star_date" required class="form-control" type="date" onchange="total_days()"  id="star_date">
-						</div>
-
-						<div class="form-group">
-							<label for="end_date">Thời gian kết thúc</label>
-							<input value="<?= $end_date ?>" name="end_date" required class="form-control" onchange="total_days()" type="date" id="end_date">
+							<input value="<?= $star_date ?>" name="star_date" required class="form-control" type="date" id="star_date">
 						</div>
 
 						<div class="form-group">
 							<label for="date_number">Số ngày nghỉ</label>
-							<input value="<?= $date_number ?>" name="date_number" required class="form-control" type="text" id="date_number" readonly>
+							<?php 
+								$username = $_SESSION["username"];
+								$sql = "SELECT * FROM leaverequest WHERE username = '$username'";
+								$conn = open_database();
+								$result = $conn-> query($sql);
+								echo '<select required class="form-control" name="date_number">';
+									if($result->num_rows > 0){
+										while($row = $result->fetch_array()){
+											for($i = 1; $i <= $row["day_left"]; $i++){
+												echo '<option id="date_number" name="date_number" value="'.$i.'">'.$i.'</option>';										
+											}
+										}
+									}
+								echo '</select>';
+							?>
 						</div>
 
 						<div class="form-group">
@@ -188,18 +208,59 @@
 							<input value="<?= $leavereason ?>" name="leavereson" required class="form-control" type="text" placeholder="Nhập lí do nghỉ" id="leavereson">
 						</div>
 
+
 						<div class="form-group">
 							<?php
 								if (!empty($error)) {
 									echo "<div class='alert alert-danger'>$error</div>";
 								}
 							?>
-							<button type="submit" class="btn btn-register-js btn-success px-5 mt-3 mr-2">Nộp form</button>
-							<button type="reset" class="btn btn-success px-5 mt-3 mr-2">Reset</button>
+
+							<?php
+								$sql = "SELECT * FROM leaveform WHERE username = '$username' ORDER BY date_applied ASC";
+								$conn = open_database();
+								$stm = $conn->prepare($sql);
+								if(!$stm->execute()){
+									die('Query error: ' . $stm->error);
+								}
+								$result = $stm->get_result();
+								if($result->num_rows > 0){
+									while($row = $result->fetch_assoc()){
+										$test = $row['date_applied']; 
+									}
+									$currenttime = date('Y-m-d');
+									$now = strtotime($currenttime);
+									$applied = strtotime($test);
+									$inter = $now - $applied;
+									$date_checkforbtn = floor($inter / (60*60*24));
+									if($date_checkforbtn<7){
+										$check_dayleftuse = 7 - $date_checkforbtn;
+										echo'
+											<div class="alert alert-danger">Còn '.$check_dayleftuse.' ngày nữa để thực hiện chức năng này tiếp</div>
+											<button type="submit" id="myform" class="btn btn-register-js btn-success px-5 mt-3 mr-2 btn_submit" disabled>Nộp form</button>
+											<button id="test" type="reset" class="btn btn-success px-5 mt-3 mr-2" disabled>Reset</button>
+										';
+									}else{
+										echo'
+										<button type="submit" id="myform" class="btn btn-register-js btn-success px-5 mt-3 mr-2 btn_submit">Nộp form</button>
+										<button id="test" type="reset" class="btn btn-success px-5 mt-3 mr-2">Reset</button>
+									
+									';
+									}
+								}else{
+									echo'
+										<button type="submit" id="myform" class="btn btn-register-js btn-success px-5 mt-3 mr-2 btn_submit">Nộp form</button>
+										<button id="test" type="reset" class="btn btn-success px-5 mt-3 mr-2">Reset</button>
+									
+									';
+								}
+								
+							?>
 						</div>
 					</form>
 
 				</div>
+				
 			</div>
 			<?php
 				if (!empty($success)) {
@@ -207,12 +268,39 @@
 							<div class='notification_success'>$success</div>
 						</div>";
 				}
+				
+				
 			?>
     	</div>
-
-
+		
 		<footer class="footer">	
 		</footer>
+
+
+		<!--This is modal show day -->	
+		<div id="myModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content ">
+					<div class="modal-header text-center">
+						<h4 class="modal-title w-100">Xem ngày nghỉ</h4>
+					</div>
+					<div class="modal-body">
+						<h4>Số ngày nghỉ có: <?php echo $_SESSION["day_off"]; ?></h4>
+						<?php displaydayleftuse($_SESSION["username"]) ?>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+
+			</div>
+    	</div>	
+
+
+
+
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

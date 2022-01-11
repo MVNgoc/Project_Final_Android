@@ -217,6 +217,8 @@ input:focus{
 
 #staff-table .btn-view {
     background-color: #009c03;
+    width: fit-content;
+    height: 25px;
     padding: 5px 15px;
     border-radius: 5px;
     margin-right: 5px;
@@ -225,6 +227,8 @@ input:focus{
 
 #staff-table .btn-edit {
     background-color: rgb(228, 194, 0);
+    width: fit-content;
+    height: 25px;
     padding: 5px 15px;
     border-radius: 5px;
     border: none;
@@ -233,6 +237,8 @@ input:focus{
 
 #staff-table .btn-delete {
     background-color: rgb(221, 0, 0);
+    width: fit-content;
+    height: 25px;
     padding: 5px 15px;
     border-radius: 5px;
     border: none;
@@ -324,6 +330,7 @@ input:focus{
         display: flex;
         align-items: center;
         border: none;
+        padding-bottom: 5px;
     }
 
     .table thead th,
@@ -501,19 +508,6 @@ input:focus{
     display: flex;
 }
 
-.notification_chooseManager .chooseManager_form {
-    position: relative;
-    background-color: rgb(255, 255, 255);
-    min-width: 600px;
-    height: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-    /* text-align: center; */
-    padding: 50px 0 16px 0;
-    border-radius: 4px;
-    font-size: 17px;
-    animation: modalSlipDown linear 0.3s;
-}
 
 .notification_chooseManager .notification_exit {
     position: absolute;
@@ -596,3 +590,29 @@ input:focus{
 }
 /* End viewtask.php */
 /* End department_edit.php */
+.notifiupdateform {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.3);
+    justify-content: center;
+}
+
+.notifiupdateform .update_success {
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    width: 400px;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+    padding: 50px 0;
+    border-radius: 4px;
+    font-size: 17px;
+    font-weight: bold;
+    color: rgb(26, 221, 0);
+    animation: modalSlipDown linear 0.4s;
+}
+
