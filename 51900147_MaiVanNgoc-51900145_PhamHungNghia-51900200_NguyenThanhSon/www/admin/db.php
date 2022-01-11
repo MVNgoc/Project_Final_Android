@@ -152,16 +152,36 @@
 					echo "<td>". $row["email"] ."</td>";
 					echo '<td class="list-btn">';
                         echo '<form action="viewprofile.php" method="POST">';
-                            echo '<button class="btn-view text-white" name="user-view" value="'. $row["username"] .'">Xem</button>';
+                            echo '<button id="staffview" class="btn-view text-white" name="user-view" value="'. $row["username"] .'">Xem</button>';
                         echo '</form>';
                         echo '<form action="updatestaff.php" method="POST">';
                             echo '<button type="submit" name="user-edit" class="btn-edit text-white" value="'. $row["username"] .'">Chỉnh sửa</button>';
                         echo '</form>';
-                        echo '<form action="" method="POST">';
-						    echo '<button type="submit" name="user-delete" class="btn-delete text-white deletebtn" value="'. $row["username"] .'">Xóa</button>';
-                        echo '</form>';
+						    echo '<button type="button" class="btn-delete text-white deletebtn" data-toggle="modal" data-target="#exampleModalCenter">Xóa</button>';                      
 					echo '</td>';
 				echo '</tr>';
+
+                echo'
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">Xóa nhân viên </h5>
+                                                    
+                                </div>
+                                <div class="modal-body">
+                                    Xác nhận xóa nhân viên '.$row["username"].' 
+                                </div>
+                                <div class="modal-footer">
+                                    <form  method="POST">
+                                        <button type="button" class="btn  btn-secondary px-5 mt-3 mr-2" data-dismiss="modal">Đóng</button>
+                                        <button value="'.$row["username"].'" type="submit" name="user-delete" class="btn btn-placeholder-submit btn-success px-5 mt-3 mr-2">Xác nhận</button>                                                                                                                                             
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   ';
+
                 $stt++;
             }
         }
@@ -234,11 +254,30 @@
                             echo '<form action="department_edit.php" method="POST">';
                                 echo '<button type="submit" name="room-edit" class="btn-edit text-white" value="'. $row["id"] .'">Chỉnh sửa</button>';
                             echo '</form>';
-                            echo '<form action="" method="POST">';
-                                echo '<button type="submit" name="room-delete" class="btn-delete text-white deletebtn" value="'. $row["id"] .'">Xóa</button>';
-                            echo '</form>';
+                            echo '<button type="button" name="room-delete" class="btn-delete text-white deletebtn" data-toggle="modal" data-target="#exampleModalCenter">Xóa</button>';
                         echo '</td>';
                 echo '</tr>';
+
+                echo'
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">Xóa phòng ban </h5>
+                                                    
+                                </div>
+                                <div class="modal-body">
+                                    Xác nhận xóa phòng '.$row["department_name"].' 
+                                </div>
+                                <div class="modal-footer">
+                                    <form  method="POST">
+                                        <button type="button" class="btn  btn-secondary px-5 mt-3 mr-2" data-dismiss="modal">Đóng</button>
+                                        <button value="'.$row["id"].'" type="submit" name="user-delete" class="btn btn-placeholder-submit btn-success px-5 mt-3 mr-2">Xác nhận</button>                                                                                                                                             
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   ';
                 $stt++;
             }
         }

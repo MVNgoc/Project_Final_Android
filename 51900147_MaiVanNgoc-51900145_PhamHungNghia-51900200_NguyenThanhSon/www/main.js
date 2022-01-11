@@ -69,6 +69,9 @@ $(document).ready(() => {
 		window.location.href = "http://localhost:8080/duyetdon.php";
 	})
 
+	var staff = $("#staffview").val();
+	console.log(staff);
+
 })
 
 

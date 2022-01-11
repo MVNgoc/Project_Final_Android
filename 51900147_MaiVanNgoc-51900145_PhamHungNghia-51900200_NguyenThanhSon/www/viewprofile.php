@@ -252,8 +252,8 @@
 
                         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
+                                <div class="modal-content text">
+                                    <div class="modal-header ">
                                         <h5 class="modal-title" id="exampleModalCenterTitle">Reset mật khẩu nhân viên </h5>
                                         
                                     </div>
