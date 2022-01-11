@@ -174,7 +174,7 @@
                                             echo '<img src="./images/'.$avatar.'" alt="avatar" id="avatar_placeholder">';
                                         }
                                     ?>
-                                    <input type="file" name="file" class="avatar" onchange="displayImage(this)" accept="image/png, image/jpeg" style="display:none">   
+                                    <input type="file" name="file" class="avatar" accept="image/png, image/jpeg" style="display:none" disabled>   
                                     <button type="submit" name="submit-avatar" class="btn btn-submit btn-success px-5 mt-3 mr-2" style="display:none">Lưu</button>                           
                                 </form>
                                 <h5 class="user-name"><?= $user ?></h5>

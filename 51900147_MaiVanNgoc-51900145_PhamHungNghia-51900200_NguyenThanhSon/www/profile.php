@@ -78,7 +78,7 @@
 	<header class="header-user">
 		<nav class="navbar navbar-expand-sm bg-light">
 			<div class="tdtu-img">
-				<img src="/images/tdt-logo.png" alt="TDTU Image" class="tdtu-picture">
+				<img src="/images/tdt-logo.png" alt="TDTU Image" class="tdtu-picture" >
 			</div>
 			<!-- Links -->
 			<ul class="navbar-nav">
