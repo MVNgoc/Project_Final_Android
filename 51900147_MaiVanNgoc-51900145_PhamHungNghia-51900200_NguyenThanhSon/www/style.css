@@ -330,6 +330,7 @@ input:focus{
         display: flex;
         align-items: center;
         border: none;
+        padding-bottom: 5px;
     }
 
     .table thead th,
