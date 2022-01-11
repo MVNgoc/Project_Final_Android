@@ -21,6 +21,7 @@
 		$conn = open_database();
 		$stm = $conn->prepare($sql);
 		$stm->execute();
+		$success="Xóa nhân viên thành công";
 	}
 
 	$nameStaff = $_SESSION['firstname'] . ' ' . $_SESSION['lastname'];
@@ -230,6 +231,14 @@
 
 			</div>
     	</div>	
+
+		<?php
+			if (!empty($success)) {
+				echo "<div class='notification'>
+						<div class='notification_success'>$success</div>
+					</div>";
+			}
+		?>
 
 	</div>
 

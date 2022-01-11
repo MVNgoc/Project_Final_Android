@@ -170,7 +170,7 @@
                                                     
                                 </div>
                                 <div class="modal-body">
-                                    Xác nhận xóa nhân viên '.$row["username"].' 
+                                    Xác nhận xóa nhân viên '. $row["firstname"].' '.$row["lastname"] .'
                                 </div>
                                 <div class="modal-footer">
                                     <form  method="POST">

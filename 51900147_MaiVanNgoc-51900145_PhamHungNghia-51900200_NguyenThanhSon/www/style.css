@@ -218,6 +218,7 @@ input:focus{
 #staff-table .btn-view {
     background-color: #009c03;
     width: fit-content;
+    height: 25px;
     padding: 5px 15px;
     border-radius: 5px;
     margin-right: 5px;
@@ -227,6 +228,7 @@ input:focus{
 #staff-table .btn-edit {
     background-color: rgb(228, 194, 0);
     width: fit-content;
+    height: 25px;
     padding: 5px 15px;
     border-radius: 5px;
     border: none;
@@ -236,6 +238,7 @@ input:focus{
 #staff-table .btn-delete {
     background-color: rgb(221, 0, 0);
     width: fit-content;
+    height: 25px;
     padding: 5px 15px;
     border-radius: 5px;
     border: none;
@@ -327,6 +330,7 @@ input:focus{
         display: flex;
         align-items: center;
         border: none;
+        
     }
 
     .table thead th,
