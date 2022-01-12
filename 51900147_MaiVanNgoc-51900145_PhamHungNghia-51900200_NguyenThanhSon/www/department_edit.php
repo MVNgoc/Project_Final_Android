@@ -108,11 +108,13 @@
         $conn->close();
 
         $manager_name = '';
-        $sql = "UPDATE department SET manager_name = ? WHERE department_name = ?";
+        $sql = "UPDATE department SET manager_name = '' WHERE department_name = ?";
         $conn = open_database();
         $stm = $conn->prepare($sql);
-        $stm->bind_param('ss',$manager_name, $_SESSION['department_name']);  
-
+        $stm->bind_param('s',$_SESSION['department_name']);  
+        if(!$stm->execute()){
+            echo 'error';
+        }    
     }
 
     if(isset($_POST['name']) && isset($_POST['room']) && isset($_POST['description']) && isset($_POST['managername'])){
