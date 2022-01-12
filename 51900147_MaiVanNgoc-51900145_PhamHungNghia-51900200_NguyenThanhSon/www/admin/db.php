@@ -267,7 +267,7 @@
                                                     
                                 </div>
                                 <div class="modal-body">
-                                    Xác nhận xóa phòng '.$row["department_name"].' 
+                                    Xác nhận xóa phòng ban '.$row["department_name"].' 
                                 </div>
                                 <div class="modal-footer">
                                     <form  method="POST">
@@ -866,8 +866,8 @@
 		if($result->num_rows > 0){
 			foreach($result as $row){
 				echo' 
-                        <h4>Số ngày nghỉ còn: '.$row["day_left"].'</h4>
-						<h4>Số ngày nghỉ đã xài: '.$row["day_use"].'</h4>
+                        <h4>Số ngày nghỉ đã dùng: '.$row["day_use"].' ngày</h4>
+                        <h4>Số ngày nghỉ còn lại: '.$row["day_left"].' ngày</h4>				
                         ';
 			}
 		}

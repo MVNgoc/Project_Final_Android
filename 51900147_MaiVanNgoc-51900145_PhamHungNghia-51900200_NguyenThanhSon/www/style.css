@@ -169,6 +169,10 @@ input:focus{
     display: none;
 }
 
+#myModal .modal-dialog {
+    margin-top: 10%;
+}
+
 /* End Header */
 /* Body */
 .header-body {
@@ -223,6 +227,7 @@ input:focus{
     border-radius: 5px;
     margin-right: 5px;
     border: none;
+    line-height: initial;
 }
 
 #staff-table .btn-edit {
@@ -233,6 +238,7 @@ input:focus{
     border-radius: 5px;
     border: none;
     margin-right: 5px;
+    line-height: initial;
 }
 
 #staff-table .btn-delete {
@@ -243,6 +249,7 @@ input:focus{
     border-radius: 5px;
     border: none;
     margin-right: 5px;
+    line-height: initial;
 }
 
 #staff-table .btn-view:hover {
@@ -331,6 +338,7 @@ input:focus{
         align-items: center;
         border: none;
         padding-bottom: 5px;
+        height: 40px;
     }
 
     .table thead th,
@@ -399,6 +407,10 @@ input:focus{
     .header-body .search {
         display: inline-block;
         float: right;
+    }
+
+    .day-off-header .position_relative {
+        top: 0;
     }
 }
 
@@ -589,7 +601,7 @@ input:focus{
     margin-top: 4% !important;
 }
 /* End viewtask.php */
-/* End department_edit.php */
+
 .notifiupdateform {
     position: fixed;
     top: 0;
@@ -616,3 +628,8 @@ input:focus{
     animation: modalSlipDown linear 0.4s;
 }
 
+/* CSS đuyeton.php */
+.day-off-header .position_relative {
+    top: 80;
+}
+/* End CSS đuyeton.php */
