@@ -338,7 +338,7 @@
                 <div class="choose-manager">
                     <h5 class="font-weight-bold text-color-blue">Chọn trưởng phòng mới</h5>
                     <?php 
-                        $sql = 'SELECT * FROM account WHERE department_name = ? and positionid !="3" and positionid !="1"';
+                        $sql = 'SELECT * FROM account WHERE department_name = ? and positionid !="3" ';
                         $conn = open_database();
                         
                         $stm = $conn->prepare($sql);
@@ -351,6 +351,10 @@
                         if($result-> num_rows > 0){
                             echo '<select required name="manager-list" class="form-control" id="">';
                             while($row = $result->fetch_array()){
+                                $name = $row["firstname"].' '.$row["lastname"];
+                                if($manager_name == $name){
+                                    echo '<option value="'.$row["firstname"].' '.$row["lastname"].'"selected>'.$row["firstname"].' '.$row["lastname"].'</option>';
+                                }
                                 echo '<option value="'.$row["firstname"].' '.$row["lastname"].'">'.$row["firstname"].' '.$row["lastname"].'</option>';
                             }
                             echo '</select>';
