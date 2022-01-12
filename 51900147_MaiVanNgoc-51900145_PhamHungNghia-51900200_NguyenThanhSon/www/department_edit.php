@@ -259,17 +259,67 @@
                         <?php
                             if (!empty($error)) {
                                 echo "<div class='alert alert-danger'>$error</div>";
+                                echo '<button type="button" class="btn btn-update-manager btn-success btn-register-js px-5 mt-3 mr-2" data-toggle="modal" data-target="#exampletest">Update</button>';
+                            }else if(!is_manager_exist($manager_name)){
+                                echo '<button type="button" class="btn btn-update-manager btn-success btn-register-js px-5 mt-3 mr-2" data-toggle="modal" data-target="#exampletest">Update</button>';
                             }
+                            else{
+                                echo '<button type="submit" class="btn btn-update-manager btn-register-js btn-success px-5 mt-3 mr-2">Update</button>';
+                            }
+                            
+
                         ?>
+                        <div class="modal fade" id="exampletest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+
+                                <!-- Modal content-->
+                                <div class="modal-content ">
+                                    <div class="modal-header text-center">
+                                        <h4 class="modal-title w-100">Bổ nhiệm trưởng phòng</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>Xác nhận chọn <?php echo $manager_name; ?> làm trưởng phòng</h4>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        
+                                        <button type="button" class="btn btn-danger px-5 mt-3 mr-2" data-dismiss="modal">Đóng</button>
+                                        <button type="submit"  class="btn btn-success px-5 mt-3 mr-2">Xác nhận</button>
+                                        
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>	
+                        <!--
                         <button type="submit" class="btn btn-update-manager btn-register-js btn-success px-5 mt-3 mr-2">Update</button>
                         <button type="button" name="room-delete" class="btn btn-success" data-toggle="modal" data-target="#exampletest">Xóa</button>
+                        -->
                     </div>
                 </form>
                 <div class="row gutters form-btn-submit">   
-                    <button class="btn btn-add-manager btn-placeholder-submit btn-success px-5 mt-3 mr-2">Chọn trưởng phòng</button>  
-                    <form action="" method="POST">
-                        <button type="submit" name="btn-reset-manager" class="btn btn-reset-manager btn-placeholder-submit btn-success px-5 mt-3 mr-2">Xóa trưởng phòng</button>
-                    </form>                                                                        
+                    <button class="btn btn-add-manager btn-placeholder-submit btn-success px-5 mt-3 mr-2">Chọn trưởng phòng</button>
+                    <button type="button" data-toggle="modal" data-target="#exampledelete"  class="btn btn-reset-manager btn-placeholder-submit btn-success px-5 mt-3 mr-2">Xóa trưởng phòng</button>
+                    <!-- Delete trưởng phòng confimr dialog -->
+                    <div class="modal fade" id="exampledelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content ">
+                                <div class="modal-header text-center">
+                                    <h4 class="modal-title w-100">Xóa trưởng phòng</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <h4>Xác nhận xóa trưởng phòng <?php echo $manager_name; ?></h4>                                      
+                                </div>
+                                <div class="modal-footer">
+                                    <form action="" method="POST">
+                                        <button type="button" class="btn btn-danger px-5 mt-3 mr-2" data-dismiss="modal">Đóng</button>
+                                        <button type="submit" name="btn-reset-manager"  class="btn btn-success px-5 mt-3 mr-2">Xác nhận</button>     
+                                    </form>                                 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    	                                                                     
                 </div>                                                                     
                 </div>
             </div>
@@ -282,29 +332,6 @@
 			}
 		?>
 
-
-        <div class="modal fade" id="exampletest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-
-                <!-- Modal content-->
-                <div class="modal-content ">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title w-100">Bổ nhiệm trưởng phòng</h4>
-                    </div>
-                    <div class="modal-body">
-                        <h4>Xác nhận chọn .. làm trưởng phòng</h4>
-                        
-                    </div>
-                    <div class="modal-footer">
-                        
-                        <button type="button" class="btn btn-danger px-5 mt-3 mr-2" data-dismiss="modal">Đóng</button>
-                        <button type="submit"  class="btn btn-success px-5 mt-3 mr-2">Xác nhận</button>
-                        
-                    </div>
-                </div>
-
-            </div>
-        </div>	
 
 
     </div>
@@ -332,7 +359,7 @@
                 <div class="choose-manager">
                     <h5 class="font-weight-bold text-color-blue">Chọn trưởng phòng mới</h5>
                     <?php 
-                        $sql = 'SELECT * FROM account WHERE department_name = ? and positionid !="3" and positionid !="1"';
+                        $sql = 'SELECT * FROM account WHERE department_name = ? and positionid !="3" ';
                         $conn = open_database();
                         
                         $stm = $conn->prepare($sql);
@@ -345,6 +372,10 @@
                         if($result-> num_rows > 0){
                             echo '<select required name="manager-list" class="form-control" id="">';
                             while($row = $result->fetch_array()){
+                                $name = $row["firstname"].' '.$row["lastname"];
+                                if($manager_name == $name){
+                                    echo '<option value="'.$row["firstname"].' '.$row["lastname"].'"selected>'.$row["firstname"].' '.$row["lastname"].'</option>';
+                                }
                                 echo '<option value="'.$row["firstname"].' '.$row["lastname"].'">'.$row["firstname"].' '.$row["lastname"].'</option>';
                             }
                             echo '</select>';
