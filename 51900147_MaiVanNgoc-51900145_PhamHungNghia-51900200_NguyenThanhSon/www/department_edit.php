@@ -298,6 +298,26 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-add-manager-form btn-placeholder-submit btn-success px-5 mt-3 mr-2">Lưu</button>
+
+            <div id="myModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content ">
+					<div class="modal-header text-center">
+						<h4 class="modal-title w-100">Chọn </h4>
+					</div>
+					<div class="modal-body">
+						<h4></h4>
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+
+			</div>
+    	</div>	
         </form>
     </div>
 
