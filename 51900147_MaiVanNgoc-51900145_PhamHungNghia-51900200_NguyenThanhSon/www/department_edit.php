@@ -231,6 +231,7 @@
                             }
                         ?>
                         <button type="submit" class="btn btn-update-manager btn-register-js btn-success px-5 mt-3 mr-2">Update</button>
+                        <button type="button" name="room-delete" class="btn btn-success" data-toggle="modal" data-target="#exampletest">Xóa</button>
                     </div>
                 </form>
                 <div class="row gutters form-btn-submit">   
@@ -249,6 +250,32 @@
 					</div>";
 			}
 		?>
+
+
+        <div class="modal fade" id="exampletest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+
+                <!-- Modal content-->
+                <div class="modal-content ">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100">Bổ nhiệm trưởng phòng</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Xác nhận chọn .. làm trưởng phòng</h4>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        
+                        <button type="button" class="btn btn-danger px-5 mt-3 mr-2" data-dismiss="modal">Đóng</button>
+                        <button type="submit"  class="btn btn-success px-5 mt-3 mr-2">Xác nhận</button>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>	
+
+
     </div>
 
     <div class='notification_chooseManager'>
@@ -300,25 +327,7 @@
             </div>
             <button type="submit" class="btn btn-add-manager-form btn-placeholder-submit btn-success px-5 mt-3 mr-2">Lưu</button>
 
-            <div id="myModal" class="modal fade" role="dialog">
-			<div class="modal-dialog">
 
-				<!-- Modal content-->
-				<div class="modal-content ">
-					<div class="modal-header text-center">
-						<h4 class="modal-title w-100">Chọn </h4>
-					</div>
-					<div class="modal-body">
-						<h4></h4>
-						
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-
-			</div>
-    	</div>	
         </form>
     </div>
 
