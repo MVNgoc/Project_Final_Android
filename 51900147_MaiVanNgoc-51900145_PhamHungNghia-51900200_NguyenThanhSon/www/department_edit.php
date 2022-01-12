@@ -67,9 +67,9 @@
 
 	$success = '';
 	$error = '';
-    $_SESSION['temp'] = '';
 
     if(isset($_POST['manager-list'])) {
+        $_SESSION['temp'] = '';
         $_SESSION['temp'] = $manager_name; // Tên trưởng phòng củ
         $manager_name_select = $_POST['manager-list']; // Tên trưởng phòng mới
         if($manager_name == "Không có" || $manager_name_select == $manager_name) {
