@@ -99,9 +99,11 @@
                 if($fullname == $_SESSION['temp']) {
                     $fist = $row["firstname"];
                     $last = $row["lastname"];
+                    $user_name = $row["username"];
                     $positionid = 2;
                     $day_off = 12;
                     $result = updatePosition($positionid ,$day_off, $fist, $last);
+                    $result = updateLeaverequest($day_off, $user_name);
                 }
             }
         }
@@ -114,7 +116,7 @@
         $stm->bind_param('s',$_SESSION['department_name']);  
         if(!$stm->execute()){
             echo 'error';
-        }    
+        }  
     }
 
     if(isset($_POST['name']) && isset($_POST['room']) && isset($_POST['description']) && isset($_POST['managername'])){
@@ -151,17 +153,21 @@
                     if($fullname == $oldmanager) {
                         $fist = $row["firstname"];
                         $last = $row["lastname"];
+                        $user_name = $row["username"];
                         $positionid = 2;
                         $day_off = 12;
                         $result = updatePosition($positionid ,$day_off, $fist, $last);
+                        $result = updateLeaverequest($day_off, $user_name);
                     }
         
                     if($fullname == $managername) {
                         $fist = $row["firstname"];
                         $last = $row["lastname"];
+                        $user_name = $row["username"];
                         $positionid = 1;
                         $day_off = 15;
                         $result = updatePosition($positionid ,$day_off, $fist, $last);
+                        $result = updateLeaverequest($day_off, $user_name);
                     }
                 }
             }
@@ -359,7 +365,7 @@
                 <div class="choose-manager">
                     <h5 class="font-weight-bold text-color-blue">Chọn trưởng phòng mới</h5>
                     <?php 
-                        $sql = 'SELECT * FROM account WHERE department_name = ? and positionid !="3" ';
+                        $sql = 'SELECT * FROM account WHERE department_name = ? and positionid !="3" and positionid !="1"';
                         $conn = open_database();
                         
                         $stm = $conn->prepare($sql);

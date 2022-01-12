@@ -874,7 +874,6 @@
 
     }
 
-
     function updatefordayuse($day_left,$day_use,$username){
         $sql = "UPDATE leaverequest SET day_left = ? ,day_use = ? WHERE username = ?";
         $conn = open_database();
@@ -902,6 +901,17 @@
         }else{
             return false;
         }
+    }
+
+    function updateLeaverequest($day_left, $username) {
+        $sql = "UPDATE leaverequest SET day_left = ? WHERE username = ?";
+        $conn = open_database();
+        $stm = $conn->prepare($sql);
+        $stm->bind_param('is',$day_left, $username);
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Update thành công');  
     }
 
 ?>
