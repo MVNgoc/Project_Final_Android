@@ -156,7 +156,7 @@
 						<h4 class="modal-title w-100">Xem ngày nghỉ</h4>
 					</div>
 					<div class="modal-body">
-						<h4>Số ngày nghỉ có: <?php echo $_SESSION["day_off"]; ?></h4>
+						<h4>Số ngày nghỉ có: <?php echo $_SESSION["day_off"]." ngày"; ?></h4>
 						<?php displaydayleftuse($_SESSION["username"]) ?>
 					</div>
 					<div class="modal-footer">
