@@ -67,6 +67,7 @@
 
 	$success = '';
 	$error = '';
+    $_SESSION['temp'] = '';
 
     if(isset($_POST['manager-list'])) {
         $_SESSION['temp'] = $manager_name; // Tên trưởng phòng củ
@@ -273,7 +274,7 @@
                 <div class="choose-manager">
                     <h5 class="font-weight-bold text-color-blue">Chọn trưởng phòng mới</h5>
                     <?php 
-                        $sql = 'SELECT * FROM account WHERE department_name = ? and positionid !="3"';
+                        $sql = 'SELECT * FROM account WHERE department_name = ? and positionid !="3" and positionid !="1"';
                         $conn = open_database();
                         
                         $stm = $conn->prepare($sql);
