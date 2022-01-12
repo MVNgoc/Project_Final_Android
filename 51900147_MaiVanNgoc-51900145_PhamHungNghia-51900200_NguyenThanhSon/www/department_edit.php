@@ -83,7 +83,36 @@
 
     if(isset($_POST['btn-reset-manager'])) {
         $_SESSION['temp'] = $manager_name;
+
+        $sql = 'SELECT * FROM account WHERE department_name = ? ORDER BY department_name DESC';
+        $conn = open_database();
+        $stm = $conn->prepare($sql);
+        $stm->bind_param('s',$_SESSION['department_name']);
+        if(!$stm->execute()){
+            die('Query error: ' . $stm->error);
+        }
+        $result = $stm->get_result();
+        if($result-> num_rows > 0){
+            foreach($result as $row) {
+                $fullname = $row["firstname"]. ' ' .$row["lastname"];
+
+                if($fullname == $_SESSION['temp']) {
+                    $fist = $row["firstname"];
+                    $last = $row["lastname"];
+                    $positionid = 2;
+                    $day_off = 12;
+                    $result = updatePosition($positionid ,$day_off, $fist, $last);
+                }
+            }
+        }
+        $conn->close();
+
         $manager_name = '';
+        $sql = "UPDATE department SET manager_name = ? WHERE department_name = ?";
+        $conn = open_database();
+        $stm = $conn->prepare($sql);
+        $stm->bind_param('ss',$manager_name, $_SESSION['department_name']);  
+
     }
 
     if(isset($_POST['name']) && isset($_POST['room']) && isset($_POST['description']) && isset($_POST['managername'])){
