@@ -514,6 +514,12 @@ input:focus{
     background-color: rgba(0, 0, 0, 0.3);
     justify-content: center;
     display: none;
+    align-items: center;
+}
+
+.notification_chooseManager .chooseManager_form {
+    background-color: #fff;
+    padding: 20px 0;
 }
 
 .open-addmanagerform {
