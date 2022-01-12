@@ -521,6 +521,7 @@ input:focus{
     background-color: #fff;
     padding: 20px 20px;
     border-radius: 6px;
+    animation: modalSlipDown linear 0.3s;
 }
 
 .open-addmanagerform {
