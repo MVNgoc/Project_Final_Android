@@ -886,4 +886,22 @@
         return array('code' => 0,'error' => 'Update use,left thành công');     
     }
 
+    function is_manager_exist($manager_name){
+        $sql = "SELECT * FROM department WHERE manager_name = ?";
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+        $stm->bind_param('s',$manager_name);
+        if(!$stm->execute()){
+            die('Query error: ' . $stm->error);
+        }
+
+        $result = $stm->get_result();
+        if($result->num_rows > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 ?>

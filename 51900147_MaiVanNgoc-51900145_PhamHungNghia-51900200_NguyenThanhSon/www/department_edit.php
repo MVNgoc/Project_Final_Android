@@ -260,7 +260,10 @@
                             if (!empty($error)) {
                                 echo "<div class='alert alert-danger'>$error</div>";
                                 echo '<button type="button" class="btn btn-update-manager btn-success btn-register-js px-5 mt-3 mr-2" data-toggle="modal" data-target="#exampletest">Update</button>';
-                            }else{
+                            }else if(!is_manager_exist($manager_name)){
+                                echo '<button type="button" class="btn btn-update-manager btn-success btn-register-js px-5 mt-3 mr-2" data-toggle="modal" data-target="#exampletest">Update</button>';
+                            }
+                            else{
                                 echo '<button type="submit" class="btn btn-update-manager btn-register-js btn-success px-5 mt-3 mr-2">Update</button>';
                             }
                             
@@ -295,10 +298,28 @@
                     </div>
                 </form>
                 <div class="row gutters form-btn-submit">   
-                    <button class="btn btn-add-manager btn-placeholder-submit btn-success px-5 mt-3 mr-2">Chọn trưởng phòng</button>  
-                    <form action="" method="POST">
-                        <button type="submit" name="btn-reset-manager" class="btn btn-reset-manager btn-placeholder-submit btn-success px-5 mt-3 mr-2">Xóa trưởng phòng</button>
-                    </form>                                                                        
+                    <button class="btn btn-add-manager btn-placeholder-submit btn-success px-5 mt-3 mr-2">Chọn trưởng phòng</button>
+                    <button type="button" data-toggle="modal" data-target="#exampledelete"  class="btn btn-reset-manager btn-placeholder-submit btn-success px-5 mt-3 mr-2">Xóa trưởng phòng</button>
+                    <!-- Delete trưởng phòng confimr dialog -->
+                    <div class="modal fade" id="exampledelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content ">
+                                <div class="modal-header text-center">
+                                    <h4 class="modal-title w-100">Xóa trưởng phòng</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <h4>Xác nhận xóa trưởng phòng <?php echo $manager_name; ?></h4>                                      
+                                </div>
+                                <div class="modal-footer">
+                                    <form action="" method="POST">
+                                        <button type="button" class="btn btn-danger px-5 mt-3 mr-2" data-dismiss="modal">Đóng</button>
+                                        <button type="submit" name="btn-reset-manager"  class="btn btn-success px-5 mt-3 mr-2">Xác nhận</button>     
+                                    </form>                                 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    	                                                                     
                 </div>                                                                     
                 </div>
             </div>
