@@ -157,31 +157,30 @@
                         echo '<form action="updatestaff.php" method="POST">';
                             echo '<button type="submit" name="user-edit" class="btn-edit text-white" value="'. $row["username"] .'">Chỉnh sửa</button>';
                         echo '</form>';
-						    echo '<button type="button" class="btn-delete text-white deletebtn" data-toggle="modal" data-target="#exampleModalCenter">Xóa</button>';                      
+						    echo '<button type="button" class="btn-delete text-white deletebtn" data-toggle="modal" data-target="#example'.$stt.'">Xóa</button>';                      
 					echo '</td>';
 				echo '</tr>';
 
                 echo'
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalCenterTitle">Xóa nhân viên </h5>
-                                                    
-                                </div>
-                                <div class="modal-body">
-                                    Xác nhận xóa nhân viên '. $row["firstname"].' '.$row["lastname"] .'
-                                </div>
-                                <div class="modal-footer">
-                                    <form  method="POST">
-                                        <button type="button" class="btn  btn-secondary px-5 mt-3 mr-2" data-dismiss="modal">Đóng</button>
-                                        <button value="'.$row["username"].'" type="submit" name="user-delete" class="btn btn-placeholder-submit btn-success px-5 mt-3 mr-2">Xác nhận</button>                                                                                                                                             
-                                    </form>
-                                </div>
+                <div class="modal fade" id="example'.$stt.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalCenterTitle">Xóa nhân viên </h5>
+                                                
+                            </div>
+                            <div class="modal-body">
+                                Xác nhận xóa nhân viên '. $row["firstname"].' '.$row["lastname"] .'
+                            </div>
+                            <div class="modal-footer">
+                                <form  method="POST">
+                                    <button type="button" class="btn  btn-secondary px-5 mt-3 mr-2" data-dismiss="modal">Đóng</button>
+                                    <button value="'.$row["username"].'" type="submit" name="user-delete" class="btn btn-placeholder-submit btn-success px-5 mt-3 mr-2">Xác nhận</button>                                                                                                                                             
+                                </form>
                             </div>
                         </div>
-                    </div>   ';
-
+                    </div>
+                </div>   ';
                 $stt++;
             }
         }
@@ -254,12 +253,12 @@
                             echo '<form action="department_edit.php" method="POST">';
                                 echo '<button type="submit" name="room-edit" class="btn-edit text-white" value="'. $row["id"] .'">Chỉnh sửa</button>';
                             echo '</form>';
-                            echo '<button type="button" name="room-delete" class="btn-delete text-white deletebtn" data-toggle="modal" data-target="#exampleModalCenter">Xóa</button>';
+                            echo '<button type="button" name="room-delete" class="btn-delete text-white deletebtn" data-toggle="modal" data-target="#example'.$stt.'">Xóa</button>';
                         echo '</td>';
                 echo '</tr>';
 
                 echo'
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal fade" id="example'.$stt.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -267,7 +266,7 @@
                                                     
                                 </div>
                                 <div class="modal-body">
-                                    Xác nhận xóa phòng ban '.$row["department_name"].' 
+                                    Xác nhận xóa phòng '.$row["department_name"].' 
                                 </div>
                                 <div class="modal-footer">
                                     <form  method="POST">
@@ -866,8 +865,8 @@
 		if($result->num_rows > 0){
 			foreach($result as $row){
 				echo' 
-                        <h4>Số ngày nghỉ đã dùng: '.$row["day_use"].' ngày</h4>
-                        <h4>Số ngày nghỉ còn lại: '.$row["day_left"].' ngày</h4>				
+                        <h4>Số ngày nghỉ còn: '.$row["day_left"].'</h4>
+						<h4>Số ngày nghỉ đã xài: '.$row["day_use"].'</h4>
                         ';
 			}
 		}
