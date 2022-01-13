@@ -30,12 +30,21 @@
 	$upload ='';
 
 	if(isset($_POST['leavetype']) && isset($_POST['star_date']) &&
-	isset($_POST['date_number']) &&isset($_POST['leavereson'])){
+	isset($_POST['date_number']) && isset($_POST['leavereson'])){
 
 		$leavetype = $_POST['leavetype'];
 		$star_date = $_POST['star_date'];
 		$date_number = $_POST['date_number'];
 		$leavereason = $_POST['leavereson'];
+
+
+			$upload = $_FILES['attachfile']['name'];
+			$destination = 'uploads/'.$upload;
+
+			$extension = pathinfo($upload,PATHINFO_EXTENSION);
+			$file = $_FILES['attachfile']['tmp_name'];
+			$size = $_FILES['attachfile']['size'];			
+
 
 		if(empty($leavetype)){
 			$error = "Hãy nhập tiêu đề";
@@ -43,7 +52,12 @@
 			$error = "Hãy chọn ngày bắt đầu nghỉ";
 		}else if(empty($leavereason)){
 			$error = "Hãy nhập lí do nghỉ";
-		}else if(!empty($star_date)){
+		}else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
+			$error = "File bạn gửi không đúng định dạng yêu cầu";
+		}else if($_FILES['attachfile']['size'] > 1000000 && !empty($upload)){
+			$error = "Kích thước file quá lớn";
+		}
+		else if(!empty($star_date)){
 
 			$username = $_SESSION["username"];
 
@@ -173,7 +187,7 @@
 			<div class="row justify-content-center ">
 				<div class="col-xl-5 col-lg-6 col-md-8 border my-5 p-4 rounded mx-3 addstaffform">
 					<h3 class="text-center text-secondary mt-2 mb-3 mb-3">Đơn xin nghỉ phép</h3>
-					<form method="post" action="" novalidate>
+					<form method="post" action="" novalidate enctype="multipart/form-data">
 						<div class="form-group">
 							<label for="leavetype">Tiêu đề</label>
 							<input value="<?= $leavetype ?>" name="leavetype" required class="form-control" type="leavetype" placeholder="Nhập tiêu đề" id="leavetype">
@@ -207,6 +221,11 @@
 							<label for="leavereson">Lí do nghỉ phép</label>
 							<input value="<?= $leavereason ?>" name="leavereson" required class="form-control" type="text" placeholder="Nhập lí do nghỉ" id="leavereson">
 						</div>
+
+						<div class="form-group">
+                        	<label for="attachfile">File đính kèm</label>
+                        	<input value="" name="attachfile" required type="file" id="attachfile" style="display: block">
+                    	</div>
 
 
 						<div class="form-group">
