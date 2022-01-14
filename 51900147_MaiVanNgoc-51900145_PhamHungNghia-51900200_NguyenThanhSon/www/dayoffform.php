@@ -39,6 +39,7 @@
 
 
 		$upload = $_FILES['attachfile']['name'];
+		$targer = 'files_upload/' . $upload;
 
 		$extension = pathinfo($upload,PATHINFO_EXTENSION);
 		$file = $_FILES['attachfile']['tmp_name'];
@@ -84,7 +85,17 @@
 			}
 			else{
 				$username = $_SESSION['username'];
-				$data = insertleave($username,$leavetype,$leavereason,$star_date,$currenttime,$upload,$date_number);
+				if(!empty($upload)) {
+					if(move_uploaded_file($file, $targer)) {
+						$data = insertleave($username,$leavetype,$leavereason,$star_date,$currenttime,$upload,$date_number);
+					}
+					else {
+						$data['code'] = 2;
+					}
+				}
+				else {
+					$data = insertleave($username,$leavetype,$leavereason,$star_date,$currenttime,$upload,$date_number);
+				}
 				if($data['code']==3){
 					$error = 'Ngày bắt đầu nghỉ bị trùng';
 				}
