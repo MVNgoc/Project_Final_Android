@@ -37,7 +37,7 @@ CREATE TABLE department (
 CREATE TABLE task (
   id varchar(15) NOT NULL,
   task_title varchar(64) NOT NULL COLLATE utf8_unicode_ci,
-  task_description varchar(64) NOT NULL COLLATE utf8_unicode_ci,
+  task_description varchar(600) NOT NULL COLLATE utf8_unicode_ci,
   start_time datetime NOT NULL,
   deadline datetime NOT NULL,
   staff_assign varchar(64) COLLATE utf8_unicode_ci NOT NULL,
