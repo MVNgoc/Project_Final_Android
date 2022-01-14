@@ -38,12 +38,12 @@
         $deadline = $_POST['deadline'];
         $department = $_POST['department'];
 
-        $upload = $_FILES['attachfile']['name'];
+        $upload = $_FILES['file']['name'];
         $targer = 'files_upload/' . $upload;
 
 		$extension = pathinfo($upload,PATHINFO_EXTENSION);
-		$file_name = $_FILES['attachfile']['tmp_name'];
-		$file_size = $_FILES['attachfile']['size'];
+		$file_name = $_FILES['file']['tmp_name'];
+		$file_size = $_FILES['file']['size'];
 
         if(empty($tasktitle)) {
             $error = 'Vui lòng điền tiêu đề task';
@@ -63,7 +63,7 @@
         else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
 			$error = "File bạn gửi không đúng định dạng yêu cầu";
 		}
-		else if($_FILES['attachfile']['size'] > 1000000 && !empty($upload)){
+		else if($_FILES['file']['size'] > 1000000 && !empty($upload)){
 			$error = "Kích thước file quá lớn";
 		}
         else if(!empty($starttime) && !empty($deadline)) {
@@ -87,56 +87,15 @@
             else if($starttimecheck2[0] < $currenttimecheck[0]) {
                 $error = 'Thời gian bắt đầu task không hợp lệ ';
             }
-            else if($h_m[0] > $starttimecheck3[0]) {
-                $error = 'Thời gian bắt đầu task không hợp lệ ';
-            }
-            else if($h_m[1] >= $starttimecheck3[1]) {
-                $hourcheck = ($starttimecheck3[0] - $h_m[0]) * 60;
-                $timecheck = ($starttimecheck3[1] - $h_m[1]) + $hourcheck;
-                if($timecheck < 0) {
+            else if($starttimecheck2[0] == $currenttimecheck[0]) {
+                if($h_m[0] > $starttimecheck3[0]) {
                     $error = 'Thời gian bắt đầu task không hợp lệ ';
                 }
-                else {
-                    if($starttimecheck[0] > $deadlinetimecheck[0]) {
-                        $error = 'Thời gian kết thúc task không hợp lệ ';
-                    }
-                    else if($starttimecheck[1] > $deadlinetimecheck[1]) {
-                        $error = 'Thời gian kết thúc task không hợp lệ';
-                    }
-                    else if($starttimecheck2[0] >= $deadlinetimecheck2[0]) {
-                        $daycheck = ($deadlinetimecheck[1] - $starttimecheck[1])* 30;
-                        if((($deadlinetimecheck2[0] - $starttimecheck2[0]) + $daycheck) > 0) {
-                            $taskstatus = 'New';
-                            $message_task = '';
-                            $time_submit = null;
-                            $completion_level = '';
-                            $completion_schedule = '';
-                            $task_deliver = $_SESSION['username'];
-                            if(move_uploaded_file($file_name, $targer)) {
-                                $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
-                            }
-                            else {
-                                $data['code'] = 1;
-                            }
-                            if($data['code'] == 0) {
-                            $success = 'Task được tạo thành công.';
-                            $tasktitle = false;
-                            $taskdescription = false;
-                            $starttime = false;
-                            $deadline = false;
-                            $department = false;
-                            $error = false;
-                            }
-                            else {
-                                $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
-                            }
-                        }
-                        else if((($deadlinetimecheck2[0] - $starttimecheck2[0]) + $daycheck) == 0) {
-                            $error = 'Thời gian kết thúc phải lớn hơn thời gian bắt đầu ít nhất 1 ngày';
-                        }   
-                        else {
-                            $error = 'Thời gian kết thúc task không hợp lệ';
-                        }
+                else if($h_m[1] >= $starttimecheck3[1]) {
+                    $hourcheck = ($starttimecheck3[0] - $h_m[0]) * 60;
+                    $timecheck = ($starttimecheck3[1] - $h_m[1]) + $hourcheck;
+                    if($timecheck < 0) {
+                        $error = 'Thời gian bắt đầu task không hợp lệ ';
                     }
                     else {
                         if($starttimecheck[0] > $deadlinetimecheck[0]) {
@@ -150,15 +109,20 @@
                             if((($deadlinetimecheck2[0] - $starttimecheck2[0]) + $daycheck) > 0) {
                                 $taskstatus = 'New';
                                 $message_task = '';
+                                $time_submit = null;
                                 $completion_level = '';
                                 $completion_schedule = '';
-                                $time_submit = null;
                                 $task_deliver = $_SESSION['username'];
-                                if(move_uploaded_file($file_name, $targer)) {
-                                    $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
+                                if(!empty($upload)) {
+                                    if(move_uploaded_file($file_name, $targer)) {
+                                        $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
+                                    }
+                                    else {
+                                        $data['code'] = 1;
+                                    }
                                 }
                                 else {
-                                    $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
+                                    $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
                                 }
                                 if($data['code'] == 0) {
                                 $success = 'Task được tạo thành công.';
@@ -181,33 +145,86 @@
                             }
                         }
                         else {
-                            $taskstatus = 'New';
-                            $message_task = '';
-                            $completion_level = '';
-                            $completion_schedule = '';
-                            $time_submit = null;
-                            $task_deliver = $_SESSION['username'];
-                            if(move_uploaded_file($file_name, $targer)) {
-                                $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
+                            if($starttimecheck[0] > $deadlinetimecheck[0]) {
+                                $error = 'Thời gian kết thúc task không hợp lệ ';
+                            }
+                            else if($starttimecheck[1] > $deadlinetimecheck[1]) {
+                                $error = 'Thời gian kết thúc task không hợp lệ';
+                            }
+                            else if($starttimecheck2[0] >= $deadlinetimecheck2[0]) {
+                                $daycheck = ($deadlinetimecheck[1] - $starttimecheck[1])* 30;
+                                if((($deadlinetimecheck2[0] - $starttimecheck2[0]) + $daycheck) > 0) {
+                                    $taskstatus = 'New';
+                                    $message_task = '';
+                                    $completion_level = '';
+                                    $completion_schedule = '';
+                                    $time_submit = null;
+                                    $task_deliver = $_SESSION['username'];
+                                    if(!empty($upload)) {
+                                        if(move_uploaded_file($file_name, $targer)) {
+                                            $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
+                                        }
+                                        else {
+                                            $data['code'] = 1;
+                                        }
+                                    }
+                                    else {
+                                        $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
+                                    }
+                                    if($data['code'] == 0) {
+                                    $success = 'Task được tạo thành công.';
+                                    $tasktitle = false;
+                                    $taskdescription = false;
+                                    $starttime = false;
+                                    $deadline = false;
+                                    $department = false;
+                                    $error = false;
+                                    }
+                                    else {
+                                        $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
+                                    }
+                                }
+                                else if((($deadlinetimecheck2[0] - $starttimecheck2[0]) + $daycheck) == 0) {
+                                    $error = 'Thời gian kết thúc phải lớn hơn thời gian bắt đầu ít nhất 1 ngày';
+                                }   
+                                else {
+                                    $error = 'Thời gian kết thúc task không hợp lệ';
+                                }
                             }
                             else {
-                                $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
-                            }
-                            if($data['code'] == 0) {
-                            $success = 'Task được tạo thành công.';
-                            $tasktitle = false;
-                            $taskdescription = false;
-                            $starttime = false;
-                            $deadline = false;
-                            $department = false;
-                            $error = false;
-                            }
-                            else {
-                                $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
+                                $taskstatus = 'New';
+                                $message_task = '';
+                                $completion_level = '';
+                                $completion_schedule = '';
+                                $time_submit = null;
+                                $task_deliver = $_SESSION['username'];
+                                if(!empty($upload)) {
+                                    if(move_uploaded_file($file_name, $targer)) {
+                                        $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
+                                    }
+                                    else {
+                                        $data['code'] = 1;
+                                    }
+                                }
+                                else {
+                                    $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
+                                }
+                                if($data['code'] == 0) {
+                                $success = 'Task được tạo thành công.';
+                                $tasktitle = false;
+                                $taskdescription = false;
+                                $starttime = false;
+                                $deadline = false;
+                                $department = false;
+                                $error = false;
+                                }
+                                else {
+                                    $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
+                                }
                             }
                         }
-                    }
-                }     
+                    }     
+                }
             }
             else if($starttimecheck[0] > $deadlinetimecheck[0]) {
                 $error = 'Thời gian kết thúc task không hợp lệ ';
@@ -224,11 +241,16 @@
                     $completion_level = '';
                     $completion_schedule = '';
                     $time_submit = null;
-                    if(move_uploaded_file($file_name, $targer)) {
-                        $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
+                    if(!empty($upload)) {
+                        if(move_uploaded_file($file_name, $targer)) {
+                            $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
+                        }
+                        else {
+                            $data['code'] = 1;
+                        }
                     }
                     else {
-                        $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
+                        $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
                     }
                     if($data['code'] == 0) {
                     $success = 'Task được tạo thành công.';
@@ -257,11 +279,16 @@
                 $completion_schedule = '';
                 $time_submit = null;
                 $task_deliver = $_SESSION['username'];
-                if(move_uploaded_file($file_name, $targer)) {
-                    $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
+                if(!empty($upload)) {
+                    if(move_uploaded_file($file_name, $targer)) {
+                        $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
+                    }
+                    else {
+                        $data['code'] = 1;
+                    }
                 }
                 else {
-                    $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
+                    $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
                 }
                 if($data['code'] == 0) {
                 $success = 'Task được tạo thành công.';
@@ -405,8 +432,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="attachfile">File đính kèm</label>
-                        <input name="attachfile" type="file" id="attachfile" style="display: block">
+                        <label for="file">File đính kèm</label>
+                        <input name="file" type="file" id="attachfile" style="display: block">
                     </div>
 
                     <div class="form-group">

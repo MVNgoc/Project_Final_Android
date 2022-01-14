@@ -75,6 +75,7 @@
         $time_submit = $a;
 
         $upload = $_FILES['attachfile']['name'];
+        $targer = 'files_upload/' . $upload;
 
 		$extension = pathinfo($upload,PATHINFO_EXTENSION);
 		$file_name = $_FILES['attachfile']['tmp_name'];
@@ -95,7 +96,12 @@
 			$error = "Kích thước file quá lớn";
 		}
         else {
-            $data = updateMessageTask($message_task, $time_submit, $upload, $id_task);
+            if(move_uploaded_file($file_name, $targer)) {
+                $data = updateMessageTask($message_task, $time_submit, $upload, $id_task);
+            }
+            else {
+                $data['code'] = 1;
+            }
             if($data['code'] == 0) {
                 $task_status = 'Waiting';
                 updateStatus($task_status, $id_task);
@@ -116,6 +122,7 @@
         $deadline = $_POST['deadline'];
 
         $upload = $_FILES['attachfile']['name'];
+        $targer = 'files_upload/' . $upload;
 
         $extension = pathinfo($upload,PATHINFO_EXTENSION);
         $file_name = $_FILES['attachfile']['tmp_name'];
@@ -132,7 +139,12 @@
 		}
         else {
             if(!empty($upload)) {
-                $data = updateRejectedTaskFile($notetask, $deadline, $upload, $id_task);
+                if(move_uploaded_file($file_name, $targer)) {
+                    $data = updateRejectedTaskFile($notetask, $deadline, $upload, $id_task);
+                }
+                else {
+                    $data['code'] = 1;
+                }
             }
             else {
                 $data = updateRejectedTask($notetask, $deadline, $id_task);
