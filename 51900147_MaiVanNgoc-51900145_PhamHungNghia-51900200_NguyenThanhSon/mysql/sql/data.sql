@@ -44,6 +44,7 @@ CREATE TABLE task (
   task_status varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   message_task varchar(255) COLLATE utf8_unicode_ci,
   time_submit datetime,
+  file_submit varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   completion_level varchar(64) COLLATE utf8_unicode_ci,
   completion_schedule varchar(64) COLLATE utf8_unicode_ci,
   task_deliver varchar(64) COLLATE utf8_unicode_ci NOT NULL
@@ -52,13 +53,6 @@ CREATE TABLE task (
 CREATE TABLE taskfile (
   id varchar(15) NOT NULL,
   name_task_file varchar(64) COLLATE utf8_unicode_ci,
-  name_submitter_file varchar(64) NOT NULL COLLATE utf8_unicode_ci,
-  name_receiver_file varchar(64) NOT NULL COLLATE utf8_unicode_ci
-);
-
-CREATE TABLE request_leave_file (
-  id varchar(15) NOT NULL,
-  name_request_leave_file varchar(64) COLLATE utf8_unicode_ci,
   name_submitter_file varchar(64) NOT NULL COLLATE utf8_unicode_ci,
   name_receiver_file varchar(64) NOT NULL COLLATE utf8_unicode_ci
 );
@@ -181,11 +175,4 @@ ALTER TABLE leaveform
 
 ALTER TABLE leaveform
   MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
-ALTER TABLE request_leave_file
-ADD PRIMARY KEY (id);
-
-ALTER TABLE request_leave_file
-  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
 COMMIT;

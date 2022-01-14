@@ -38,23 +38,25 @@
 		$leavereason = $_POST['leavereson'];
 
 
-			$upload = $_FILES['attachfile']['name'];
-			$destination = 'uploads/'.$upload;
+		$upload = $_FILES['attachfile']['name'];
 
-			$extension = pathinfo($upload,PATHINFO_EXTENSION);
-			$file = $_FILES['attachfile']['tmp_name'];
-			$size = $_FILES['attachfile']['size'];			
-
+		$extension = pathinfo($upload,PATHINFO_EXTENSION);
+		$file = $_FILES['attachfile']['tmp_name'];
+		$size = $_FILES['attachfile']['size'];			
 
 		if(empty($leavetype)){
 			$error = "Hãy nhập tiêu đề";
-		}else if(empty($star_date)){
+		}
+		else if(empty($star_date)){
 			$error = "Hãy chọn ngày bắt đầu nghỉ";
-		}else if(empty($leavereason)){
+		}
+		else if(empty($leavereason)){
 			$error = "Hãy nhập lí do nghỉ";
-		}else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
+		}
+		else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
 			$error = "File bạn gửi không đúng định dạng yêu cầu";
-		}else if($_FILES['attachfile']['size'] > 1000000 && !empty($upload)){
+		}
+		else if($_FILES['attachfile']['size'] > 1000000 && !empty($upload)){
 			$error = "Kích thước file quá lớn";
 		}
 		else if(!empty($star_date)){

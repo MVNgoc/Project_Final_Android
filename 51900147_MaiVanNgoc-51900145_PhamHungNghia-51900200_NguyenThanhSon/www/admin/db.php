@@ -914,4 +914,16 @@
         return array('code' => 0,'error' => 'Update thành công');  
     }
 
+    function addTaskFile($name_task_file, $name_submitter_file, $name_receiver_file) {
+        $sql = 'INSERT INTO taskfile(name_task_file, name_submitter_file, name_receiver_file) VALUES(?,?,?)';
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+        $stm->bind_param('sss', $name_task_file, $name_submitter_file, $name_receiver_file);
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Thêm thành công');
+    }
+
 ?>

@@ -19,6 +19,7 @@
 
     require_once('./admin/db.php');
 
+    $user_name = $_SESSION['firstname']." ". $_SESSION['lastname'];
     $tasktitle = '';
     $taskdescription = '';
     $starttime = '';
@@ -37,6 +38,12 @@
         $deadline = $_POST['deadline'];
         $department = $_POST['department'];
 
+        $upload = $_FILES['attachfile']['name'];
+
+		$extension = pathinfo($upload,PATHINFO_EXTENSION);
+		$file_name = $_FILES['attachfile']['tmp_name'];
+		$file_size = $_FILES['attachfile']['size'];
+
         if(empty($tasktitle)) {
             $error = 'Vui lòng điền tiêu đề task';
         }
@@ -52,6 +59,12 @@
         else if(empty($department)) {
             $error = 'Vui lòng chọn nhân viên thực hiện task';
         }
+        else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
+			$error = "File bạn gửi không đúng định dạng yêu cầu";
+		}
+		else if($_FILES['attachfile']['size'] > 1000000 && !empty($upload)){
+			$error = "Kích thước file quá lớn";
+		}
         else if(!empty($starttime) && !empty($deadline)) {
             $currenttime = date('d/m/Y');
             $currenttimecheck = explode('/', $currenttime); //Tách thành date, month, year
@@ -99,6 +112,7 @@
                             $completion_schedule = '';
                             $task_deliver = $_SESSION['username'];
                             $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$completion_level,$completion_schedule ,$task_deliver);
+                            $data = addTaskFile($upload, $user_name, $department);
                             if($data['code'] == 0) {
                             $success = 'Task được tạo thành công.';
                             $tasktitle = false;
@@ -136,6 +150,7 @@
                                 $time_submit = null;
                                 $task_deliver = $_SESSION['username'];
                                 $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$completion_level,$completion_schedule,$task_deliver);
+                                $data = addTaskFile($upload, $user_name, $department);
                                 if($data['code'] == 0) {
                                 $success = 'Task được tạo thành công.';
                                 $tasktitle = false;
@@ -164,6 +179,7 @@
                             $time_submit = null;
                             $task_deliver = $_SESSION['username'];
                             $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus,$message_task,$time_submit,$completion_level,$completion_schedule,$task_deliver);
+                            $data = addTaskFile($upload, $user_name, $department);
                             if($data['code'] == 0) {
                             $success = 'Task được tạo thành công.';
                             $tasktitle = false;
@@ -196,6 +212,7 @@
                     $completion_schedule = '';
                     $time_submit = null;
                     $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus,$message_task,$time_submit,$completion_level,$completion_schedule,$task_deliver);
+                    $data = addTaskFile($upload, $user_name, $department);
                     if($data['code'] == 0) {
                     $success = 'Task được tạo thành công.';
                     $tasktitle = false;
@@ -224,6 +241,7 @@
                 $time_submit = null;
                 $task_deliver = $_SESSION['username'];
                 $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus,$message_task,$time_submit,$completion_level,$completion_schedule,$task_deliver);
+                $data = addTaskFile($upload, $user_name, $department);
                 if($data['code'] == 0) {
                 $success = 'Task được tạo thành công.';
                 $tasktitle = false;
@@ -239,8 +257,6 @@
             }
         }
     }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -369,7 +385,7 @@
 
                     <div class="form-group">
                         <label for="attachfile">File đính kèm</label>
-                        <input value="" name="attachfile" required type="file" id="attachfile" style="display: block">
+                        <input name="attachfile" type="file" id="attachfile" style="display: block">
                     </div>
 
                     <div class="form-group">
@@ -378,7 +394,7 @@
                                 echo "<div class='alert alert-danger'>$error</div>";
                             }
                         ?>
-                        <button type="submit" class="btn btn-register-js btn-assign-task btn-success px-5 mt-3 mr-2">Assign Task</button>
+                        <button type="submit" class="btn btn-register-js btn-assign-task btn-success px-5 mt-3 mr-2" name="assignTask">Assign Task</button>
                         <button type="reset" class="btn btn-success px-5 mt-3 mr-2">Reset</button>
                     </div>
                 </form>
