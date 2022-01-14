@@ -19,6 +19,7 @@
 
     require_once('./admin/db.php');
 
+    $user_name = $_SESSION['firstname']." ". $_SESSION['lastname'];
     $tasktitle = '';
     $taskdescription = '';
     $starttime = '';
@@ -68,6 +69,12 @@
         $deadline = $_POST['deadline'];
         $department = $_POST['department'];
 
+        $upload = $_FILES['attachfile']['name'];
+
+		$extension = pathinfo($upload,PATHINFO_EXTENSION);
+		$file_name = $_FILES['attachfile']['tmp_name'];
+		$file_size = $_FILES['attachfile']['size'];
+
         if(empty($tasktitle)) {
             $error = 'Vui lòng điền tiêu đề task';
         }
@@ -83,6 +90,12 @@
         else if(empty($department)) {
             $error = 'Vui lòng chọn nhân viên thực hiện task';
         }
+        else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
+			$error = "File bạn gửi không đúng định dạng yêu cầu";
+		}
+		else if($_FILES['attachfile']['size'] > 1000000 && !empty($upload)){
+			$error = "Kích thước file quá lớn";
+		}
         else if(!empty($starttime) && !empty($deadline)) {
             $starttimecheck = explode('-', $starttime); //Tách thành year, month, dayTtime
             $deadlinetimecheck = explode('-', $deadline); //Tách thành year, month, dayTtime
@@ -99,9 +112,36 @@
                 $daycheck = ($deadlinetimecheck[1] - $starttimecheck[1])* 30;
                 if((($deadlinetimecheck2[0] - $starttimecheck2[0]) + $daycheck) > 0) {
                     $task_deliver = $_SESSION['username'];
-                    $data = updatetask($tasktitle, $taskdescription, $starttime, $deadline, $department , $id);
+                    if(!empty($upload)) {
+                        $data = updatetaskFile($tasktitle, $taskdescription, $starttime, $deadline, $department, $upload, $id);
+                    }
+                    else {
+                        $data = updatetask($tasktitle, $taskdescription, $starttime, $deadline, $department , $id);
+                    }
                     if($data['code'] == 0) {
                         $success = 'Update Task thành công.';
+                        $sql = "SELECT task_title, task_description, staff_assign FROM task WHERE id = '$id' ";
+                        $conn = open_database();
+                        $stm = $conn -> prepare($sql);
+                        $result = $conn-> query($sql);
+                        $row = $result->fetch_assoc();
+                        $task_title = $row["task_title"];
+                        $task_description = $row["task_description"];
+                        $staff_assign = $row["staff_assign"];
+                        
+                        $sql = "SELECT DATE_FORMAT(start_time, '%Y-%m-%dT%h:%i') AS start_time FROM task WHERE id = '$id'" ;
+                        $conn = open_database();
+                        $stm = $conn -> prepare($sql);
+                        $result = $conn-> query($sql);
+                        $row = $result->fetch_assoc();
+                        $start_time = $row["start_time"];
+
+                        $sql = "SELECT DATE_FORMAT(deadline, '%Y-%m-%dT%h:%i') AS deadline FROM task WHERE id = '$id'";
+                        $conn = open_database();
+                        $stm = $conn -> prepare($sql);
+                        $result = $conn-> query($sql);
+                        $row = $result->fetch_assoc();
+                        $deadline = $row["deadline"];
                     }
                     else {
                         $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
@@ -116,9 +156,36 @@
             }
             else {
                 $task_deliver = $_SESSION['username'];
-                $data = updatetask($tasktitle, $taskdescription, $starttime, $deadline, $department , $id);
+                if(!empty($upload)) {
+                    $data = updatetaskFile($tasktitle, $taskdescription, $starttime, $deadline, $department, $upload, $id);
+                }
+                else {
+                    $data = updatetask($tasktitle, $taskdescription, $starttime, $deadline, $department , $id);
+                }
                 if($data['code'] == 0) {
                     $success = 'Update Task thành công.';
+                    $sql = "SELECT task_title, task_description, staff_assign FROM task WHERE id = '$id' ";
+                    $conn = open_database();
+                    $stm = $conn -> prepare($sql);
+                    $result = $conn-> query($sql);
+                    $row = $result->fetch_assoc();
+                    $task_title = $row["task_title"];
+                    $task_description = $row["task_description"];
+                    $staff_assign = $row["staff_assign"];
+                    
+                    $sql = "SELECT DATE_FORMAT(start_time, '%Y-%m-%dT%h:%i') AS start_time FROM task WHERE id = '$id'" ;
+                    $conn = open_database();
+                    $stm = $conn -> prepare($sql);
+                    $result = $conn-> query($sql);
+                    $row = $result->fetch_assoc();
+                    $start_time = $row["start_time"];
+
+                    $sql = "SELECT DATE_FORMAT(deadline, '%Y-%m-%dT%h:%i') AS deadline FROM task WHERE id = '$id'";
+                    $conn = open_database();
+                    $stm = $conn -> prepare($sql);
+                    $result = $conn-> query($sql);
+                    $row = $result->fetch_assoc();
+                    $deadline = $row["deadline"];
                 }
                 else {
                     $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';

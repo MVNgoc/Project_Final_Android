@@ -409,14 +409,14 @@
         return false;
     }
 
-    function inserttask($task_title, $task_description, $start_time, $deadline, $staff_assign, $task_status, $message_task, $time_submit,$completion_level, $completion_schedule, $task_deliver) {
-        $sql = 'INSERT INTO task (task_title, task_description, start_time, deadline, staff_assign, task_status, message_task, time_submit,completion_level,completion_schedule, task_deliver) values(?,?,?,?,?,?,?,?,?,?,?)';
+    function inserttask($task_title, $task_description, $start_time, $deadline, $staff_assign, $task_status, $message_task, $time_submit, $file_submit, $completion_level, $completion_schedule, $task_deliver) {
+        $sql = 'INSERT INTO task (task_title, task_description, start_time, deadline, staff_assign, task_status, message_task, time_submit, file_submit,completion_level,completion_schedule, task_deliver) values(?,?,?,?,?,?,?,?,?,?,?,?)';
 
         $conn = open_database();
 
         $stm = $conn->prepare($sql);
 
-        $stm->bind_param('sssssssssss',$task_title, $task_description, $start_time, $deadline, $staff_assign, $task_status,$message_task,$time_submit ,$completion_level, $completion_schedule,$task_deliver);
+        $stm->bind_param('ssssssssssss',$task_title, $task_description, $start_time, $deadline, $staff_assign, $task_status,$message_task,$time_submit, $file_submit ,$completion_level, $completion_schedule,$task_deliver);
 
         if(!$stm->execute()){
             return array('code' => 2, 'error' => 'Can not excute command');
@@ -543,7 +543,20 @@
             return array('code' => 2, 'error' => 'Can not excute command');
         }
         return array('code' => 0,'error' => 'Thành công');
-    }   
+    }
+
+    function updatetaskFile($task_title, $task_description, $start_time, $deadline, $staff_assign, $file_submit, $id) { 
+        $sql = 'UPDATE task SET task_title = ?, task_description = ?, start_time = ?, deadline = ?, staff_assign = ?, file_submit = ? WHERE id = ?';
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+
+        $stm->bind_param('sssssss',$task_title, $task_description, $start_time, $deadline, $staff_assign, $file_submit, $id);
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Thành công');
+    }
 
     function insertleaverequest($username,$day_left,$day_use){
         $sql = 'INSERT INTO leaverequest VALUES(?,?,?)';
@@ -725,6 +738,19 @@
         $stm = $conn->prepare($sql);
 
         $stm->bind_param('sss',$message_task, $deadline, $id);
+        if(!$stm->execute()){
+            return array('code' => 2, 'error' => 'Can not excute command');
+        }
+        return array('code' => 0,'error' => 'Rejected Task thành công');
+    }
+
+    function updateRejectedTaskFile($message_task, $deadline, $file_submit, $id) {
+        $sql = 'UPDATE task SET message_task = ?, deadline = ?, file_submit = ? WHERE id = ?';
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+
+        $stm->bind_param('ssss',$message_task, $deadline, $file_submit, $id);
         if(!$stm->execute()){
             return array('code' => 2, 'error' => 'Can not excute command');
         }
@@ -913,29 +939,4 @@
         }
         return array('code' => 0,'error' => 'Update thành công');  
     }
-
-    function addTaskFile($task_title, $name_task_file, $name_submitter_file, $name_receiver_file) {
-        $sql = 'INSERT INTO taskfile(task_title, name_task_file, name_submitter_file, name_receiver_file) VALUES(?,?,?,?)';
-        $conn = open_database();
-
-        $stm = $conn->prepare($sql);
-        $stm->bind_param('ssss', $task_title, $name_task_file, $name_submitter_file, $name_receiver_file);
-        if(!$stm->execute()){
-            return array('code' => 2, 'error' => 'Can not excute command');
-        }
-        return array('code' => 0,'error' => 'Thêm thành công');
-    }
-
-    // function updateTaskFile($name_task_file, $name_submitter_file, $name_receiver_file) {
-    //     $sql = 'INSERT INTO taskfile(name_task_file, name_submitter_file, name_receiver_file) VALUES(?,?,?)';
-    //     $conn = open_database();
-
-    //     $stm = $conn->prepare($sql);
-    //     $stm->bind_param('sss', $name_task_file, $name_submitter_file, $name_receiver_file);
-    //     if(!$stm->execute()){
-    //         return array('code' => 2, 'error' => 'Can not excute command');
-    //     }
-    //     return array('code' => 0,'error' => 'Thêm thành công');
-    // }
-
 ?>

@@ -112,14 +112,31 @@
     }
 
     if(isset($_POST['notetask']) && isset($_POST['deadline'])) {
-          $notetask = $_POST['notetask'];
-          $deadline = $_POST['deadline'];
-          if(empty($notetask)) {
-            $error = 'Vui lòng nhập ghi chú trước khi Rejected Task';
-          }
-          else {
-            
-            $data = updateRejectedTask($notetask, $deadline, $id_task);
+        $notetask = $_POST['notetask'];
+        $deadline = $_POST['deadline'];
+
+        $upload = $_FILES['attachfile']['name'];
+
+        $extension = pathinfo($upload,PATHINFO_EXTENSION);
+        $file_name = $_FILES['attachfile']['tmp_name'];
+        $file_size = $_FILES['attachfile']['size'];
+
+        if(empty($notetask)) {
+        $error = 'Vui lòng nhập ghi chú trước khi Rejected Task';
+        }
+        else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
+        $error = "File bạn gửi không đúng định dạng yêu cầu";
+		}
+		else if($_FILES['attachfile']['size'] > 1000000 && !empty($upload)){
+			$error = "Kích thước file quá lớn";
+		}
+        else {
+            if(!empty($upload)) {
+                $data = updateRejectedTaskFile($notetask, $deadline, $upload, $id_task);
+            }
+            else {
+                $data = updateRejectedTask($notetask, $deadline, $id_task);
+            }
             if($data['code'] == 0) {
                 $task_status = 'Rejected';
                 updateStatus($task_status, $id_task);
@@ -129,7 +146,7 @@
             else {
                 $error = 'Có lỗi xảy ra vui lòng thử lại';
             }
-          }
+        }
     }
 
     if(isset($_POST['btncompletetask'])) {
@@ -361,10 +378,17 @@
                                                         <input value="" name="notetask" required class="meesagetask form-control" type="text" placeholder="Ghi chú" id="starttime">
                                                     </div>
                                                 </div>
+
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold" for="attachfile">File đính kèm</label>
+                                                        <input name="attachfile" type="file" id="attachfile" style="display: block">
+                                                    </div>
+                                                </div>
                 
                                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="deadline">Gia hạn deadline:</label>
+                                                        <label for="deadline" class="font-weight-bold">Gia hạn deadline:</label>
                                                         <input value="'.  $extend_deadline .'" name="deadline" required class="form-control" type="datetime-local" placeholder="Thời gian kết thúc" id="deadline">
                                                     </div>
                                                 </div> ';

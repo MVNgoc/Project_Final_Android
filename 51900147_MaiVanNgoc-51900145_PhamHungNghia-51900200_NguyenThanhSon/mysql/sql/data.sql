@@ -50,14 +50,6 @@ CREATE TABLE task (
   task_deliver varchar(64) COLLATE utf8_unicode_ci NOT NULL
 );
 
-CREATE TABLE taskfile (
-  id varchar(15) NOT NULL,
-  task_title varchar(64) NOT NULL COLLATE utf8_unicode_ci,
-  name_task_file varchar(64) COLLATE utf8_unicode_ci,
-  name_submitter_file varchar(64) NOT NULL COLLATE utf8_unicode_ci,
-  name_receiver_file varchar(64) NOT NULL COLLATE utf8_unicode_ci
-);
-
 CREATE TABLE leaveform (
   id varchar(15) NOT NULL ,
   username varchar(64) NOT NULL,
@@ -160,12 +152,6 @@ ALTER TABLE task
   ADD PRIMARY KEY (id);
 
 ALTER TABLE task
-  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
-ALTER TABLE taskfile
-  ADD PRIMARY KEY (id);
-
-ALTER TABLE taskfile
   MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 ALTER TABLE leaverequest
