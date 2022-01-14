@@ -27,7 +27,7 @@
         $id_task = $_SESSION['id_task'];
     }
 
-    $sql = "SELECT task_title, task_description, staff_assign, task_status, message_task,completion_level FROM task WHERE id = '$id_task' ";
+    $sql = "SELECT task_title, task_description, staff_assign, task_status, message_task,completion_level,file_submit FROM task WHERE id = '$id_task' ";
     $conn = open_database();
     $stm = $conn -> prepare($sql);
     $result = $conn-> query($sql);
@@ -39,6 +39,7 @@
     $task_status = $row['task_status'];
     $message_task = $row['message_task'];
     $completion_level = $row['completion_level'];
+    $file_submit = $row['file_submit'];
 
     $sql = "SELECT DATE_FORMAT(start_time, '%d/%m/%Y %h:%i:%s') AS start_time FROM task WHERE id = '$id_task'";
     $conn = open_database();
@@ -326,6 +327,17 @@
                                         <p class="font-size-s"> <?= $task_status ?> </p>
                                     </div>
                                 </div>
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">File đính kèm:</label> 
+                                        <p class="font-size-s"> <a href="#" title="Click to download" ><?= $file_submit ?></a> </p>
+                                    </div>
+                                </div>
+
+                                <?php
+
+                                ?>
 
                                 <?php 
                                     if($_SESSION['positionid'] == 1 || $_SESSION['positionid'] == 2) {
