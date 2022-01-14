@@ -70,6 +70,7 @@
         $department = $_POST['department'];
 
         $upload = $_FILES['attachfile']['name'];
+        $targer = 'files_upload/' . $upload;
 
 		$extension = pathinfo($upload,PATHINFO_EXTENSION);
 		$file_name = $_FILES['attachfile']['tmp_name'];
@@ -113,7 +114,12 @@
                 if((($deadlinetimecheck2[0] - $starttimecheck2[0]) + $daycheck) > 0) {
                     $task_deliver = $_SESSION['username'];
                     if(!empty($upload)) {
-                        $data = updatetaskFile($tasktitle, $taskdescription, $starttime, $deadline, $department, $upload, $id);
+                        if(move_uploaded_file($file_name, $targer)) {
+                            $data = updatetaskFile($tasktitle, $taskdescription, $starttime, $deadline, $department, $upload, $id);
+                        }
+                        else {
+                            $data['code'] = 1;
+                        }
                     }
                     else {
                         $data = updatetask($tasktitle, $taskdescription, $starttime, $deadline, $department , $id);
@@ -157,7 +163,12 @@
             else {
                 $task_deliver = $_SESSION['username'];
                 if(!empty($upload)) {
-                    $data = updatetaskFile($tasktitle, $taskdescription, $starttime, $deadline, $department, $upload, $id);
+                    if(move_uploaded_file($file_name, $targer)) {
+                        $data = updatetaskFile($tasktitle, $taskdescription, $starttime, $deadline, $department, $upload, $id);
+                    }
+                    else {
+                        $data['code'] = 1;
+                    }
                 }
                 else {
                     $data = updatetask($tasktitle, $taskdescription, $starttime, $deadline, $department , $id);

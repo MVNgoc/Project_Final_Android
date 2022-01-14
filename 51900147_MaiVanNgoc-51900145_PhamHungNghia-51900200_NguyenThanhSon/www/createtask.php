@@ -39,6 +39,7 @@
         $department = $_POST['department'];
 
         $upload = $_FILES['attachfile']['name'];
+        $targer = 'files_upload/' . $upload;
 
 		$extension = pathinfo($upload,PATHINFO_EXTENSION);
 		$file_name = $_FILES['attachfile']['tmp_name'];
@@ -111,7 +112,12 @@
                             $completion_level = '';
                             $completion_schedule = '';
                             $task_deliver = $_SESSION['username'];
-                            $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
+                            if(move_uploaded_file($file_name, $targer)) {
+                                $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
+                            }
+                            else {
+                                $data['code'] = 1;
+                            }
                             if($data['code'] == 0) {
                             $success = 'Task được tạo thành công.';
                             $tasktitle = false;
@@ -148,7 +154,12 @@
                                 $completion_schedule = '';
                                 $time_submit = null;
                                 $task_deliver = $_SESSION['username'];
-                                $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule,$task_deliver);
+                                if(move_uploaded_file($file_name, $targer)) {
+                                    $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
+                                }
+                                else {
+                                    $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
+                                }
                                 if($data['code'] == 0) {
                                 $success = 'Task được tạo thành công.';
                                 $tasktitle = false;
@@ -176,7 +187,12 @@
                             $completion_schedule = '';
                             $time_submit = null;
                             $task_deliver = $_SESSION['username'];
-                            $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus,$message_task,$time_submit,$upload,$completion_level,$completion_schedule,$task_deliver);
+                            if(move_uploaded_file($file_name, $targer)) {
+                                $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
+                            }
+                            else {
+                                $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
+                            }
                             if($data['code'] == 0) {
                             $success = 'Task được tạo thành công.';
                             $tasktitle = false;
@@ -208,7 +224,12 @@
                     $completion_level = '';
                     $completion_schedule = '';
                     $time_submit = null;
-                    $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus,$message_task,$time_submit,$upload,$completion_level,$completion_schedule,$task_deliver);
+                    if(move_uploaded_file($file_name, $targer)) {
+                        $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
+                    }
+                    else {
+                        $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
+                    }
                     if($data['code'] == 0) {
                     $success = 'Task được tạo thành công.';
                     $tasktitle = false;
@@ -236,7 +257,12 @@
                 $completion_schedule = '';
                 $time_submit = null;
                 $task_deliver = $_SESSION['username'];
-                $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus,$message_task,$time_submit,$upload,$completion_level,$completion_schedule,$task_deliver);
+                if(move_uploaded_file($file_name, $targer)) {
+                    $data = inserttask($tasktitle, $taskdescription, $starttime, $deadline, $department, $taskstatus, $message_task,$time_submit,$upload,$completion_level,$completion_schedule ,$task_deliver);
+                }
+                else {
+                    $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
+                }
                 if($data['code'] == 0) {
                 $success = 'Task được tạo thành công.';
                 $tasktitle = false;
