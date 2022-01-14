@@ -192,9 +192,8 @@
 							if(!empty($upload)){
 								echo '
 									<div class="form-group">
-										<label for="attachfile">File đính kèm</label>
-										<input value="'.$upload.'" required class="form-control" name="attachfile" id="attachfile" style="display: block">
-										<a href="files_upload/'.$upload.'" download="files_upload/'.$upload.'" class="btn btn-primary">Tải về</a>
+										<label for="attachfile" style="display:block;">File đính kèm</label>
+										<a title="Click here to download" href="files_upload/'.$upload.'" download="'.$upload.'">'.$upload.'</a>
 									</div>
 								';
 							}

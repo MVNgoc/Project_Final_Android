@@ -93,7 +93,7 @@
         else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','rar','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
 			$error = "File bạn gửi không đúng định dạng yêu cầu";
 		}
-		else if($_FILES['file']['size'] > 1000000 && !empty($upload)){
+		else if($_FILES['attachfile']['size'] > 1000000 && !empty($upload)){
 			$error = "Kích thước file quá lớn";
 		}
         else {
@@ -327,16 +327,17 @@
                                         <p class="font-size-s"> <?= $task_status ?> </p>
                                     </div>
                                 </div>
-
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label class="font-weight-bold">File đính kèm:</label> 
-                                        <p class="font-size-s"> <a href="#" title="Click to download" ><?= $file_submit ?></a> </p>
-                                    </div>
-                                </div>
-
                                 <?php
-
+                                    if(!empty($file_submit)) {
+                                        echo '<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold">File đính kèm:</label> 
+                                            <p class="font-size-s"> <?= $task_status ?> 
+                                            <a title="Click here to download" href="files_upload/'.$file_submit.'" download="'.$file_submit.'">'.$file_submit.'</a>
+                                            </p>
+                                        </div>
+                                    </div>';
+                                    }
                                 ?>
 
                                 <?php 

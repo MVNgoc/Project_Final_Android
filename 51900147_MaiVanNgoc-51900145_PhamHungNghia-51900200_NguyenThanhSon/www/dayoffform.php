@@ -57,7 +57,7 @@
 		else if(empty($leavereason)){
 			$error = "Hãy nhập lí do nghỉ";
 		}
-		else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','rar','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
+		else if(!in_array(strtolower($extension),['png','jpg','jpeg','gif','ppt','zip','rar','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
 			$error = "File bạn gửi không đúng định dạng yêu cầu";
 		}
 		else if($_FILES['attachfile']['size'] == 0 && !empty($upload) ){
@@ -81,7 +81,7 @@
 			$date_check = floor($interval2 / (60*60*24));
 
 			if($date_check <= 0){
-				$error = 'Thời gian bắt đầu không hợp lệ';
+				$error = 'Thời gian bắt đầu phải lớn hơn ngày tạo đơn ít nhất 1 ngày';
 			}
             else if($date_number > $datecheckold){
 				$error = 'Số ngày nghỉ không hợp lệ';
