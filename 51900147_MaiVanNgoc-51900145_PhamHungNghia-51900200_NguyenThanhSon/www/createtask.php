@@ -28,6 +28,7 @@
     $taskstatus = '';
     $task_deliver = '';
     $error = '';
+    $upload = '';
 
     if(isset($_POST['tasktitle']) && isset($_POST['taskdescription']) 
     && isset($_POST['starttime']) && isset($_POST['deadline']) 
