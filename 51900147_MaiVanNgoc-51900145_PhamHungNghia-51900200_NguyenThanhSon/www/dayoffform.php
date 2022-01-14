@@ -45,6 +45,8 @@
 		$extension = pathinfo($upload,PATHINFO_EXTENSION);
 		$file = $_FILES['attachfile']['tmp_name'];
 		$size = $_FILES['attachfile']['size'];	
+		
+
 
 		if(empty($leavetype)){
 			$error = "Hãy nhập tiêu đề";
