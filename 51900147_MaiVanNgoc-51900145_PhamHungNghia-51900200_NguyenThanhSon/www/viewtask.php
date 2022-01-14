@@ -76,37 +76,35 @@
 
         $upload = $_FILES['attachfile']['name'];
 
-        echo $upload;
-
 		$extension = pathinfo($upload,PATHINFO_EXTENSION);
 		$file_name = $_FILES['attachfile']['tmp_name'];
 		$file_size = $_FILES['attachfile']['size'];
 
         $message_task = $_POST['meesagetask'];
 
-        // if(empty($message_task)) {
-        //     $error = 'Vui lòng nhập nội dung trước khi submit task';
-        // }
-        // else if(empty($upload)) {
-        //     $error = 'Vui lòng đính kèm file trước khi submit';
-        // }
-        // else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
-		// 	$error = "File bạn gửi không đúng định dạng yêu cầu";
-		// }
-		// else if($_FILES['attachfile']['size'] > 1000000 && !empty($upload)){
-		// 	$error = "Kích thước file quá lớn";
-		// }
-        // else {
-        //     $data = updateMessageTask($message_task, $time_submit, $id_task, $upload);
-        //     if($data['code'] == 0) {
-        //         $task_status = 'Waiting';
-        //         updateStatus($task_status, $id_task);
-        //         $success = $data['error'];
-        //     }
-        //     else {
-        //         $error = 'Có lỗi xảy ra vui lòng thử lại';
-        //     }
-        // }
+        if(empty($message_task)) {
+            $error = 'Vui lòng nhập nội dung trước khi submit task';
+        }
+        else if(empty($upload)) {
+            $error = 'Vui lòng đính kèm file trước khi submit';
+        }
+        else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
+			$error = "File bạn gửi không đúng định dạng yêu cầu";
+		}
+		else if($_FILES['attachfile']['size'] > 1000000 && !empty($upload)){
+			$error = "Kích thước file quá lớn";
+		}
+        else {
+            $data = updateMessageTask($message_task, $time_submit, $upload, $id_task);
+            if($data['code'] == 0) {
+                $task_status = 'Waiting';
+                updateStatus($task_status, $id_task);
+                $success = $data['error'];
+            }
+            else {
+                $error = 'Có lỗi xảy ra vui lòng thử lại';
+            }
+        }
     }
 
     if(isset($_POST['btnrejectedtask'])) {
@@ -263,7 +261,7 @@
             </div>
             <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                 <div class="card-user h-100">
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="" method="POST" novalidate enctype="multipart/form-data">
                         <div class="card-body">
                             <div class="row gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
