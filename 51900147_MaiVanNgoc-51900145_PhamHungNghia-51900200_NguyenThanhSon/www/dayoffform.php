@@ -20,6 +20,7 @@
 
 	require_once('./admin/db.php');
 
+
 	$error = '';
 	$success = '';
 	$leavetype = '';
@@ -40,11 +41,10 @@
 
 		$upload = $_FILES['attachfile']['name'];
 		$targer = 'files_upload/' . $upload;
-		$size_allow = 10;
 
 		$extension = pathinfo($upload,PATHINFO_EXTENSION);
 		$file = $_FILES['attachfile']['tmp_name'];
-		$size = $_FILES['attachfile']['size']/1024/1024;		
+		$size = $_FILES['attachfile']['size'];	
 
 		if(empty($leavetype)){
 			$error = "Hãy nhập tiêu đề";
@@ -55,11 +55,11 @@
 		else if(empty($leavereason)){
 			$error = "Hãy nhập lí do nghỉ";
 		}
-		else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
+		else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','rar','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
 			$error = "File bạn gửi không đúng định dạng yêu cầu";
 		}
-		else if($size > $size_allow && !empty($upload)){
-			$error = "Kích thước file quá lớn";
+		else if($_FILES['attachfile']['size'] == 0 && !empty($upload) ){
+			$error = "Kích thước file phải nhỏ hơn 2mb";
 		}
 		else if(!empty($star_date)){
 
