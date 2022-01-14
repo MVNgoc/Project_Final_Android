@@ -92,8 +92,8 @@
         else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
 			$error = "File bạn gửi không đúng định dạng yêu cầu";
 		}
-		else if($_FILES['attachfile']['size'] == 0 && !empty($upload) ){
-			$error = "Kích thước file phải nhỏ hơn 2mb";
+		else if($_FILES['file']['size'] > 1000000 && !empty($upload)){
+			$error = "Kích thước file quá lớn";
 		}
         else {
             if(move_uploaded_file($file_name, $targer)) {
@@ -134,8 +134,8 @@
         else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
         $error = "File bạn gửi không đúng định dạng yêu cầu";
 		}
-		else if($_FILES['attachfile']['size'] == 0 && !empty($upload) ){
-			$error = "Kích thước file phải nhỏ hơn 2mb";
+		else if($_FILES['file']['size'] > 1000000 && !empty($upload)){
+			$error = "Kích thước file quá lớn";
 		}
         else {
             if(!empty($upload)) {
@@ -390,7 +390,6 @@
                                                         <input value="" name="notetask" required class="meesagetask form-control" type="text" placeholder="Ghi chú" id="starttime">
                                                     </div>
                                                 </div>
-
                                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div class="form-group">
                                                         <label class="font-weight-bold" for="attachfile">File đính kèm</label>

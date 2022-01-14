@@ -94,8 +94,8 @@
         else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
 			$error = "File bạn gửi không đúng định dạng yêu cầu";
 		}
-		else if($_FILES['attachfile']['size'] == 0 && !empty($upload) ){
-			$error = "Kích thước file phải nhỏ hơn 2mb";
+		else if($_FILES['attachfile']['size'] > 1000000 && !empty($upload)){
+			$error = "Kích thước file quá lớn";
 		}
         else if(!empty($starttime) && !empty($deadline)) {
             $starttimecheck = explode('-', $starttime); //Tách thành year, month, dayTtime
