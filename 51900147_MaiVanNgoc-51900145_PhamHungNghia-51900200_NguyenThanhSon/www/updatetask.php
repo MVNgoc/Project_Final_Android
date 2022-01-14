@@ -289,7 +289,7 @@
 		<div class="container">
         <div class="row justify-content-center ">
             <div class="col-xl-5 col-lg-6 col-md-8 border my-5 p-4 rounded mx-3 addstaffform">
-                <h3 class="text-center text-secondary mt-2 mb-3 mb-3">Tạo Task Mới</h3>
+                <h3 class="text-center text-secondary mt-2 mb-3 mb-3">Chỉnh sửa Task</h3>
                 <form method="post" action="" novalidate enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="tasktitle">Tiêu đề Task</label>

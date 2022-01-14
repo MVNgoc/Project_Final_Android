@@ -106,7 +106,7 @@
 								</li>
 								<li class="nav-item day-off-header">
 									<a class="nav-link" href="#">Nghỉ phép</a>
-									<ul class="navbar-nav day-off-tag" style = "top:0px">
+									<ul class="navbar-nav day-off-tag">
 										<li class="nav-item">
 											<a class="nav-link" href="duyetdon.php">Duyệt đơn nghỉ phép</a>
 										</li>
