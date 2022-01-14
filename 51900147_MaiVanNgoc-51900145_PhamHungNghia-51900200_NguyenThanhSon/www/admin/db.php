@@ -661,7 +661,7 @@
             foreach($result as $row){
                 echo "<tr>";
 					echo "<td>" . $stt . "</td>";
-                    echo "<td>" . $row["firstname"].$row["lastname"] . "</td>";
+                    echo "<td>" . $row["firstname"].' '.$row["lastname"] . "</td>";
 					echo "<td>". $row["leavetype"] . "</td>";
 					echo "<td>". $row["date_applied"] ."</td>";
                     echo "<td>". $row["date_num"] ."</td>";
@@ -699,7 +699,7 @@
             foreach($result as $row){
                 echo "<tr>";
 					echo "<td>" . $stt . "</td>";
-                    echo "<td>" . $row["firstname"].$row["lastname"] . "</td>";
+                    echo "<td>" . $row["firstname"].' '.$row["lastname"] . "</td>";
 					echo "<td>". $row["leavetype"] . "</td>";
 					echo "<td>". $row["date_applied"] ."</td>";
                     echo "<td>". $row["date_num"] ."</td>";
