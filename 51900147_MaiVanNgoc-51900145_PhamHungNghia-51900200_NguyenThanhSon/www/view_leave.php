@@ -69,9 +69,9 @@
 			$result = $conn-> query($sql);
 			$row = $result->fetch_assoc();
 			updatefordayuse($row['day_off']-$date_number-$date_old,$date_number+$date_old,$username);
-			$success = 'Nộp đơn thành công';
+			$success = 'Xác nhận đơn thành công';
 		}else{
-			$success = 'Nộp đơn thành công';
+			$success = 'Xác nhận đơn thành công';
 		}
 	}
 ?>
@@ -193,12 +193,18 @@
 							<label for="leavereson">Lí do nghỉ phép</label>
 							<input value="<?= $leavereason ?>" name="leavereson" required class="form-control" type="text" placeholder="Nhập lí do nghỉ" id="leavereson" readonly>
 						</div>
-
-						<div class="form-group">
-                        	<label for="attachfile">File đính kèm</label>
-                        	<input value="<?php echo $upload ?>" name="attachfile" id="attachfile" style="display: block">
-                    	</div>
-
+						
+						<?php
+							if(!empty($upload)){
+								echo '
+									<div class="form-group">
+										<label for="attachfile">File đính kèm</label>
+										<input value="'.$upload.'" required class="form-control" name="attachfile" id="attachfile" style="display: block">
+										<a href="files_upload/'.$upload.'" download="files_upload/'.$upload.'" class="btn btn-primary">Tải về</a>
+									</div>
+								';
+							}
+						?>					
 
 						<?php
 							if($_SESSION["positionid"] == 2){

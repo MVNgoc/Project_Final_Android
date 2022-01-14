@@ -29,6 +29,7 @@
 		$date_number = $row["date_num"];
 		$leavereason = $row["leavereson"];
 		$leavestatus = $row["leave_status"];
+		$upload = $row["uploadd_file"];
 	}else{
 		$username = $_SESSION["leave-view"];
 
@@ -43,7 +44,7 @@
 		$date_number = $row["date_num"];
 		$leavereason = $row["leavereson"];
 		$leavestatus = $row["leave_status"];
-
+		$upload = $row["uploadd_file"];
 	}
 
 	if(isset($_POST["leave-status"])){
@@ -187,6 +188,17 @@
 							<input value="<?= $leavereason ?>" name="leavereson" required class="form-control" type="text" placeholder="Nhập lí do nghỉ" id="leavereson" readonly>
 						</div>
 
+						<?php
+							if(!empty($upload)){
+								echo '
+									<div class="form-group">
+										<label for="attachfile">File đính kèm</label>
+										<input value="'.$upload.'" required class="form-control" name="attachfile" id="attachfile" style="display: block">
+										<a href="files_upload/'.$upload.'" download="files_upload/'.$upload.'" class="btn btn-primary">Tải về</a>
+									</div>
+								';
+							}
+						?>	
 
 						<?php
 							if($_SESSION["positionid"] == 1){
