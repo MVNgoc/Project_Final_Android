@@ -91,7 +91,7 @@
         else if(empty($department)) {
             $error = 'Vui lòng chọn nhân viên thực hiện task';
         }
-        else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
+        else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','rar','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
 			$error = "File bạn gửi không đúng định dạng yêu cầu";
 		}
 		else if($_FILES['attachfile']['size'] > 1000000 && !empty($upload)){

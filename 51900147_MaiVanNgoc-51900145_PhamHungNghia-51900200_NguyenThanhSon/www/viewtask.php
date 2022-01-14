@@ -90,7 +90,7 @@
         else if(empty($upload)) {
             $error = 'Vui lòng đính kèm file trước khi submit';
         }
-        else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
+        else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','rar','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
 			$error = "File bạn gửi không đúng định dạng yêu cầu";
 		}
 		else if($_FILES['file']['size'] > 1000000 && !empty($upload)){
@@ -132,7 +132,7 @@
         if(empty($notetask)) {
         $error = 'Vui lòng nhập ghi chú trước khi Rejected Task';
         }
-        else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
+        else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','rar','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
         $error = "File bạn gửi không đúng định dạng yêu cầu";
 		}
 		else if($_FILES['file']['size'] > 1000000 && !empty($upload)){
