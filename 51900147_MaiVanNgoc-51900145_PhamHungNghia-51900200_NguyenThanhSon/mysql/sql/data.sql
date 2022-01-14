@@ -56,6 +56,13 @@ CREATE TABLE taskfile (
   name_receiver_file varchar(64) NOT NULL COLLATE utf8_unicode_ci
 );
 
+CREATE TABLE request_leave_file (
+  id varchar(15) NOT NULL,
+  name_request_leave_file varchar(64) COLLATE utf8_unicode_ci,
+  name_submitter_file varchar(64) NOT NULL COLLATE utf8_unicode_ci,
+  name_receiver_file varchar(64) NOT NULL COLLATE utf8_unicode_ci
+);
+
 CREATE TABLE leaveform (
   id varchar(15) NOT NULL ,
   username varchar(64) NOT NULL,
@@ -173,6 +180,12 @@ ALTER TABLE leaveform
   ADD PRIMARY KEY (id);
 
 ALTER TABLE leaveform
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+ALTER TABLE request_leave_file
+ADD PRIMARY KEY (id);
+
+ALTER TABLE request_leave_file
   MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 COMMIT;
