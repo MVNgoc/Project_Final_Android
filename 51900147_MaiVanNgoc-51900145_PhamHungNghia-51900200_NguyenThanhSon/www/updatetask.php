@@ -28,6 +28,7 @@
     $taskstatus = '';
     $task_deliver = '';
     $error = '';
+    $upload = '';
 
     if(isset($_POST["task-edit"])){
 		$id = $_POST["task-edit"];
