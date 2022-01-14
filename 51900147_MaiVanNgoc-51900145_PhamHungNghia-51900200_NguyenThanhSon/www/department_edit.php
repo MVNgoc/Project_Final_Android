@@ -26,43 +26,27 @@
     if(isset($_POST["room-edit"])){
 		$id = $_POST["room-edit"];
         $_SESSION['id_room'] = $id;
-		$sql = "SELECT * FROM department WHERE id = '$id' ";
-		$conn = open_database();
-		$stm = $conn -> prepare($sql);
-		$result = $conn-> query($sql);
-		$row = $result->fetch_assoc();
-		$name = $row['department_name'];
-
-        $_SESSION['department_name'] = $name;
-
-        $room = $row['room_number'];
-        $desciption = $row['department_description'];
-        if($row['manager_name'] != null) {
-            $manager_name = $row['manager_name'];
-        }
-        else {
-            $manager_name = "Không có";
-        }
 	}
     else {
         $id = $_SESSION['id_room'];
-        $sql = "SELECT * FROM department WHERE id = '$id' ";
-		$conn = open_database();
-		$stm = $conn -> prepare($sql);
-		$result = $conn-> query($sql);
-		$row = $result->fetch_assoc();
-		$name = $row['department_name'];
+    }
 
-        $_SESSION['department_name'] = $name;
+    $sql = "SELECT * FROM department WHERE id = '$id' ";
+    $conn = open_database();
+    $stm = $conn -> prepare($sql);
+    $result = $conn-> query($sql);
+    $row = $result->fetch_assoc();
+    $name = $row['department_name'];
 
-        $room = $row['room_number'];
-        $desciption = $row['department_description'];
-        if($row['manager_name'] != null) {
-            $manager_name = $row['manager_name'];
-        }
-        else {
-            $manager_name = "Không có";
-        }
+    $_SESSION['department_name'] = $name;
+
+    $room = $row['room_number'];
+    $desciption = $row['department_description'];
+    if($row['manager_name'] != null) {
+        $manager_name = $row['manager_name'];
+    }
+    else {
+        $manager_name = "Không có";
     }
 
 	$success = '';

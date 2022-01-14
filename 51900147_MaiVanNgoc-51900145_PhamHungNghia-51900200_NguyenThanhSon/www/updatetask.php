@@ -31,54 +31,33 @@
     if(isset($_POST["task-edit"])){
 		$id = $_POST["task-edit"];
         $_SESSION['id_task'] = $id;
-		$sql = "SELECT task_title, task_description, staff_assign FROM task WHERE id = '$id' ";
-		$conn = open_database();
-		$stm = $conn -> prepare($sql);
-		$result = $conn-> query($sql);
-		$row = $result->fetch_assoc();
-		$task_title = $row["task_title"];
-		$task_description = $row["task_description"];
-		$staff_assign = $row["staff_assign"];
-        
-        $sql = "SELECT DATE_FORMAT(start_time, '%Y-%m-%dT%h:%i') AS start_time FROM task WHERE id = '$id'" ;
-        $conn = open_database();
-		$stm = $conn -> prepare($sql);
-		$result = $conn-> query($sql);
-		$row = $result->fetch_assoc();
-        $start_time = $row["start_time"];
-
-        $sql = "SELECT DATE_FORMAT(deadline, '%Y-%m-%dT%h:%i') AS deadline FROM task WHERE id = '$id'";
-        $conn = open_database();
-		$stm = $conn -> prepare($sql);
-		$result = $conn-> query($sql);
-		$row = $result->fetch_assoc();
-        $deadline = $row["deadline"];
 	}
 	else {
 		$id = $_SESSION['id_task'];
-		$sql = "SELECT * FROM task WHERE id = '$id' ";
-		$conn = open_database();
-		$stm = $conn -> prepare($sql);
-		$result = $conn-> query($sql);
-		$row = $result->fetch_assoc();
-		$task_title = $row["task_title"];
-		$task_description = $row["task_description"];
-		$staff_assign = $row["staff_assign"];
-
-        $sql = "SELECT DATE_FORMAT(start_time, '%Y-%m-%dT%h:%i') AS start_time FROM task WHERE id = '$id'" ;
-        $conn = open_database();
-		$stm = $conn -> prepare($sql);
-		$result = $conn-> query($sql);
-		$row = $result->fetch_assoc();
-        $start_time = $row["start_time"];
-
-        $sql = "SELECT DATE_FORMAT(deadline, '%Y-%m-%dT%h:%i') AS deadline FROM task WHERE id = '$id'";
-        $conn = open_database();
-		$stm = $conn -> prepare($sql);
-		$result = $conn-> query($sql);
-		$row = $result->fetch_assoc();
-        $deadline = $row["deadline"];
 	}
+
+    $sql = "SELECT task_title, task_description, staff_assign FROM task WHERE id = '$id' ";
+    $conn = open_database();
+    $stm = $conn -> prepare($sql);
+    $result = $conn-> query($sql);
+    $row = $result->fetch_assoc();
+    $task_title = $row["task_title"];
+    $task_description = $row["task_description"];
+    $staff_assign = $row["staff_assign"];
+    
+    $sql = "SELECT DATE_FORMAT(start_time, '%Y-%m-%dT%h:%i') AS start_time FROM task WHERE id = '$id'" ;
+    $conn = open_database();
+    $stm = $conn -> prepare($sql);
+    $result = $conn-> query($sql);
+    $row = $result->fetch_assoc();
+    $start_time = $row["start_time"];
+
+    $sql = "SELECT DATE_FORMAT(deadline, '%Y-%m-%dT%h:%i') AS deadline FROM task WHERE id = '$id'";
+    $conn = open_database();
+    $stm = $conn -> prepare($sql);
+    $result = $conn-> query($sql);
+    $row = $result->fetch_assoc();
+    $deadline = $row["deadline"];
 
     if(isset($_POST['tasktitle']) && isset($_POST['taskdescription']) 
     && isset($_POST['starttime']) && isset($_POST['deadline']) 

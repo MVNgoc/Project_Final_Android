@@ -20,20 +20,29 @@
     if(isset($_POST['submit-avatar'])) {    
         // echo "<pre>", print_r($_FILES['file']['name']) ,"</pre>";
         $profileImageName = time() . '_' . $_FILES['file']['name'];
+        $split_file_name = explode(".", $profileImageName);
+        $file_name_explode = strtolower($split_file_name[1]);
 
         $targer = 'images/' . $profileImageName;
-        if(move_uploaded_file($_FILES['file']['tmp_name'], $targer)) {
-            $sql = "UPDATE account SET avatar = '$profileImageName' WHERE username = '$user_name'";
-            $conn = open_database();
-            $stm = $conn->prepare($sql);
-            $stm->execute();
 
-            $msg = "Thay đổi ảnh đại diện thành công.";
-            $css_class = "alert-success";
-        } 
-        else {
-            $msg = "Thay đổi ảnh đại diện không thành công! Vui lòng thử lại.";
+        if($file_name_explode != 'png' && $file_name_explode != 'jpeg' && $file_name_explode != 'jpg') {
+            $msg = "File hình ảnh không hợp lệ! Bạn chỉ có thể dùng các file có đuôi png, jpg, jpeg để làm ảnh đại diện của mình.";
             $css_class = "alert-danger";
+        }
+        else {
+            if(move_uploaded_file($_FILES['file']['tmp_name'], $targer)) {
+                $sql = "UPDATE account SET avatar = '$profileImageName' WHERE username = '$user_name'";
+                $conn = open_database();
+                $stm = $conn->prepare($sql);
+                $stm->execute();
+    
+                $msg = "Thay đổi ảnh đại diện thành công.";
+                $css_class = "alert-success";
+            } 
+            else {
+                $msg = "Thay đổi ảnh đại diện không thành công! Vui lòng thử lại.";
+                $css_class = "alert-danger";
+            }
         }
     }
 
@@ -168,7 +177,7 @@
                                             echo '<img src="./images/'.$avatar.'" alt="avatar" id="avatar_placeholder">';
                                         }
                                     ?>
-                                    <input type="file" name="file" class="avatar" onchange="displayImage(this)" accept="image/png, image/jpeg" style="display:none">   
+                                    <input type="file" name="file" class="avatar" onchange="displayImage(this)" accept="image/png, image/jpeg, image/jpg" style="display:none">   
                                     <button type="submit" name="submit-avatar" class="btn btn-submit btn-success px-5 mt-3 mr-2" style="display:none">Lưu</button>                           
                                 </form> 
                                 <h5 class="user-name"><?= $_SESSION["username"] ?></h5>

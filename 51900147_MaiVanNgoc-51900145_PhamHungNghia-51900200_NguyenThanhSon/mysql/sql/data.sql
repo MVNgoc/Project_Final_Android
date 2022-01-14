@@ -51,7 +51,9 @@ CREATE TABLE task (
 
 CREATE TABLE taskfile (
   id varchar(15) NOT NULL,
-  name_task_file varchar(64) NOT NULL COLLATE utf8_unicode_ci
+  name_task_file varchar(64) COLLATE utf8_unicode_ci,
+  name_submitter_file varchar(64) NOT NULL COLLATE utf8_unicode_ci,
+  name_receiver_file varchar(64) NOT NULL COLLATE utf8_unicode_ci
 );
 
 CREATE TABLE leaveform (

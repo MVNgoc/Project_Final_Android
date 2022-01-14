@@ -43,6 +43,7 @@
 		$date_number = $row["date_num"];
 		$leavereason = $row["leavereson"];
 		$leavestatus = $row["leave_status"];
+
 	}
 
 	if(isset($_POST["leave-status"])){

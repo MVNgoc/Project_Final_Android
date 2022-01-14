@@ -22,42 +22,27 @@
 	if(isset($_POST["user-edit"])){
 		$name = $_POST["user-edit"];
 		$_SESSION['user-name'] = $name;
-		$sql = "SELECT * FROM account WHERE username = '$name' ";
-		$conn = open_database();
-		$stm = $conn -> prepare($sql);
-		$result = $conn-> query($sql);
-		$row = $result->fetch_assoc();
-		$first = $row["firstname"];
-		$last = $row["lastname"];
-		$phone = $row["phone_number"];
-		$email = $row["email"];
-		$user = $row["username"];
-		$department = $row["department_name"];
-		$sex = $row["sex"];
-		$position = $row["positionid"];
-		$id = $row["id"];
-		$avatar = $row["avatar"];
-		$dayoff = $row["day_off"];
 	}
 	else {
 		$name = $_SESSION['user-name'];
-		$sql = "SELECT * FROM account WHERE username = '$name'";
-		$conn = open_database();
-		$stm = $conn -> prepare($sql);
-		$result = $conn-> query($sql);
-		$row = $result->fetch_assoc();
-		$first = $row["firstname"];
-		$last = $row["lastname"];
-		$phone = $row["phone_number"];
-		$email = $row["email"];
-		$user = $row["username"];
-		$department = $row["department_name"];
-		$sex = $row["sex"];
-		$position = $row["positionid"];
-		$id = $row["id"];
-		$avatar = $row["avatar"];
-		$dayoff = $row["day_off"];
 	}
+
+	$sql = "SELECT * FROM account WHERE username = '$name'";
+	$conn = open_database();
+	$stm = $conn -> prepare($sql);
+	$result = $conn-> query($sql);
+	$row = $result->fetch_assoc();
+	$first = $row["firstname"];
+	$last = $row["lastname"];
+	$phone = $row["phone_number"];
+	$email = $row["email"];
+	$user = $row["username"];
+	$department = $row["department_name"];
+	$sex = $row["sex"];
+	$position = $row["positionid"];
+	$id = $row["id"];
+	$avatar = $row["avatar"];
+	$dayoff = $row["day_off"];
 
 
 	if(isset($_POST['first']) && isset($_POST['last']) && isset($_POST['email']) && isset($_POST['user']) 
