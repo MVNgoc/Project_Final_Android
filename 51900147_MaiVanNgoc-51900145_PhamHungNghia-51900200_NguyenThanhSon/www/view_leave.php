@@ -14,10 +14,13 @@
 
 	require_once('./admin/db.php');
 
+	$upload = '';
+
 	if(isset($_POST["leave-view"])){
 		$username = $_POST["leave-view"];
 		$date = $_POST["star_date"];
 		$_SESSION['leave-view'] = $username;
+		$_SESSION['star_date'] = $date;
 		$sql = "SELECT * FROM leaveform WHERE username = '$username' AND star_date = '$date' ";
 		$conn = open_database();
 		$stm = $conn -> prepare($sql);
@@ -29,9 +32,10 @@
 		$date_number = $row["date_num"];
 		$leavereason = $row["leavereson"];
 		$leavestatus = $row["leave_status"];
+		$upload = $row["uploadd_file"];
 	}else{
 		$username = $_SESSION["leave-view"];
-		$date = $_POST["star_date"];
+		$date = $_SESSION['star_date'];
 		$sql = "SELECT * FROM leaveform WHERE username = '$username' AND star_date = '$date' ";
 		$conn = open_database();
 		$stm = $conn -> prepare($sql);
@@ -43,6 +47,7 @@
 		$date_number = $row["date_num"];
 		$leavereason = $row["leavereson"];
 		$leavestatus = $row["leave_status"];
+		$upload = $row["uploadd_file"];
 	}
 
 	if(isset($_POST["leave-status"])){
@@ -168,7 +173,7 @@
 			<div class="row justify-content-center ">
 				<div class="col-xl-5 col-lg-6 col-md-8 border my-5 p-4 rounded mx-3 addstaffform">
 					<h3 class="text-center text-secondary mt-2 mb-3 mb-3">Đơn xin nghỉ phép</h3>
-					<form method="post" action="" novalidate>
+					<form method="post" action="" novalidate enctype="multipart/form-data">
 						<div class="form-group">
 							<label for="leavetype">Tiêu đề</label>
 							<input value="<?php echo $leavetype; ?>" name="leavetype" required class="form-control" type="leavetype" placeholder="Nhập tiêu đề" id="leavetype" readonly>
@@ -188,6 +193,11 @@
 							<label for="leavereson">Lí do nghỉ phép</label>
 							<input value="<?= $leavereason ?>" name="leavereson" required class="form-control" type="text" placeholder="Nhập lí do nghỉ" id="leavereson" readonly>
 						</div>
+
+						<div class="form-group">
+                        	<label for="attachfile">File đính kèm</label>
+                        	<input value="<?php echo $upload ?>" name="attachfile" id="attachfile" style="display: block">
+                    	</div>
 
 
 						<?php
