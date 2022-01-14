@@ -44,7 +44,7 @@ CREATE TABLE task (
   task_status varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   message_task varchar(255) COLLATE utf8_unicode_ci,
   time_submit datetime,
-  file_submit varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  file_submit varchar(64) COLLATE utf8_unicode_ci,
   completion_level varchar(64) COLLATE utf8_unicode_ci,
   completion_schedule varchar(64) COLLATE utf8_unicode_ci,
   task_deliver varchar(64) COLLATE utf8_unicode_ci NOT NULL

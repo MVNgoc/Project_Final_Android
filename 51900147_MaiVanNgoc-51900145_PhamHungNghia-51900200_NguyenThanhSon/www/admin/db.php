@@ -705,13 +705,13 @@
         $conn->close();
     }
 
-    function updateMessageTask($message_task, $time_submit, $id) {
-        $sql = 'UPDATE task SET message_task = ?,time_submit = ? WHERE id = ?';
+    function updateMessageTask($message_task, $time_submit, $id, $file_submit) {
+        $sql = 'UPDATE task SET message_task = ?,time_submit = ?, file_submit = ? WHERE id = ?';
         $conn = open_database();
 
         $stm = $conn->prepare($sql);
 
-        $stm->bind_param('sss',$message_task, $time_submit, $id);
+        $stm->bind_param('ssss',$message_task, $time_submit, $id, $file_submit);
         if(!$stm->execute()){
             return array('code' => 2, 'error' => 'Can not excute command');
         }

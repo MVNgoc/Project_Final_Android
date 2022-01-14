@@ -226,7 +226,7 @@
 
 						<div class="form-group">
                         	<label for="attachfile">File đính kèm</label>
-                        	<input value="" name="attachfile" required type="file" id="attachfile" style="display: block">
+                        	<input value="" name="attachfile" type="file" id="attachfile" style="display: block">
                     	</div>
 
 

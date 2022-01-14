@@ -22,78 +22,44 @@
     if(isset($_POST['task-view'])) {
         $id_task = $_POST['task-view'];
         $_SESSION['id_task'] = $id_task;
-        
-        $sql = "SELECT task_title, task_description, staff_assign, task_status, message_task,completion_level FROM task WHERE id = '$id_task' ";
-        $conn = open_database();
-		$stm = $conn -> prepare($sql);
-		$result = $conn-> query($sql);
-		$row = $result->fetch_assoc();
-        $taskdeliver = $_SESSION['firstname'] . ' ' . $_SESSION['lastname'];
-        $task_title = $row['task_title'];
-        $task_description = $row['task_description'];
-        $staff_assign = $row['staff_assign'];
-        $task_status = $row['task_status'];
-        $message_task = $row['message_task'];
-        $completion_level = $row['completion_level'];
-
-        $sql = "SELECT DATE_FORMAT(start_time, '%d/%m/%Y %h:%i:%s') AS start_time FROM task WHERE id = '$id_task'" ;
-        $conn = open_database();
-		$stm = $conn -> prepare($sql);
-		$result = $conn-> query($sql);
-		$row = $result->fetch_assoc();
-        $start_time = $row['start_time'];
-
-        $sql = "SELECT DATE_FORMAT(deadline, '%d/%m/%Y %h:%i:%s') AS deadline FROM task WHERE id = '$id_task'";
-        $conn = open_database();
-		$stm = $conn -> prepare($sql);
-		$result = $conn-> query($sql);
-		$row = $result->fetch_assoc();
-        $deadline = $row['deadline'];
-
-        $sql = "SELECT DATE_FORMAT(deadline, '%Y-%m-%dT%h:%i') AS deadline FROM task WHERE id = '$id_task'";
-        $conn = open_database();
-        $stm = $conn -> prepare($sql);
-        $result = $conn-> query($sql);
-        $row = $result->fetch_assoc();
-        $extend_deadline = $row["deadline"];
-
     }
     else {
         $id_task = $_SESSION['id_task'];
-        $sql = "SELECT task_title, task_description, staff_assign, task_status, message_task,completion_level FROM task WHERE id = '$id_task' ";
-        $conn = open_database();
-		$stm = $conn -> prepare($sql);
-		$result = $conn-> query($sql);
-		$row = $result->fetch_assoc();
-        $taskdeliver = $_SESSION['firstname'] . ' ' . $_SESSION['lastname'];
-        $task_title = $row['task_title'];
-        $task_description = $row['task_description'];
-        $staff_assign = $row['staff_assign'];
-        $task_status = $row['task_status'];
-        $message_task = $row['message_task'];
-        $completion_level = $row['completion_level'];
-
-        $sql = "SELECT DATE_FORMAT(start_time, '%d/%m/%Y %h:%i:%s') AS start_time FROM task WHERE id = '$id_task'";
-        $conn = open_database();
-		$stm = $conn -> prepare($sql);
-		$result = $conn-> query($sql);
-		$row = $result->fetch_assoc();
-        $start_time = $row['start_time'];
-
-        $sql = "SELECT DATE_FORMAT(deadline, '%d/%m/%Y %h:%i:%s') AS deadline FROM task WHERE id = '$id_task'";
-        $conn = open_database();
-		$stm = $conn -> prepare($sql);
-		$result = $conn-> query($sql);
-		$row = $result->fetch_assoc();
-        $deadline = $row['deadline'];
-
-        $sql = "SELECT DATE_FORMAT(deadline, '%Y-%m-%dT%h:%i') AS deadline FROM task WHERE id = '$id_task'";
-        $conn = open_database();
-        $stm = $conn -> prepare($sql);
-        $result = $conn-> query($sql);
-        $row = $result->fetch_assoc();
-        $extend_deadline = $row["deadline"];
     }
+
+    $sql = "SELECT task_title, task_description, staff_assign, task_status, message_task,completion_level FROM task WHERE id = '$id_task' ";
+    $conn = open_database();
+    $stm = $conn -> prepare($sql);
+    $result = $conn-> query($sql);
+    $row = $result->fetch_assoc();
+    $taskdeliver = $_SESSION['firstname'] . ' ' . $_SESSION['lastname'];
+    $task_title = $row['task_title'];
+    $task_description = $row['task_description'];
+    $staff_assign = $row['staff_assign'];
+    $task_status = $row['task_status'];
+    $message_task = $row['message_task'];
+    $completion_level = $row['completion_level'];
+
+    $sql = "SELECT DATE_FORMAT(start_time, '%d/%m/%Y %h:%i:%s') AS start_time FROM task WHERE id = '$id_task'";
+    $conn = open_database();
+    $stm = $conn -> prepare($sql);
+    $result = $conn-> query($sql);
+    $row = $result->fetch_assoc();
+    $start_time = $row['start_time'];
+
+    $sql = "SELECT DATE_FORMAT(deadline, '%d/%m/%Y %h:%i:%s') AS deadline FROM task WHERE id = '$id_task'";
+    $conn = open_database();
+    $stm = $conn -> prepare($sql);
+    $result = $conn-> query($sql);
+    $row = $result->fetch_assoc();
+    $deadline = $row['deadline'];
+
+    $sql = "SELECT DATE_FORMAT(deadline, '%Y-%m-%dT%h:%i') AS deadline FROM task WHERE id = '$id_task'";
+    $conn = open_database();
+    $stm = $conn -> prepare($sql);
+    $result = $conn-> query($sql);
+    $row = $result->fetch_assoc();
+    $extend_deadline = $row["deadline"];
 
     if(isset($_POST['btnstarttask'])) {
         $task_status = 'In progress';
@@ -107,21 +73,40 @@
         $a = $d->format('Y-m-d h:i');
         $h_m = explode(':', $a); //Tách giờ phút hiện tại
         $time_submit = $a;
+
+        $upload = $_FILES['attachfile']['name'];
+
+        echo $upload;
+
+		$extension = pathinfo($upload,PATHINFO_EXTENSION);
+		$file_name = $_FILES['attachfile']['tmp_name'];
+		$file_size = $_FILES['attachfile']['size'];
+
         $message_task = $_POST['meesagetask'];
-        if(empty($message_task)) {
-            $error = 'Vui lòng nhập nội dung trước khi submit task';
-        }
-        else {
-            $data = updateMessageTask($message_task, $time_submit, $id_task);
-            if($data['code'] == 0) {
-                $task_status = 'Waiting';
-                updateStatus($task_status, $id_task);
-                $success = $data['error'];
-            }
-            else {
-                $error = 'Có lỗi xảy ra vui lòng thử lại';
-            }
-        }
+
+        // if(empty($message_task)) {
+        //     $error = 'Vui lòng nhập nội dung trước khi submit task';
+        // }
+        // else if(empty($upload)) {
+        //     $error = 'Vui lòng đính kèm file trước khi submit';
+        // }
+        // else if(!in_array($extension,['png','jpg','jpeg','gif','ppt','zip','pptx','doc','docx','xls','xlsx','pdf']) && !empty($upload)){
+		// 	$error = "File bạn gửi không đúng định dạng yêu cầu";
+		// }
+		// else if($_FILES['attachfile']['size'] > 1000000 && !empty($upload)){
+		// 	$error = "Kích thước file quá lớn";
+		// }
+        // else {
+        //     $data = updateMessageTask($message_task, $time_submit, $id_task, $upload);
+        //     if($data['code'] == 0) {
+        //         $task_status = 'Waiting';
+        //         updateStatus($task_status, $id_task);
+        //         $success = $data['error'];
+        //     }
+        //     else {
+        //         $error = 'Có lỗi xảy ra vui lòng thử lại';
+        //     }
+        // }
     }
 
     if(isset($_POST['btnrejectedtask'])) {
@@ -374,10 +359,8 @@
                                         if($task_status == 'Waiting') {
                                             echo '<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div class="form-group">
-                                                        <div class="form-group">
-                                                            <label class="font-weight-bold">Ghi chú:</label> 
-                                                            <input value="" name="notetask" required class="meesagetask form-control" type="text" placeholder="Ghi chú" id="starttime">
-                                                        </div>
+                                                        <label class="font-weight-bold">Ghi chú:</label> 
+                                                        <input value="" name="notetask" required class="meesagetask form-control" type="text" placeholder="Ghi chú" id="starttime">
                                                     </div>
                                                 </div>
                 
@@ -399,6 +382,16 @@
                                                     <div class="form-group">
                                                         <label class="font-weight-bold">Nội dung:</label> 
                                                         <input value="" name="meesagetask" required class="meesagetask form-control" type="text" placeholder="Nội dung" id="starttime">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="form-group">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold" for="attachfile">File đính kèm</label>
+                                                        <input name="attachfile" type="file" required id="attachfile" style="display: block">
                                                     </div>
                                                 </div>';
                                         }
