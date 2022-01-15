@@ -46,7 +46,7 @@
 
 
 	if(isset($_POST['first']) && isset($_POST['last']) && isset($_POST['email']) && isset($_POST['user']) 
-	 && isset($_POST['phone']) && isset($_POST['department']) && 
+	&& isset($_POST['id']) && isset($_POST['phone']) && isset($_POST['department']) && 
 	isset($_POST['department']) ){
 
 		$first = $_POST['first'];
@@ -56,14 +56,22 @@
 		$user = $_POST['user'];
 		$id = $_POST['id'];
 		$department = $_POST['department'];
+		$position = $_POST['position'];
 		$sex = $_POST['sex'];
 		$fullname = $first. " ".$last;
-		$day_off='';
+		$positionid='';
 		$avatar='';
 		$error = '';
 		$success = '';
+		$day_off = '';
 
-		
+		if($position == "Nhân viên"){
+			$positionid = 2;
+			$day_off = 12;
+		}else{
+			$positionid = 1;
+			$day_off = 15;
+		}
 
 
 		if(empty($first)){
