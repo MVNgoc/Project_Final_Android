@@ -271,7 +271,7 @@
                                 <div class="modal-footer">
                                     <form  method="POST">
                                         <button type="button" class="btn  btn-secondary px-5 mt-3 mr-2" data-dismiss="modal">Đóng</button>
-                                        <button value="'.$row["id"].'" type="submit" name="user-delete" class="btn btn-placeholder-submit btn-success px-5 mt-3 mr-2">Xác nhận</button>                                                                                                                                             
+                                        <button value="'.$row["id"].'" type="submit" name="room-delete" class="btn btn-placeholder-submit btn-success px-5 mt-3 mr-2">Xác nhận</button>                                                                                                                                             
                                     </form>
                                 </div>
                             </div>
