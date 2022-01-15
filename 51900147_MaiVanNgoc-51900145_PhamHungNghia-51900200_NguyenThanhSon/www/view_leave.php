@@ -211,7 +211,7 @@
 									<label for="leave-status">Trạng thái</label>
 									<input value="'. $leavestatus .'" name="leave-status" required class="form-control" type="text" id="leave-status" readonly>
 								</div>';
-							}else if($_SESSION["positionid"] == 1 || $_SESSION["positionid"] == 3){
+							}else if($_SESSION["positionid"] == 1 ){
 								
 								echo'	<div class="form-group">
 											<label for="leave-status">Trạng thái</label>

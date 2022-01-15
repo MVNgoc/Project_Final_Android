@@ -17,8 +17,8 @@
 	if(isset($_POST["leave-view"])){
 		$username = $_POST["leave-view"];
 		$_SESSION['leave-view'] = $username;
-
-		$sql = "SELECT * FROM leaveform WHERE username = '$username' AND leave_status = 'Đang đợi' ";
+		
+		$sql = "SELECT * FROM leaveform WHERE username = '$username' ";
 		$conn = open_database();
 		$stm = $conn -> prepare($sql);
 		$result = $conn-> query($sql);
@@ -32,8 +32,8 @@
 		$upload = $row["uploadd_file"];
 	}else{
 		$username = $_SESSION["leave-view"];
-
-		$sql = "SELECT * FROM leaveform WHERE username = '$username' AND leave_status = 'Đang đợi' ";
+		
+		$sql = "SELECT * FROM leaveform WHERE username = '$username'";
 		$conn = open_database();
 		$stm = $conn -> prepare($sql);
 		$result = $conn-> query($sql);
@@ -119,7 +119,7 @@
                                         <a class="nav-link" href="#">Nghỉ phép</a>
                                         <ul class="navbar-nav day-off-tag">
 											<li class="nav-item">
-												<a class="nav-link" href="view_dayoff.php">Xem ngày nghỉ phép</a>
+												<a class="nav-link" id="showday" type="button">Xem ngày nghỉ phép</a>
 											</li>
 											<li class="nav-item">
                                             	<a class="nav-link" href="dayoffform.php">Tạo đơn xin nghỉ phép</a>
@@ -246,6 +246,26 @@
 		<footer class="footer">
 			
 		</footer>
+
+		<div id="myModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content ">
+					<div class="modal-header text-center">
+						<h4 class="modal-title w-100">Xem ngày nghỉ</h4>
+					</div>
+					<div class="modal-body">
+						<h4>Số ngày nghỉ có: <?php echo $_SESSION["day_off"]." ngày"; ?></h4>
+						<?php displaydayleftuse($_SESSION["username"]) ?>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+
+			</div>
+    	</div>
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
