@@ -31,7 +31,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/style.css"> <!-- Sử dụng link tuyệt đối tính từ root, vì vậy có dấu / đầu tiên -->
 	<script src="main.js"></script>
-	<title>Home Page</title>
+	<title>Department manager</title>
 </head>
 
 <body>
