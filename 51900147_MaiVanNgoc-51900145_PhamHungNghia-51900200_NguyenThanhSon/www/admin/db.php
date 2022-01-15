@@ -640,6 +640,40 @@
 
     }
 
+    function displayleaveofUsertruongphong($username){
+        $sql = 'SELECT * FROM leaveform WHERE username = ? ORDER BY leave_status DESC';
+        $conn = open_database();
+
+        $stm = $conn->prepare($sql);
+        $stm->bind_param('s',$username);
+        if(!$stm->execute()){
+            die('Query error: ' . $stm->error);
+        }
+        
+        $result = $stm->get_result();
+        $stt = 1;
+        if($result-> num_rows > 0){
+            foreach($result as $row) {
+                echo "<tr>";
+					echo "<td>" . $stt . "</td>";
+					echo "<td>". $row["leavetype"] . "</td>";
+					echo "<td>". $row["date_applied"] ."</td>";
+                    echo "<td>". $row["date_num"] ."</td>";
+					echo "<td>". $row["leave_status"] ."</td>";
+					echo '<td class="list-btn">';
+                        echo '<form action="view_leavetruongphong.php" method="POST">';
+                            echo '<button class="btn-view text-white" name="leave-view" value="'. $row["username"] .'">Xem</button>';
+                            echo '<input type="hidden" name="star_date" value="'. $row["star_date"] .'"></input>';
+                        echo '</form>';
+					echo '</td>';
+				echo '</tr>';
+                $stt++;
+            }
+        }
+        $conn->close();
+
+    }
+
 
     function displayduyetdon($department_name){
         $sql = 'SELECT *
