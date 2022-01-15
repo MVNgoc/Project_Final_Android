@@ -213,10 +213,6 @@
 
     function updatestaff($username, $sex, $first, $last, $position, $department, $email, $phone, $day_off, $avatar,$id){
 
-        if(is_exist_managername($department,$username)){
-            return array('code' => 1,  'error' => 'Phòng ban này đã có trưởng phòng');
-        }
-
         $sql = 'UPDATE account SET id= ?, sex= ?, firstname= ?, lastname= ?, positionid= ? ,department_name= ?,
             email =  ? ,phone_number= ? ,day_off= ? ,avatar= ?  WHERE username= ? ';
 

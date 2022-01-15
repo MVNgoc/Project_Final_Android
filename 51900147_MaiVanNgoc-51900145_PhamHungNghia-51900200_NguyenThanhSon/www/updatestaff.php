@@ -46,7 +46,7 @@
 
 
 	if(isset($_POST['first']) && isset($_POST['last']) && isset($_POST['email']) && isset($_POST['user']) 
-	&& isset($_POST['id']) && isset($_POST['phone']) && isset($_POST['department']) && 
+	 && isset($_POST['phone']) && isset($_POST['department']) && 
 	isset($_POST['department']) ){
 
 		$first = $_POST['first'];
@@ -57,19 +57,13 @@
 		$id = $_POST['id'];
 		$department = $_POST['department'];
 		$sex = $_POST['sex'];
-		$position = $_POST['position'];
 		$fullname = $first. " ".$last;
-		$positionid='';
 		$day_off='';
 		$avatar='';
+		$error = '';
+		$success = '';
 
-		if($position == "Nhân viên"){
-			$positionid = 2;
-			$day_off = 12;
-		}else{
-			$positionid = 1;
-			$day_off = 15;
-		}
+		
 
 
 		if(empty($first)){
@@ -89,16 +83,14 @@
 		}
 		elseif(empty($phone)){
 			$error = "Hãy nhập số điện thoại";
-		}elseif(department_is($user,$department)==false && $positionid ==1){
-			$error = "Không thể chuyển phòng ban, Hãy vào quản lý phòng ban và thay đổi chức trưởng phòng của nhân viên này để chuyển phòng ban";
 		}
 		else{
-			$result = updatestaff($user,$sex,$first,$last,$positionid,$department,$email,$phone,$day_off,$avatar,$id);
+			$result = updatestaff($user,$sex,$first,$last,$position,$department,$email,$phone,$day_off,$avatar,$id);
 			if($result['code'] == 0){
                 $success = 'Cập nhật thành công .';
-			}if($result['code'] == 1){
+			}else if($result['code'] == 1){
 				$error = 'Phòng ban này đã có trưởng phòng';
-			}else {
+			}else{
                 $error = 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
             }
 		}
@@ -190,7 +182,7 @@
                     </div>
 					<div class="form-group">
                         <label for="phone">Số điện thoại</label>
-                        <input value="<?php echo $phone; ?>" name="phone" required class="form-control" type="text" placeholder="Số điện thoại" id="phone">
+                        <input value="<?php echo $phone; ?>" name="phone" required class="form-control" type=text" placeholder="Số điện thoại" id="phone">
                     </div>
 					
 					<div class="form-group">
@@ -232,7 +224,7 @@
 					<div class="form-group">
 						<label for="position">Chức vụ</label>
 
-						<?php 
+						<?php ;
 							if($position=="2"){
 								echo '<input value="Nhân viên" id="position" name="position" required class="form-control" readonly>';
 							}else{
