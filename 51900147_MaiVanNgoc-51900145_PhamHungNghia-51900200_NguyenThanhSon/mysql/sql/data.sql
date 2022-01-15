@@ -36,7 +36,7 @@ CREATE TABLE department (
 
 CREATE TABLE task (
   id varchar(15) NOT NULL,
-  task_title varchar(64) NOT NULL COLLATE utf8_unicode_ci,
+  task_title varchar(225) NOT NULL COLLATE utf8_unicode_ci,
   task_description varchar(600) NOT NULL COLLATE utf8_unicode_ci,
   start_time datetime NOT NULL,
   deadline datetime NOT NULL,
@@ -128,6 +128,45 @@ INSERT INTO leaverequest VALUES
 ('congtuan',12,0),
 ('tranhau',12,0);
 
+INSERT INTO `task` (`id`, `task_title`, `task_description`, `start_time`, `deadline`, `staff_assign`, `task_status`, `message_task`, `time_submit`, `file_submit`, `completion_level`, `completion_schedule`, `task_deliver`) VALUES 
+('1', 'Nghiên cứu dự báo thị trường trong tháng 1', 'Thu thập thông tin thị trường để xác định nhu cầu thị trường, thị trường mục tiêu, thị trường mới. Xác định phạm vi thị trường cho những sản phẩm hiện tại và dự báo nhu cầu của sản phẩm hàng hóa mới,
+ hướng tiêu thụ sản phẩm, bán hàng', '2022-01-16 07:21:00', '2022-01-20 07:22:00', 'Tô Tấn Khải', 'New', '', NULL, 'Bang tra.pdf', '', '', 'huyentrang'),
+('2', 'Tổ chức triển khai chương trình phát triển sản phẩm mới', 'Xác định thị trường mục tiêu: Khách hàng là ai? Đặc điểm của họ như thế nào? (vị trí địa lý, tuổi tác, giới tính, nghề nghiệp, thu nhập, tính cách, lối sống…)', '2022-01-17 07:23:00', '2022-01-21 07:23:00',
+ 'Nguyễn Trung Hậu', 'Rejected', 'Cần hoàn thiện thiêm về phần nội dung', '2022-01-20 07:30:00', 'De01.docx', '', '', 'huyentrang'),
+('3', 'Phát triển sản phẩm mới của công ty', 'Phát triển sản phẩm mới để đáp ứng nhu cầu không ngừng thay đổi của người tiêu dùng, bắt kịp với công nghệ, kỹ thuật mới, phù hợp với sự cạnh tranh khốc liệt trên thị trường.', '2022-01-18 07:32:00', '2022-01-25 07:32:00',
+'Phạm Hùng Nghĩa', 'Completed', 'Đúng hạn deadline', '2022-01-23 07:33:00', 'files_upload.rar', 'Good', '', 'huyentrang'),
+('4', 'Xây dựng và thực hiện kế hoạch chiến lược Marketing', 'Tìm ra các định hướng để định hướng các hoạt động để hoàn thành các mục tiêu của doanh nghiệp trong tháng 2', '2022-01-17 07:36:00', '2022-01-20 07:36:00', 'Nguyễn Thanh Sơn', 'Waiting', 'Nhóm đã tìm ra một số định hướng để định hướng các hoạt động',
+'2022-01-19 07:42:00', 'final_report.zip', '', '', 'huyentrang'),
+('5', 'Xây dựng và thực hiện kế hoạch chiến lược Marketing', 'Tìm ra các định hướng để định hướng các hoạt động để hoàn thành các mục tiêu của doanh nghiệp trong tháng 2', '2022-01-17 07:37:00', '2022-01-20 07:37:00', 'Phạm Hùng Nghĩa', 'Waiting', 'Nhóm đã tìm ra một số định hướng để định hướng các hoạt động',
+'2022-01-19 07:43:00', 'final_report.zip', '', '', 'huyentrang'),
+('6', 'Thiết lập mối quan hệ tốt với giới truyền thông', 'Để đảm bảo hình ảnh của doanh nghiệp được thể hiện một cách tốt nhất trước công chúng', '2022-01-20 07:38:00', '2022-01-25 07:38:00', 'Tô Tấn Khải', 'Canceled', '', NULL, 'files_upload.rar', '', '', 'huyentrang'),
+('7', 'Xây dựng và phát triển hình ảnh thương hiệu', 'Tìm ra những giải pháp để giúp doanh nghiệp đạt được thành công và tạo được vị thế cạnh tranh trên thị trường', '2022-01-21 07:48:00', '2022-01-25 07:49:00', 'Nguyễn Thanh Sơn', 'In progress', '', NULL, 'Soluocvande.pdf',
+ '8', '', 'huyentrang'),
+('9', 'Thu thập, xử lý thông tin, số liệu của thu chi của công ty', 'Dựa theo tài liệu đã được đính kèm để tính toán thu chi của công ty trong tháng 1', '2022-01-18 08:02:00', '2022-01-20 08:02:00', 'Mai Hương', 'In progress', '', NULL, 'CNPM_CK.docx', '', '', 'trungnhat'),
+('10', 'Phân tích thông tin, số liệu kế toán, đề xuất các giải pháp', 'Phân tích thông tin, số liệu kế toán; tham mưu, đề xuất các giải pháp phục vụ yêu cầu quản trị và quyết định kinh tế Phân tích thông tin, số liệu kế toán; tham mưu, đề xuất các giải pháp phục vụ yêu cầu quản trị và quyết định kinh tế trong tháng 2', '2022-01-18 08:04:00',
+'2022-01-20 08:04:00', 'Mai Hồng', 'Waiting', 'Đã phân tích thông tin, số liệu kế toán cần thiết', '2022-01-20 07:07:00', 'final_report.zip', '', '', 'trungnhat'),
+('11', 'Ghi chép, tính toán, phản ánh số hiện có của công ty', 'Ghi chép, tính toán, phản ánh số hiện có, tình hình luân chuyển và sử dụng tài sản, vật tư, tiền vốn; quá trình và kết quả hoạt động sản xuất kinh doanh (SXKD) và tình hình sử dụng kinh phí (nếu có) của công ty', '2022-01-19 08:09:00', '2022-01-25 08:09:00', 'Phạm Thị Hạnh', 'Rejected',
+'Vẫn chưa phản ánh đầy đủ những thông tin cần thiết', '2022-01-24 08:13:00', 'files_upload.rar', '', '', 'trungnhat'),
+('12', 'Cung cấp các số liệu, tài liệu cho việc điều hành hoạt động SXKD', 'Cung cấp các số liệu, tài liệu cho việc điều hành hoạt động SXKD, kiểm tra và phân tích hoạt động kinh tế, tài chính phục vụ công tác lập và theo dõi thực hiện kế hoạch phục vụ công tác thống kê và thông tin kinh tế.', '2022-01-18 08:18:00', '2022-01-21 08:18:00',
+'Đỗ Ngọc Hoàng Quân', 'Completed', 'Trễ hạn deadline', '2022-01-21 08:20:00', 'files_upload.rar', 'OK', '', 'trungnhat'),
+('13', 'Kế hoạch bảo hộ lao động', 'Đưa ra kế hoạch để Đảm bảo an toàn lao động, cháy nổ, vệ sinh trong toàn công ty Kiểm tra và lên kế hoạch tập huấn về việc bảo hộ lao động Tổ chức khám, kiểm tra sức khỏe thường xuyên cho người lao động.', '2022-01-16 08:31:00', '2022-01-20 08:31:00', 'Mai Thị Trà My', 'Completed', 'Đúng hạn deadline', '2022-01-19 08:00:00',
+'Bang tra.pdf', 'Good', '', 'maitrung'),
+('14', 'Giải pháp bảo vệ an ninh, trật tự', 'Đề ra giải pháp Bảo vệ an ninh trật tự, tài sản của công ty và CBCNV Là lực lượng chính trong lực lượng xung kích phòng chống thiên tai, hỏa hoạn. Quản lý nhân lực thực hiện theo luật nghĩa vụ quân sự.', '2022-01-18 08:33:00', '2022-01-21 08:33:00', 'Mai Huy Bảo', 'In progress', '', NULL, '', '', '', 'maitrung'),
+('15', 'Công tác hành chính, tổng hợp', 'Xây dựng chương trình, lập kế hoạch công tác của cơ quan theo từng giai đoạn: tháng, quý, năm. Thực hiện công tác hành chính, tổng hợp văn thư, lưu trữ, quản lý và sử dụng con dấu. Soạn thảo, ban hành văn bản thuộc các lĩnh vực tổ chức, nhân sự, hành chính, văn thư, lưu trữ. Chỉ đạo nghiệp vụ hành chính, văn thư lưu trữ đối với cán bộ làm công tác văn thư,
+văn phòng các đơn vị trực thuộc.', '2022-01-16 08:34:00', '2022-01-20 08:34:00', 'Mai Văn Quý', 'New', '', NULL, '', '', '', 'maitrung'),
+('16', 'Công tác tổ chức, chế độ chính sách', 'Tổng hợp theo dõi công tác thi đua khen thưởng, kỷ luật của công ty. Lưu giữ và bổ sung hồ sơ CBCNV kịp thời, chính xác, Là thành viên thường trực trong hội đồng thi đua khen thưởng, kỷ luật, HĐ lương, khoa học kỹ thuật', '2022-01-21 08:38:00', '2022-01-24 08:38:00', 'Mai Thị Trà My', 'Waiting', 'Đã tổng hợp các nội dung cần thiết', '2022-01-24 07:30:00', 'CNPM_CK.docx', '', '', 'maitrung'),
+('17', 'Hoạch định và dự báo nhu cầu nhân sự', 'Hoạch định và dự báo nhu cầu nhân sự của công ty hiện tại', '2022-01-16 08:45:00', '2022-01-18 08:45:00', 'Nguyễn Bá Tùng', 'In progress', '', NULL, '', '', '', 'hoangloc'),
+('18', 'Thu hút, tuyển mộ nhân viên', 'Đề ra các giải pháp để thu hút, tuyển mộ nhân viên cho công ty trong thời gian tới', '2022-01-16 08:46:00', '2022-01-20 08:46:00', 'Nguyễn Trần Trung Hậu', 'Waiting', 'Nhóm đã tìm ra được một số giải pháp phù hợp', '2022-01-19 08:00:00', 'final_report.zip', '', '', 'hoangloc'),
+('19', 'Thu hút, tuyển mộ nhân viên', 'Đề ra các giải pháp để thu hút, tuyển mộ nhân viên cho công ty trong thời gian tới', '2022-01-16 08:46:00', '2022-01-20 08:46:00', 'Lê Công Tuấn', 'Waiting', 'Nhóm đã tìm ra được một số giải pháp phù hợp', '2022-01-19 08:00:00', 'final_report.zip', '', '', 'hoangloc'),
+('20', 'Huấn luyện , đào tạo , phát triển nguồn nhân lực', 'Đưa ta giải pháp huấn luyện , đào tạo , phát triển nguồn nhân lực mới của công ty', '2022-01-21 08:50:00', '2022-01-24 08:50:00', 'Nguyễn Trần Trung Hậu', 'In progress', '', NULL, '', '', '', 'hoangloc'),
+('21', 'Trả công lao động', 'Đưa ra bảng trả công lao động trong tháng 1', '2022-01-21 08:51:00', '2022-01-23 08:52:00', 'Lê Công Tuấn', 'Completed', 'Đúng hạn deadline', '2022-01-22 07:30:00', 'Bang tra.pdf', 'Good', '', 'hoangloc'),
+('22', 'Đánh giá năng lực thực hiện công việc của nhân viên', 'Đánh giá năng lực thực hiện công việc của nhân viên hiện tại', '2022-01-19 08:53:00', '2022-01-21 08:53:00', 'Nguyễn Bá Tùng', 'Canceled', '', NULL, '', '', '', 'hoangloc'),
+('23', 'Thực hiện kiểm tra, thu thập, phân tích dữ liệu và kết quả', 'Thực hiện kiểm tra, thu thập, phân tích dữ liệu và kết quả, xác định xu hướng và thông tin chi tiết để đạt được ROI tối đa trong các chiến dịch tìm kiếm phải trả tiền.', '2022-01-16 09:00:00', '2022-01-18 09:00:00', 'Lê Văn Tân', 'In progress', '', NULL, '', '', '', 'chanhdai'),
+('24', 'Theo dõi, báo cáo và phân tích trang web công ty', 'Theo dõi, báo cáo và phân tích trang web, đưa ra các sáng kiến, chuẩn bị cho chiến dịch PPC.', '2022-01-17 09:01:00', '2022-01-20 09:02:00', 'Đoàn Hồ Vĩ', 'New', '', NULL, '', '', '', 'chanhdai'),
+('25', 'Quản lý chi phí chiến dịch dựa trên ngân sách công ty', 'Báo cáo về quản lý chi phí chiến dịch dựa trên ngân sách, ước tính chi phí hàng tháng và đối chiếu chênh lệch trong tháng 1', '2022-01-17 09:03:00', '2022-01-19 09:03:00', 'Vũ Thị Bích Ngọc', 'In progress', '', NULL, 'Course key elab SEMESTER 2 2020-2021.xlsx', '', '', 'chanhdai'),
+('26', 'Thực hiện khám phá, mở rộng và tối ưu hóa từ khóa liên tục.', 'Đưa ra các sáng kiến thực hiện khám phá, mở rộng và tối ưu hóa từ khóa liên tục.', '2022-01-16 09:05:00', '2022-01-22 09:05:00', 'Huỳnh Sỹ Long', 'Rejected', 'Cần đưa ra thêm một số ý kiến khác', '2022-01-18 09:00:00', 'files_upload.rar', '', '', 'chanhdai'),
+('27', 'Đề xuất thay đổi kiến trúc trang web', 'Đưa ra các đề xuất thay đổi kiến trúc trang web, nội dung, liên kết và các yếu tố khác để cải thiện vị trí SEO cho các từ khóa mục tiêu.', '2022-01-16 09:08:00', '2022-01-18 09:08:00', 'Huỳnh Sỹ Long', 'Completed', 'Đúng hạn deadline', '2022-01-17 12:00:00', 'CNPM_CK.docx', 'Good', '', 'chanhdai');
+
 ALTER TABLE tbl_position
   ADD PRIMARY KEY (id);
 
@@ -152,7 +191,7 @@ ALTER TABLE task
   ADD PRIMARY KEY (id);
 
 ALTER TABLE task
-  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 ALTER TABLE leaverequest
   ADD PRIMARY KEY (username);
