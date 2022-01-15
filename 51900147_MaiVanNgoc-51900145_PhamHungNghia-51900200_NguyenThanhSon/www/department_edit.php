@@ -250,7 +250,10 @@
                             if (!empty($error)) {
                                 echo "<div class='alert alert-danger'>$error</div>";
                                 echo '<button type="button" class="btn btn-update-manager btn-success btn-register-js px-5 mt-3 mr-2" data-toggle="modal" data-target="#exampletest">Update</button>';
-                            }else if(!is_manager_exist($manager_name)){
+                            }else if($manager_name == 'Không có'){
+                                echo '<button type="submit" class="btn btn-update-manager btn-register-js btn-success px-5 mt-3 mr-2">Update</button>';
+                            }
+                            else if(!is_manager_exist($manager_name)){
                                 echo '<button type="button" class="btn btn-update-manager btn-success btn-register-js px-5 mt-3 mr-2" data-toggle="modal" data-target="#exampletest">Update</button>';
                             }
                             else{
