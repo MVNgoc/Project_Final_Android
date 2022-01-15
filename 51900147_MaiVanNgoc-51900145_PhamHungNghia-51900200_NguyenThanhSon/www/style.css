@@ -1,0 +1,643 @@
+/* Login From */
+html,body{
+    font-family:sans-serif;
+    background-image: linear-gradient(90deg, #00DBDE 0%, #FC00FF 100%);
+    height: auto;
+    font-family:sans-serif;
+    position: relative;
+}
+
+.text-white {
+    color: #fff;
+}
+
+.text-black {
+    color: #000;
+}
+
+.text-color-blue {
+    color:#007ae1 !important;
+}
+
+.card {
+    height: auto;
+    margin-top: 10%;
+    width: 400px;
+    background-color: rgba(0,0,0,0.5) !important;
+}
+
+.social_icon span{
+    font-size: 60px;
+    margin-left: 10px;
+    color: #FFC312;
+}
+
+.social_icon span:hover{
+    color: white;
+    cursor: pointer;
+}
+
+.card-header h3{
+    color: white;
+    text-align: center;
+}
+
+.social_icon{
+    position: absolute;
+    right: 20px;
+    top: -45px;
+    }
+
+.input-group-prepend span{
+    width: 50px;
+    background-color: #00DBDE;
+    color: black;
+    border:0 !important;
+}
+
+input:focus{
+    outline: 0 0 0 0  !important; 
+    box-shadow: 0 0 0 0 !important;
+}
+
+.remember{
+    color: white;
+}
+
+.remember input
+{
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+    margin-right: 5px;
+}
+
+.login_btn{
+    color: black;
+    background-color: #00DBDE;
+    width: 100px;
+}
+
+.login_btn:hover{
+    color: black;
+    background-color: #04fbff;
+}
+
+.links a{
+    margin-left: 4px;
+}
+
+.card-body #errorMessage {
+    color: white;
+}
+
+.card-body .label-username {
+    display: inline-block;
+}
+
+/* End Login From */
+
+/* index.php */
+/* Header */
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #000 !important;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 0;
+    min-height: 82px;
+}
+
+.navbar-nav {
+    z-index: 9999;
+}
+
+.navbar-nav .nav-item{
+    line-height: 3;
+    min-width: 100px;
+    text-align: center;
+}
+
+.navbar-nav .nav-item .nav-link {
+    padding: 16px 10px;
+}
+
+.navbar-nav .nav-item:hover > .nav-link {
+    background-color: rgb(194, 194, 194);
+    color: #000;
+}
+
+.day-off-header {
+    position: relative;
+}
+
+.nav-item .day-off-tag {
+    position: absolute;
+    background-color: #000;
+    width: 180px;
+    left: -40px;
+    display: none;
+    animation: modalappear linear 0.3s;
+}
+
+@keyframes modalappear {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.day-off-header:hover .day-off-tag {
+    display: block;
+}
+
+.tdtu-img {
+    flex: 1;
+    max-width: 100%;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.tdtu-picture {
+    height: 50px;
+}
+
+.btn-list-item {
+    display: none;
+}
+
+#myModal .modal-dialog {
+    margin-top: 10%;
+}
+
+/* End Header */
+/* Body */
+.header-body {
+    padding: 20px 30px;
+    display: flex;
+}
+ 
+.header-body .add-staff {
+    margin-left: 30px;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    background-color: #1804ec;
+}
+
+.header-body .add-staff:hover {
+    background-color: #3c2aff;
+    cursor: pointer;
+}
+
+.header-body .search #search-staff {
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    width: 250px;
+    padding: 0 8px;
+}
+
+.header-body .search-lable {
+    margin: 0;
+    padding-right: 10px;
+}
+
+.header-body .search {
+    margin-left: auto;
+}
+
+#staff-table {
+    text-align: center;
+}
+
+#staff-table .list-btn {
+    display: flex;
+    justify-content: center;
+}
+
+#staff-table .btn-view {
+    background-color: #009c03;
+    width: fit-content;
+    height: 25px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin-right: 5px;
+    border: none;
+    line-height: initial;
+}
+
+#staff-table .btn-edit {
+    background-color: rgb(228, 194, 0);
+    width: fit-content;
+    height: 25px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: none;
+    margin-right: 5px;
+    line-height: initial;
+}
+
+#staff-table .btn-delete {
+    background-color: rgb(221, 0, 0);
+    width: fit-content;
+    height: 25px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: none;
+    margin-right: 5px;
+    line-height: initial;
+}
+
+#staff-table .btn-view:hover {
+    background-color: #00c403;
+    cursor: pointer;
+}
+
+#staff-table .btn-edit:hover {
+    background-color: rgb(255, 217, 2);
+    cursor: pointer;
+}
+
+#staff-table .btn-delete:hover {
+    background-color: rgb(255, 4, 4);
+    cursor: pointer;
+}
+
+/* End Body */
+
+/* End index.php */
+
+/* Logout.php */
+.logout-form,
+.addstaffform,
+.profileform {
+    background-color: rgba(255, 255, 255, 0.8);
+    animation: modalSlipDown ease 0.4s;
+}
+
+@keyframes modalSlipDown {
+    from {
+        opacity: 0;
+        transform: translateY(-200px)
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+/* End Logout.php */
+
+/* addstaff.php */
+
+.close {
+    display: none !important;
+}
+
+.notification {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.3);
+    justify-content: center;
+}
+
+.notification .notification_success {
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    width: 400px;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+    padding: 50px 0;
+    border-radius: 4px;
+    font-size: 17px;
+    font-weight: bold;
+    color: rgb(26, 221, 0);
+    animation: modalSlipDown linear 0.4s;
+}
+
+/* End addstaff.php */
+
+/* Table and Mobile */
+@media (max-width: 63.9375em) {
+    .header {
+        position: relative
+    }
+
+    #staff-table .btn-view,
+    #staff-table .btn-edit,
+    #staff-table .btn-delete {
+        display: flex;
+        align-items: center;
+        border: none;
+        padding-bottom: 5px;
+        height: 40px;
+    }
+
+    .table thead th,
+    .table td {
+        vertical-align: middle;
+    }
+
+    .navbar-nav {
+        display: block;
+        background-color: #fff;
+        position: absolute;
+        top: 66px;
+        right: 0;
+        background-color: #000;
+        padding-right: 0 !important;
+        width: 200px;
+        display: none;
+    }
+
+    .nav-item .day-off-tag {
+        position: absolute;  
+        left: -180px;
+        top: -65px;
+    }
+
+    .navbar-nav .nav-item:hover > .nav-link {
+        background-color: #fff;
+        color: #000;
+    }
+
+    .navbar-nav .nav-link {
+        color: #fff;
+        width: 100% !important;  
+        padding-left: 16px !important;
+    } 
+
+    .btn-list-item {
+        display: block;
+        border: none;
+        border-radius: 5px;
+        width: 60px;
+        height: 50px;
+        background: linear-gradient(90deg, #00DBDE 0%, #fb00ffd2 100%);
+        position: absolute;
+        top: 14px;
+        right: 28px
+    }
+
+    .open {
+        display: block;
+    }
+
+    .header-body {
+        display: block !important;
+    }
+
+    .header-body .user-list-header {
+        margin-bottom: 16px !important;
+    }
+
+    .header-body .add-staff-form {
+        display: inline-block;
+        margin-left: -30px;
+    }
+
+    .header-body .search {
+        display: inline-block;
+        float: right;
+    }
+
+    .day-off-header .position_relative {
+        top: 0;
+    }
+}
+
+/*Mobile */
+@media (max-width: 34.375em) {
+
+    .header-body .search {
+        flex-direction: row-reverse;
+        display: flex;
+        margin-top: 16px;
+        align-items: center;
+        float: left;
+        margin-bottom: 16px;     
+    }
+
+    .header-body .search .search-lable {
+        padding-left: 10px;
+    }
+}
+
+/* profile.php */
+.profileform {
+    margin-top: 60px;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+}
+
+    .profileform .card-body {
+        margin-bottom: 10%;
+    }
+
+.profileform #avatar_placeholder {
+    border-radius: 50%;
+    margin: 10px auto;
+    cursor: pointer;
+}
+
+.account-settings .user-profile {
+    margin: 0 0 1rem 0;
+    padding-bottom: 1rem;
+    text-align: center;
+}
+.account-settings .user-profile .user-avatar {
+    margin: 0 0 1rem 0;
+}
+.account-settings .user-profile .user-avatar img {
+    width: 130px;
+    height: 130px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+}
+.account-settings .user-profile h5.user-name {
+    margin: 0 0 0.5rem 0;
+}
+
+.account-settings .position {
+    margin: 2rem 0 0 0;
+    text-align: center;
+}
+.account-settings .position h5 {
+    margin: 0 0 15px 0;
+    color: #007ae1;
+}
+.account-settings .position p {
+    font-size: 0.825rem;
+}
+
+.card-user {
+    background: #ffffff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 0;
+    margin-bottom: 1rem;
+}
+
+.font-size-s {
+    font-size: 16px !important;
+}
+
+.font-size-m {
+    font-size: 1.1rem !important;
+}
+
+.profileform .form-btn-submit {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-right: 15px;
+}
+/* End profile.php */
+
+/* department_view.php */
+.notification_chooseManager {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    justify-content: center;
+    display: none;
+    align-items: center;
+}
+
+.notification_chooseManager .chooseManager_form {
+    background-color: #fff;
+    padding: 20px 20px;
+    border-radius: 6px;
+    animation: modalSlipDown linear 0.3s;
+}
+
+.open-addmanagerform {
+    display: flex;
+}
+
+
+.notification_chooseManager .notification_exit {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 20px;
+    width: 45px;
+    height: 40px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.notification_chooseManager .notification_exit:hover {
+    cursor: pointer;
+    opacity: 0.6;
+    background-color: rgb(231, 231, 231);
+}
+
+.notification_chooseManager .info {
+    width: calc(100%/ 2);
+    /* padding-left: 16px; */
+}
+
+.notification_chooseManager .chooseManager_title {
+    text-align: center;
+    color:#007ae1;
+    margin-bottom: 30px;
+}
+
+.notification_chooseManager .chooseManager_body {
+    display: flex;
+    padding: 0 14px;
+    text-align: center;
+}
+
+.notification_chooseManager .choose-manager {
+    width: calc(100%/ 2);
+    margin: 0;
+}
+
+.notification_chooseManager .btn-add-manager-form {
+    float: right;
+    margin-right: 14px !important;
+}
+
+.btn-add-manager {
+    margin-left: 16px;
+    padding-right: 16px !important;
+    padding-left: 16px !important;
+}
+
+.btn-reset-manager {
+    padding-right: 16px !important;
+    padding-left: 16px !important;
+}
+/* End department_view.php */
+
+/* department_edit.php */
+.btn-add-manager-form {
+    margin-left: 16px;
+}
+
+.notification_chooseManager .error-select-manager {
+    margin-top: 80px;
+}
+
+.container .form-btn-submit {
+    justify-content: center;
+}
+
+.container .btn-update-manager {
+    margin-left: 34%;
+}
+/* End department_edit.php */
+
+/* viewtask.php */
+.btn-start-form {
+    float: right;
+    margin-top: 4% !important;
+}
+/* End viewtask.php */
+
+.notifiupdateform {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.3);
+    justify-content: center;
+}
+
+.notifiupdateform .update_success {
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    width: 400px;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+    padding: 50px 0;
+    border-radius: 4px;
+    font-size: 17px;
+    font-weight: bold;
+    color: rgb(26, 221, 0);
+    animation: modalSlipDown linear 0.4s;
+}
+
+/* CSS đuyeton.php */
+.day-off-header .position_relative {
+    top: 80;
+}
+/* End CSS đuyeton.php */
