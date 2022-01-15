@@ -22,6 +22,7 @@
     $name = '';
 	$room = '';
 	$desciption = '';
+    //$_SESSION['temp'] = '';
     
     if(isset($_POST["room-edit"])){
 		$id = $_POST["room-edit"];
