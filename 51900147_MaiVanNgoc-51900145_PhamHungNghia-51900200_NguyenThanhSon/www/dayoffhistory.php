@@ -117,7 +117,13 @@
 					</tr>
 				</thead>
 			<tbody> 
-				<?php displayleaveofUser($_SESSION["username"]); ?>	
+				<?php 
+				if($_SESSION["positionid"] == 2){
+					displayleaveofUser($_SESSION["username"]); 
+				}else if($_SESSION["positionid"] == 1){
+					displayleaveofUsertruongphong($_SESSION["username"]);
+				}
+				?>	
 
 			</tbody>
 			</table>
